@@ -36,7 +36,7 @@ export default async function PostPage({ params }) {
                                         </h1>
                                     )}
                                     <p
-                                        className="text-justify leading-loose"
+                                        className="text-justify leading-loose indent-6"
                                         dangerouslySetInnerHTML={{
                                             __html: contentItem.content.replace(
                                                 /(https?:\/\/[^\s]+)/g,

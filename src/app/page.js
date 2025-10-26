@@ -25,7 +25,7 @@ export default function Home() {
                                 key={index}
                                 className=" p-4 border-b border-r relative "
                             >
-                                <div className="post-item">
+                                <div className="post-item transition">
                                     <a href={`/posts/${item.postId}`}>
                                         {" "}
                                         <p className=" text-sm text-xl py-2 font-light">
@@ -34,11 +34,11 @@ export default function Home() {
                                         <h2 className="font-black text-3xl py-2">
                                             {item.title}
                                         </h2>{" "}
-                                        <p className="font-semibold font-mono text-md py-2">
+                                        <p className="font-semibold text-md py-2">
                                             {item.description}
                                         </p>{" "}
                                         <div
-                                            className="font-light font-mono text-md py-2 line-clamp-2 relative"
+                                            className="font-light text-md py-2 line-clamp-2 relative"
                                             style={{
                                                 WebkitBoxOrient: "vertical",
                                                 display: "-webkit-box",
@@ -46,18 +46,18 @@ export default function Home() {
                                             }}
                                         >
                                             {" "}
-                                            {item.content.length > 0 && item.content[0].contentType === "text"
+                                            {item.content.length > 0 &&
+                                            item.content[0].contentType ===
+                                                "text"
                                                 ? item.content[0].content
                                                 : "No content available"}
                                             <div
-                                                className="absolute inset-0"
-                                                style={{
-                                                    background:
-                                                        "linear-gradient(to bottom, rgba(0,0,0,0), white 80%)",
-                                                    pointerEvents: "none",
-                                                    height: "100%",
-                                                }}
-                                            ></div>{" "}
+                                                className="
+    absolute inset-0 pointer-events-none h-full 
+    bg-gradient-to-b from-transparent to-white 
+    dark:to-black
+  "
+                                            ></div>
                                         </div>{" "}
                                     </a>
                                 </div>

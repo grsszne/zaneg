@@ -16,6 +16,7 @@ export default function About() {
             </p>
             <p className="text-lg leading-loose pb-4">
                 Thank you for spending your valuable time here.
+
             </p>
         </div>
         </>

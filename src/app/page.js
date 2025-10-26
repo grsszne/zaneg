@@ -8,7 +8,7 @@ export default function Home() {
             <div className="relative">
                 {" "}
                 <Nav />{" "}
-                <div className="p-8 min-h-screen">
+                <div className="p-6 min-h-screen">
                     {" "}
                     <h1 className="font-bold text-3xl py-1 ml-4">
                         Latest Things

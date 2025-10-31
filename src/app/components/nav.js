@@ -15,7 +15,7 @@ export default function Nav() {
 
   return (
     <nav
-      className={`sticky top-0 z-20 transition-all duration-300 backdrop-blur-sm ${
+      className={`sticky top-0 z-20 transition-all duration-300 backdrop-blur-lg ${
         scrolled
           ? "bg-white/80 dark:bg-background/70 shadow-sm"
           : "bg-white/50 dark:bg-background/50"
@@ -31,7 +31,7 @@ export default function Nav() {
         </a>
 
         {/* Desktop Links */}
-        <div className="hidden md:flex space-x-8 text-lg font-medium">
+        <div className="hidden md:flex  space-x-8 text-lg font-medium">
           <a href="/blog" className="hover:text-orange-500 transition-colors">
             Works
           </a>
@@ -46,7 +46,7 @@ export default function Nav() {
         {/* Mobile Button */}
         <button
           onClick={() => setOpen(!open)}
-          className="md:hidden p-2 rounded hover:bg-orange-500 dark:hover:bg-orange-500 transition"
+          className="md:hidden p-2 hover:bg-orange-500 dark:hover:bg-orange-500 transition"
         >
           {open ? <X size={24} /> : <Menu size={24} />}
         </button>
@@ -60,9 +60,9 @@ export default function Nav() {
             animate={{ height: "auto", opacity: 1 }}
             exit={{ height: 0, opacity: 0 }}
             transition={{ duration: 0.3, ease: "easeInOut" }}
-            className="md:hidden bg-white/90 dark:bg-background/90 backdrop-blur-sm border-t"
+            className="md:hidden "
           >
-            <div className="flex flex-col text-lg font-medium border-b">
+            <div className="flex  flex-col text-lg font-medium border-b">
               <a
                 href="/blog"
                 onClick={() => setOpen(false)}

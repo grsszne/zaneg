@@ -2,6 +2,25 @@ import Image from "next/image";
 import Nav from "./components/nav.js";
 import Items from "./components/items.js";
 export default function Home() {
+    const imgs = [
+        "https://github.com/grsszne/zaneg.net--assets/blob/main/static/imgs/jumper.png?raw=true",
+        "https://github.com/grsszne/zaneg.net--assets/blob/main/static/imgs/butterfly.png?raw=true",
+        "https://github.com/grsszne/zaneg.net--assets/blob/main/static/imgs/d.png?raw=true",
+        "https://github.com/grsszne/zaneg.net--assets/blob/main/static/imgs/two.png?raw=true",
+        "https://github.com/grsszne/zaneg.net--assets/blob/main/static/imgs/alu.png?raw=true",
+        "https://github.com/grsszne/zaneg.net--assets/blob/main/static/imgs/mdetection.png?raw=true",
+    ];
+    let imgsa = []
+    let imgsb = []
+    //push even indexes to a, odd indexes to b
+    imgs.forEach((item, index) => {
+        if (index % 2 === 0) {
+            imgsa.push(item);
+        } else {
+            imgsb.push(item);
+        }
+    });
+
     return (
         <>
             {" "}
@@ -18,7 +37,7 @@ export default function Home() {
                         May or may not be impressive things I've done or am
                         doing.{" "}
                     </p>{" "}
-                    <div className=" grid  grid-cols-[repeat(auto-fill,minmax(300px,1fr))] border-t border-l mx-auto ">
+                    <div className=" grid gap-0 grid-cols-[repeat(auto-fill,minmax(300px,1fr))] border-t border-l mx-auto ">
                         {" "}
                         {Items.map((item, index) => (
                             <div
@@ -64,6 +83,28 @@ export default function Home() {
                             </div>
                         ))}{" "}
                     </div>{" "}
+                    <div>
+                        <div className="flex">
+                            <div className="mr-4 grow-1">
+                                {imgsa.map((item, index) => (
+                                    <img
+                                        key={index}
+                                        className="mt-4"
+                                        src={item}
+                                    ></img>
+                                ))}
+                            </div>
+                            <div className=" grow-1">
+                                {imgsb.map((item, index) => (
+                                    <img
+                                        key={index}
+                                        className="mt-4"
+                                        src={item}
+                                    ></img>
+                                ))}
+                            </div>
+                        </div>
+                    </div>
                 </div>{" "}
             </div>{" "}
         </>

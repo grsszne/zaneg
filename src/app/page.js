@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Nav from "./components/nav.js";
 import Items from "./components/items.js";
+import Footer from "./components/footer.js";
 export default function Home() {
     const imgs = [
         "https://github.com/grsszne/zaneg.net--assets/blob/main/static/imgs/jumper.png?raw=true",
@@ -23,6 +24,7 @@ export default function Home() {
 
     return (
         <>
+        <title>zaneg.net</title>
             {" "}
             <div className="relative">
                 {" "}
@@ -107,6 +109,7 @@ export default function Home() {
                     </div>
                 </div>{" "}
             </div>{" "}
+            <Footer/>
         </>
     );
 }

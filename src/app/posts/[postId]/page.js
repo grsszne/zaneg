@@ -1,5 +1,6 @@
 import Nav from "@/app/components/nav";
 import items from "@/app/components/items"; // Import the items array
+import Footer from "@/app/components/footer";
 
 export default async function PostPage({ params }) {
     const { postId } = params;
@@ -17,9 +18,14 @@ export default async function PostPage({ params }) {
             </>
         );
     }
+    //set document title to post title
+    let title = "zaneg.net > " + post.title.toLowerCase();
+
+
 
     return (
         <>
+        <title>{title}</title>
             <Nav />
             <div className="p-8 min-h-screen max-w-4xl mx-auto">
                 <h1 className="font-bold text-4xl pb-4">{post.title}</h1>
@@ -55,7 +61,7 @@ export default async function PostPage({ params }) {
                                         className="w-full h-auto rounded"
                                     />
                                     {contentItem.caption && (
-                                        <p className="text-sm leading-10 text-gray-500 mt-2 text-center">
+                                        <p className="text-sm leading-10 text-gray-500 dark:text-gray-300 mt-2 text-center">
                                             {contentItem.caption}
                                         </p>
                                     )}
@@ -65,6 +71,7 @@ export default async function PostPage({ params }) {
                     ))}
                 </div>
             </div>
+            <Footer/>
         </>
     );
 }

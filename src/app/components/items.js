@@ -31,20 +31,51 @@ items = [
         ]
     },
     {
-        "title": "Control structure for rover 2024 - 2025",
-        "description": "My plans and initial drawings for a jumping rover",
+        "title": "Plans For Jumping Robot 2026 - 2026",
+        "description": "My plans and initial drawings for a jumping robot",
         "date": "14 Oct 2025 AD",
         "content": [
             {
+                "contentType": "image",
+                "caption" : "Chassis CAD model",
+                "source" : "https://github.com/grsszne/zaneg.net--assets/blob/main/static/imgs/jumper.png?raw=true",
+            },
+            {
                 "contentType": "text",
                 "content": "For the 2025- 2026 school year, I am building a jumping rover for NASA HUNCH. The main objectives for the rover are to repeatably jump >3ft, stream video, and be remotely controlled. The rover will be controlled by either an ESP32 or an NRF52840 microcontroller. The rover will be powered by a 3 or 4s LiPo battery. I have already drawn the linkage by which the rover will jump, requiring only one driven link for each of the two legs."
+            },
+            {
+                "contentType": "text",
+                "header" : "Overview",
+                "content" : "Ambitously, the rover will be bipedal, with 2 indivually controllable legs. I plan for each of the legs to have 2 degrees of freedom: the main brushless motor that moves the linkage, and maybe a servo at the ''knee'' that acts as a calf to actuate the heel. The main motors will each be controlled by a 15 amp speed controller made for rc boats, as the typical ones for drones are not bidirectional, which is required for my jumping mechanism. There will be a singular 750mah 3S (11.1V) LiPo battery. The microcontroller will be an ESP32; however, this requires 3.3V, so I will make a voltage regulator PCB to step down the voltage from the battery to 3.3V for the MCU and other peripherals, e.g. camera, encoders. All strucutral components will be either 2mm or 1mm sheet metal due to tolerances & strength to weight. 5075 alloy was chosen due to its elasticity (the more common 6061 is more brittle and prone to cracking, not ideal for sudden impact of landing). Arterial, not highly load bearing components will be 3D printed pla. The main motors are 1750KV drone motors, which need a ~700:1 gear ratio for adequate speed and torque. The gears are made of laser cut delrin, as it is low friction and strong. The rover will have a camera module, like a seperate 5.8 ghz camera module from FPV drones, whose video stream can easily be accessed via a usb adapter which practically acts as a webcam, but instead receives video over 5.8 ghz.",
+            },
+            {
+                "contentType": "image",
+                "caption" : "Leg linkage (ratios). It is important that the center of mass is colinear with the path made by the end of the foot (Marker G in image), which is roughly straight, as to not induce excess torques when jumping.",
+                "source" : "https://github.com/grsszne/zaneg.net--assets/blob/main/static/imgs/jumpinglinkage.png?raw=true"
+            },
+            {
+                "contentType": "text",
+                "header" : "Energy Storage",
+                "content": "Each leg has 2 springs, one compression spring and one torsion spring. My greatest intent for either spring is that they dont impede on the extension of the leg when compressed passed their equilibrium point. The compression spring works pretty straightforwardly: when the leg is compressed, the spring compresses, storing energy. When the leg is extended, the spring extends, releasing energy. The torsion spring is a bit more comples. The input of the linkage is a gear, driven by the gear box. This input gear is comprised of three layers, 1 layer is a link of the leg linkages, and the other 2 are used to kind of sandwich the torsion spring in parallel between the gearbox and input link. When the spring is compressed past the neutral point, one end of the torsion spring pushes against the gold standoff, compressing the spring and storing energy prior to a jump. When the leg is extended the torsion spring presses against nothing, thus not impeding the extension of the leg. The torsion spring is primarily used to store energy for the initial part of the jump, while the compression spring is used to store energy for the latter part of the jump. This is because the torsion spring can be compressed more easily at small angles, while the compression spring is more effective at larger displacements."
+
+            },
+            {
+                "contentType": "image",
+                "caption" : "Torsion spring assembly. The torsion spring is sandwiched between the input link and the gearbox, with one end pressing against a standoff when compressed past neutral.",
+                "source": "https://github.com/grsszne/zaneg.net--assets/blob/main/static/imgs/gearshown.png?raw=true"
+            },
+            {
+                "contentType": "image",
+                "caption" : "The middle layer kind of hugs one leg of the torsion spring, dragging it along and compressing it against the gold stand off when the leg is compressed.",
+                "source": "https://github.com/grsszne/zaneg.net--assets/blob/main/static/imgs/gearhidden.png?raw=true"
             }
         ]
     },
     {
         "title": "Ejecting Rover 2024 - 2025",
         "description": "",
-        "date": "20 Oct 2025 AD",
+        "date": "20 May 2025 AD",
         "content": [
             {
                 "contentType": "text",

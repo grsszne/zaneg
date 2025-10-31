@@ -15,7 +15,7 @@ export default function Nav() {
 
   return (
     <nav
-      className={`sticky top-0 z-20 transition-all duration-300 backdrop-blur-lg ${
+      className={`sticky top-0 z-20 transition-all duration-300 backdrop-blur-sm ${
         scrolled
           ? "bg-white/80 dark:bg-background/70 shadow-sm"
           : "bg-white/50 dark:bg-background/50"

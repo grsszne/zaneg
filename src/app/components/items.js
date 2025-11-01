@@ -31,7 +31,7 @@ items = [
         ]
     },
     {
-        "title": "Plans For Jumping Robot 2026 - 2026",
+        "title": "Plans For Jumping Robot 2025 - 2026",
         "description": "My plans and initial drawings for a jumping robot",
         "date": "14 Oct 2025 AD",
         "content": [
@@ -129,17 +129,6 @@ items = [
 
         ]
     },
-    {
-        "title": "Why we failed",
-        "description": "Or why we didn't fail?",
-        "date": "25 Oct 2025 AD",
-        "content": [
-            {
-                "contentType": "text",
-                "content": "All of our systems, including PCBs, linkages, and embedded code, worked perfectly. Well, not all the PCBs. The main PCB responsible for both the sensors, motor drivers, and microcontroller had a flaw wherein..."
-            }
-        ]
-    }
 ];
 
 //automatically create slugs:

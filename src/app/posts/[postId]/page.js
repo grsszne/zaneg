@@ -27,22 +27,22 @@ export default async function PostPage({ params }) {
         <>
         <title>{title}</title>
             <Nav />
-            <div className="p-8 min-h-screen max-w-4xl mx-auto">
-                <h1 className="font-bold text-4xl pb-4">{post.title}</h1>
-                <p className="text-sm text-gray-500 pb-8">{post.date}</p>
-                <p className="text-lg pb-8">{post.description}</p>
-                <div className="prose prose-lg max-w-none">
+            <div className="p-8 min-h-screen max-w-4xl mx-auto tracking-tight">
+                <h1 className="font-normal text-5xl pb-4">{post.title}</h1>
+                <p className=" font-light text-2xl pb-8">{post.date}</p>
+                <p className=" pb-8 font-light text-2xl">{post.description}</p>
+                <div className="prose prose-lg max-w-none text-inherit">
                     {post.content.map((contentItem, index) => (
                         <div key={index}>
                             {contentItem.contentType === "text" && (
                                 <>
                                     {contentItem.header && (
-                                        <h1 className="text-2xl font-bold my-2">
+                                        <h1 className="text-4xl font-normal my-6 ">
                                             {contentItem.header}
                                         </h1>
                                     )}
                                     <p
-                                        className="text-justify leading-loose indent-6"
+                                        className="text-justify leading-loose text-[1.25rem] font-light indent-6"
                                         dangerouslySetInnerHTML={{
                                             __html: contentItem.content.replace(
                                                 /(https?:\/\/[^\s]+)/g,
@@ -61,7 +61,7 @@ export default async function PostPage({ params }) {
                                         className="w-full h-auto rounded"
                                     />
                                     {contentItem.caption && (
-                                        <p className="text-sm leading-10 text-gray-500 dark:text-gray-300 mt-2 text-center">
+                                        <p className="text-[.85rem] leading-10 font-light mt-2 text-center">
                                             {contentItem.caption}
                                         </p>
                                     )}

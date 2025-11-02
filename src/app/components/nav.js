@@ -15,23 +15,23 @@ export default function Nav() {
 
   return (
     <nav
-      className={`sticky top-0 z-20 transition-all duration-300 backdrop-blur-sm ${
+      className={`tracking-tight sticky top-0 z-20 transition-all duration-300 backdrop-blur-sm ${
         scrolled
           ? "bg-white/80 dark:bg-background/70 shadow-sm"
           : "bg-white/50 dark:bg-background/50"
       }`}
     >
-      <div className="flex items-center justify-between px-6 py-3 border-b">
+      <div className="flex items-center justify-between px-10 py-3 border-b">
         {/* Brand */}
         <a
           href="/"
-          className="text-2xl font-semibold hover:text-orange-500 transition-colors"
+          className="text-2xl font-normal text-2xl hover:text-orange-500 transition-colors"
         >
           zaneg.net
         </a>
 
         {/* Desktop Links */}
-        <div className="hidden md:flex  space-x-8 text-lg font-medium">
+        <div className="hidden md:flex  space-x-8 text-2xl font-normal">
           <a href="/blog" className="hover:text-orange-500 transition-colors">
             Works
           </a>

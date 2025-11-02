@@ -1,3 +1,4 @@
+import Footer from "../components/footer";
 import Nav from "../components/nav";
 export default function About() {
     return (
@@ -11,7 +12,7 @@ export default function About() {
             </p>
 
             <p className="text-lg leading-loose pb-4">
-                I write all my "articles" (I hate calling them that, doesn't it make me sound like someone I'm not?) in a big JSON file. I made this website's structure in Next in a good 3 days (in Vim :) ), as is probably reflected in its quality.
+                I write all my "articles" (I hate calling them that, doesn't it make me sound like someone I'm not?) <a href="/json">in a big JSON file</a>. I made this website's structure in Next in a good 3 days (in Vim :) ), as is probably reflected in its quality.
 
             </p>
             <p className="text-lg leading-loose pb-4">
@@ -19,6 +20,7 @@ export default function About() {
 
             </p>
         </div>
+        <Footer/>
         </>
     );
 }

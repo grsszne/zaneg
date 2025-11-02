@@ -26,12 +26,12 @@ export default function Home() {
         <>
         <title>zaneg.net</title>
             {" "}
-            <div className="relative">
+            <div className="relative tracking-tight">
                 {" "}
                 <Nav />{" "}
                 <div className="p-6 min-h-screen">
                     {" "}
-                    <h1 className="font-bold text-3xl py-1 ml-4">
+                    <h1 className="font-normal text-3xl ml-4">
                         Latest Things
                     </h1>{" "}
                     <p className="py-4 ml-4 font-light text-xl">
@@ -52,14 +52,14 @@ export default function Home() {
                                         <p className=" text-sm text-xl py-2 font-light">
                                             {item.date}
                                         </p>{" "}
-                                        <h2 className="font-black text-3xl py-2">
+                                        <h2 className=" text-3xl font-normal py-2">
                                             {item.title}
                                         </h2>{" "}
-                                        <p className="font-semibold text-md py-2">
+                                        <p className="font-light text-xl text-md py-2">
                                             {item.description}
                                         </p>{" "}
                                         <div
-                                            className="font-light text-md py-2 line-clamp-2 relative"
+                                            className="font-extralight text-xl text-md py-2 line-clamp-2 relative"
                                             style={{
                                                 WebkitBoxOrient: "vertical",
                                                 display: "-webkit-box",

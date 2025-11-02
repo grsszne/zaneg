@@ -4,7 +4,7 @@ export default function About() {
     return (
         <>
         <Nav />
-        <div className="p-4 max-w-4xl mx-auto">
+        <div className="p-4 min-h-screen max-w-4xl mx-auto">
             <h1 className="font-bold text-4xl pb-4">About Me</h1>
             <p className="text-lg leading-loose pb-4">
                 I am Zane. I am a North Texas high school student who priortizes my interests above most things, which is probably to my detriment. My main interests are programming, technology, and computer hardware.

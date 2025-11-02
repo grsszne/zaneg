@@ -27,7 +27,7 @@ export default async function PostPage({ params }) {
         <>
         <title>{title}</title>
             <Nav />
-            <div className="p-8 min-h-screen max-w-4xl mx-auto tracking-tight">
+            <div className="p-10 min-h-screen max-w-5xl mx-auto tracking-tight">
                 <h1 className="font-normal text-5xl pb-4">{post.title}</h1>
                 <p className=" font-light text-2xl pb-8">{post.date}</p>
                 <p className=" pb-8 font-light text-2xl">{post.description}</p>
@@ -37,12 +37,12 @@ export default async function PostPage({ params }) {
                             {contentItem.contentType === "text" && (
                                 <>
                                     {contentItem.header && (
-                                        <h1 className="text-4xl font-normal my-6 ">
+                                        <h1 className="md:text-4xl text-2xl font-normal my-6 ">
                                             {contentItem.header}
                                         </h1>
                                     )}
                                     <p
-                                        className="text-justify leading-loose text-[1.25rem] font-light indent-6"
+                                        className="text-justify  text-[.85rem] leading-loose md:text-[1rem] lg:text-[1.25rem] font-light indent-6"
                                         dangerouslySetInnerHTML={{
                                             __html: contentItem.content.replace(
                                                 /(https?:\/\/[^\s]+)/g,

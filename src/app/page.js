@@ -86,8 +86,8 @@ export default function Home() {
                         ))}{" "}
                     </div>{" "}
                     <div>
-                        <div className="flex">
-                            <div className="mr-4 grow-1">
+                        <div className="md:flex">
+                            <div className="md:mr-4 grow-1">
                                 {imgsa.map((item, index) => (
                                     <img
                                         key={index}

@@ -1,37 +1,6 @@
 let items = [];
 items = [
-    {
-        title: "Driving a manual car in 2025",
-        description: "My experience learning to drive a manual car",
-        date: "10 Sep 2025 AD",
-        content: [
-            {
-                contentType: "text",
-                header: "Introduction",
-                content:
-                    "I am privileged enough to have access to an incredible car: a 2023 Honda Civic Si in the rare orange pearl color. Even though it only has 200hp, I absolutely adore the thing. It takes corners great and its tranmission feels great. However, I had one problem: it is a manual transmission car, and I had never driven a manual before. So, I set out to learn how to drive a manual car.",
-            },
-            {
-                contentType: "text",
-                header: "Learning Process",
-                content:
-                    "Prior to driving the Civic, I had attempted to drive a friend's Miata a few times, but perhaps only got it moving twice. This had given me a sour expectation of driving mine, but I was still eager to do so. Much to my dismay, however, the Civic was incredibly forgiving. I could easily get the car moving with just the clutch, not even giving it any gas. I don't even think I stalled it the first few days of learning in a vast parking lot. What I found to be best when learning was first finding where the clutch began to engage with the engine, and slowly getting the car moving with no gas at first. Once I had gotten that down, I began to add gas. I was proficient enough at my clutch control that I could get the car moving in second gear alone, with minimal gas (although this probably isn't advised!).",
-            },
-            {
-                contentType: "text",
-                header: "Switching Gears",
-                content:
-                    "See what I did there? Once I could consistently get the car moving, I began switching gears. Honda has mastered the tactile feel of the shifter, giving me a lot of leeway when shifting. Although, I did find that I had to be careful going from first to second, as the engine has pretty bad rev hang, meaning the RPMs would stay high for a while after letting off the gas. This made it tricky to shift into second without the car lurching forward. For some reason though, I never felt that at other gears. Overall, I found shifting to be pretty easy, and I was able to do it smoothly after a few days of practice.",
-            },
 
-            {
-                contentType: "text",
-                header: "Modern manuals?",
-                content:
-                    "One thing I found interesting about driving a modern manual car is the presence of features like rev-matching and auto-blip. The Civic Si has both of these features, which help make downshifting smoother. Rev-matching automatically blips the throttle when downshifting, while auto-blip does the same thing but only when the car detects that you're going to downshift. These features were a bit controversial among manual enthusiasts when they first came out, but I found them to be quite helpful when learning. They took some of the guesswork out of downshifting, allowing me to focus more on my clutch control and shifting technique. While I think if I were given the keys to a 1976 Skoda 120L, I would have a much harder time driving it smoothly without these modern aids, but still be able to maybe get around. I think these features are great for making manual cars more accessible to a wider audience, and I appreciate that Honda included them in the Civic Si. Regarding current production cars, I think manuals are becoming increasingly rare, especially in the US market. However, I still believe there is a place for them among driving enthusiasts. They offer a level of engagement and control that simply cannot be matched by automatic transmissions. While I understand that manuals may not be as practical for everyday driving, manuals are becoming increasingly rare, but I do see a slight wane in their demand. I think as long as there are car enthusiasts who value the driving experience, there will always be a place for manuals in the automotive world.",
-            },
-        ],
-    },
     {
         title: "Plans For Jumping Robot 2025 - 2026",
         description: "My plans and initial drawings for a jumping robot",
@@ -82,6 +51,38 @@ items = [
                 header: "Further Ambitions",
                 content:
                     "I thought it would be cool if the computer controlling the rover could parse the video input stream into some yolov8 detection model to detect obstacles, people, landmarks, etc. This is actually pretty feasible, as yolov8 is easy to train and performs well. Note: this is not running on the esp32, but the computer that the aformentioned 5.8ghz usb video adapter is plugged into. Further, I think it would be cool for some natural language component. Imagine I type into a prompt in the computer that I want the rover to <q>move 200 feet forwards</q> or <q>go look at the big rock</q>. The computer could parse this command, and use some pathfinding algorithm to determine how to get there, sending low level commands to the esp32 to move the rover accordingly. This is a bit more far fetched, but I think it would be a cool challenge to implement.",
+            },
+        ],
+    },
+    {
+        title: "Driving a manual car in 2025",
+        description: "My experience learning to drive a manual car",
+        date: "10 Sep 2025 AD",
+        content: [
+            {
+                contentType: "text",
+                header: "Introduction",
+                content:
+                    "I am privileged enough to have access to an incredible car: a 2023 Honda Civic Si in the rare orange pearl color. Even though it only has 200hp, I absolutely adore the thing. It takes corners great and its tranmission feels great. However, I had one problem: it is a manual transmission car, and I had never driven a manual before. So, I set out to learn how to drive a manual car.",
+            },
+            {
+                contentType: "text",
+                header: "Learning Process",
+                content:
+                    "Prior to driving the Civic, I had attempted to drive a friend's Miata a few times, but perhaps only got it moving twice. This had given me a sour expectation of driving mine, but I was still eager to do so. Much to my dismay, however, the Civic was incredibly forgiving. I could easily get the car moving with just the clutch, not even giving it any gas. I don't even think I stalled it the first few days of learning in a vast parking lot. What I found to be best when learning was first finding where the clutch began to engage with the engine, and slowly getting the car moving with no gas at first. Once I had gotten that down, I began to add gas. I was proficient enough at my clutch control that I could get the car moving in second gear alone, with minimal gas (although this probably isn't advised!).",
+            },
+            {
+                contentType: "text",
+                header: "Switching Gears",
+                content:
+                    "See what I did there? Once I could consistently get the car moving, I began switching gears. Honda has mastered the tactile feel of the shifter, giving me a lot of leeway when shifting. Although, I did find that I had to be careful going from first to second, as the engine has pretty bad rev hang, meaning the RPMs would stay high for a while after letting off the gas. This made it tricky to shift into second without the car lurching forward. For some reason though, I never felt that at other gears. Overall, I found shifting to be pretty easy, and I was able to do it smoothly after a few days of practice.",
+            },
+
+            {
+                contentType: "text",
+                header: "Modern manuals?",
+                content:
+                    "One thing I found interesting about driving a modern manual car is the presence of features like rev-matching and auto-blip. The Civic Si has both of these features, which help make downshifting smoother. Rev-matching automatically blips the throttle when downshifting, while auto-blip does the same thing but only when the car detects that you're going to downshift. These features were a bit controversial among manual enthusiasts when they first came out, but I found them to be quite helpful when learning. They took some of the guesswork out of downshifting, allowing me to focus more on my clutch control and shifting technique. While I think if I were given the keys to a 1976 Skoda 120L, I would have a much harder time driving it smoothly without these modern aids, but still be able to maybe get around. I think these features are great for making manual cars more accessible to a wider audience, and I appreciate that Honda included them in the Civic Si. Regarding current production cars, I think manuals are becoming increasingly rare, especially in the US market. However, I still believe there is a place for them among driving enthusiasts. They offer a level of engagement and control that simply cannot be matched by automatic transmissions. While I understand that manuals may not be as practical for everyday driving, manuals are becoming increasingly rare, but I do see a slight wane in their demand. I think as long as there are car enthusiasts who value the driving experience, there will always be a place for manuals in the automotive world.",
             },
         ],
     },

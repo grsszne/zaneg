@@ -3,7 +3,7 @@ items = [
 
     {
         title: "Plans For Jumping Robot 2025 - 2026",
-        description: "My plans and initial drawings for a jumping robot",
+        description: "My Plans and Initial Drawings for a Jumping Robot",
         date: "14 Oct 2025 AD",
         content: [
             {
@@ -55,7 +55,7 @@ items = [
         ],
     },
     {
-        title: "Driving a manual car in 2025",
+        title: "Driving a Manual Car in 2025",
         description: "My experience learning to drive a manual car",
         date: "10 Sep 2025 AD",
         content: [
@@ -142,7 +142,7 @@ items = [
         ],
     },
     {
-        title: "This Website",
+        title: "About This Website",
         description: "How this website was made",
         date: "April 29 2025 AD",
         content: [

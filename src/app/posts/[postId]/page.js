@@ -61,7 +61,7 @@ export default async function PostPage({ params }) {
                                         className="w-full h-auto rounded"
                                     />
                                     {contentItem.caption && (
-                                        <p className="text-[.85rem] leading-10 font-light mt-2 text-center">
+                                        <p className="text-[.65rem] md:text-[.85rem] leading-10 font-light mt-2 text-center">
                                             {contentItem.caption}
                                         </p>
                                     )}

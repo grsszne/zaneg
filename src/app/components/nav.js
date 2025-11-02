@@ -2,8 +2,48 @@
 import { useState, useEffect } from "react";
 import { Menu, X } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
+import { usePathname } from 'next/navigation';
+const useScreenWidth = () => {
+  // Initialize width to 0 or a default value, and update it on the client side
+  const [screenWidth, setScreenWidth] = useState(0); 
 
+  useEffect(() => {
+    // Check if window is defined (ensures this runs only on the client side)
+    if (typeof window !== 'undefined') {
+      // Set initial width
+      setScreenWidth(window.innerWidth);
+
+      // Function to update width on resize
+      const handleResize = () => {
+        setScreenWidth(window.innerWidth);
+      };
+
+      // Add event listener for window resize
+      window.addEventListener('resize', handleResize);
+
+      // Clean up the event listener on component unmount
+      return () => {
+        window.removeEventListener('resize', handleResize);
+      };
+    }
+  }, []); // Empty dependency array ensures this effect runs only once after initial render
+
+  return screenWidth;
+};
 export default function Nav() {
+  
+  //var that stores screen width:
+  let screenWidth = useScreenWidth();
+  let additionalNavRoute = "";
+  if (screenWidth > 990) {
+    additionalNavRoute = usePathname().replace("/", " > ").replaceAll("-", " ");
+  }
+  if (additionalNavRoute == " > ") {
+    additionalNavRoute = "";
+  }
+
+
+
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
 
@@ -27,7 +67,7 @@ export default function Nav() {
           href="/"
           className="text-2xl font-normal text-2xl hover:text-orange-500 transition-colors"
         >
-          zaneg.net
+          zaneg.net {additionalNavRoute.replace("/", " > ")}
         </a>
 
         {/* Desktop Links */}
@@ -62,7 +102,7 @@ export default function Nav() {
             transition={{ duration: 0.3, ease: "easeInOut" }}
             className="md:hidden "
           >
-            <div className="flex  flex-col text-lg font-medium border-b">
+            <div className="flex ml-4 flex-col text-lg font-medium border-b">
               <a
                 href="/blog"
                 onClick={() => setOpen(false)}

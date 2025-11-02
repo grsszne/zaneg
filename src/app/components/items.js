@@ -149,17 +149,22 @@ items = [
             {
                 header: "Introduction",
                 contentType: "text",
-                content: "This website is by no means anythin exemplary or well made. I made it in about 3 days if not evident in its quality. I am using Vercel and Next.js, certainly overkill ofr just a personal website, but it's what im familiar with. "
+                content: "This website is by no means anything exemplary or well made. I made it in about 3 days if not evident in its quality. I am using Vercel and Next.js, certainly overkill for just a personal website, but it's what im familiar with. "
             },
             {
                 contentType: "image",
-                caption: "Probably not the most user friendly way to write long things",
+                caption: "Probably not the most user friendly way to write long things. Font is JetBrains Mono & theme is IBM Carbon.",
                 source: "https://github.com/grsszne/zaneg.net--assets/blob/main/static/imgs/websitebad.png?raw=true"
             },
             {
                 contentType: "text",
                 header: "How it works",
-                content: "All posts are written in a giant JSON file (this is probably a bad idea for scaling, but whatever). Each post is an object with title, description, date, and content properties. The content property is an array of objects, each with a contentType property (either text or image), and other properties depending on the type. For text, there is a content property with the text content (in HTML format), and an optional header property for section headers. For images, there is a source property with the image URL, an optional caption property, and an optional alt property for alt text. The main page maps over the items array and creates a card for each post. Each card links to a dynamic route based on the postId, which is generated from the title by converting it to lowercase, replacing spaces with hyphens, and removing non-alphanumeric characters. The dynamic route page fetches the post data based on the postId and renders the content accordingly."
+                content: "All posts are written in a giant JSON object (this is probably a bad idea for scaling, but whatever). Each post is an object with title, description, date, and content properties. The content property is an array of objects, each with a contentType property (either text or image), and other properties depending on the type. For text, there is a content property with the text content (in HTML format), and an optional header property for section headers. This all probably means this is plagued with speling erors. For images, there is a source property with the image URL, an optional caption property, and an optional alt property for alt text. The main page maps over the items array and creates a card for each post. Each card links to a dynamic route based on the postId, which is generated from the title by converting it to lowercase, replacing spaces with hyphens, and removing non-alphanumeric characters. The dynamic route page fetches the post data based on the postId and renders the content accordingly."
+            },
+            {
+                contentType: "text",
+                header: "Why",
+                content: "I figure two things: <b>a)</b> I should probably have a website should I ever want to show off the things I've done, and <b>b)</b> I will probably be the only one will ever look at this website, and thus, am the only person who will care about what I've done. But I'm fine with that."
             },
             {
                 contentType: "text",

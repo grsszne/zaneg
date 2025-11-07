@@ -54,7 +54,7 @@ items = [
             },
         ],
     },
-    /*{
+    {
         title: "Driving a Manual Car in 2025",
         description: "My experience learning to drive a manual car",
         date: "10 Sep 2025 AD",

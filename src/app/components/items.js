@@ -54,7 +54,7 @@ items = [
             },
         ],
     },
-    {
+    /*{
         title: "Driving a Manual Car in 2025",
         description: "My experience learning to drive a manual car",
         date: "10 Sep 2025 AD",
@@ -86,6 +86,7 @@ items = [
             },
         ],
     },
+    */
     {
         title: "Ejecting Rover 2024 - 2025",
         description: "Progression and repots from my 2024 - 2025 NASA HUNCH project",

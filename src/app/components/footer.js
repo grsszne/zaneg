@@ -1,3 +1,5 @@
+import Link from 'next/link';
+
 export default function Footer() {
     return (
         <footer className="w-full border-t mt-12 bg-white/50 dark:bg-background/50 backdrop-blur-sm">
@@ -14,9 +16,9 @@ export default function Footer() {
                     </div>
                 </div>
                 <div className="space-x-4 mt-2 md:mt-0">
-                    <a href="/" className="hover:text-orange-500">
+                    <Link href="/" className="hover:text-orange-500">
                         Home
-                    </a>
+                    </Link>
                 </div>
             </div>
         </footer>

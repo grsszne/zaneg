@@ -1,6 +1,7 @@
 import Nav from "@/app/components/nav";
 import items from "@/app/components/items"; // Import the items array
 import Footer from "@/app/components/footer";
+import Image from "next/image";
 
 export default async function PostPage({ params }) {
     const { postId } = params;
@@ -88,10 +89,14 @@ export default async function PostPage({ params }) {
 
                                 {contentItem.contentType === "image" && (
                                     <div className="my-4">
-                                        <img
+                                        <Image
                                             src={contentItem.source}
                                             alt={contentItem.alt || "Image"}
                                             className="w-full h-auto rounded"
+                                            width={0}
+                                            height={0}
+                                            sizes="100vw"
+                                            style={{ width: '100%', height: 'auto' }}
                                         />
                                         {contentItem.caption && (
                                             <p className="text-[.65rem] md:text-[.85rem] leading-10 font-light mt-2 text-center">

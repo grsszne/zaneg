@@ -3,6 +3,8 @@ import { useState, useEffect } from "react";
 import { Menu, X } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { usePathname } from 'next/navigation';
+import Link from 'next/link';
+
 const useScreenWidth = () => {
   // Initialize width to 0 or a default value, and update it on the client side
   const [screenWidth, setScreenWidth] = useState(0); 
@@ -31,12 +33,12 @@ const useScreenWidth = () => {
   return screenWidth;
 };
 export default function Nav() {
-  
+  const pathname = usePathname();
   //var that stores screen width:
   let screenWidth = useScreenWidth();
   let additionalNavRoute = "";
   if (screenWidth > 990) {
-    additionalNavRoute = usePathname().replace("/", " > ").replaceAll("-", " ");
+    additionalNavRoute = pathname.replace("/", " > ").replaceAll("-", " ");
   }
   if (additionalNavRoute == " > ") {
     additionalNavRoute = "";
@@ -63,24 +65,24 @@ export default function Nav() {
     >
       <div className="flex items-center justify-between px-10 py-3 border-b">
         {/* Brand */}
-        <a
+        <Link
           href="/"
           className="text-2xl font-normal text-2xl hover:text-orange-500 transition-colors"
         >
           zaneg.net {additionalNavRoute.replace("/", " > ")}
-        </a>
+        </Link>
 
         {/* Desktop Links */}
         <div className="hidden md:flex  space-x-8 text-2xl font-normal">
-          <a href="/blog" className="hover:text-orange-500 transition-colors">
+          <Link href="/blog" className="hover:text-orange-500 transition-colors">
             Works
-          </a>
-          <a href="/about" className="hover:text-orange-500 transition-colors">
+          </Link>
+          <Link href="/about" className="hover:text-orange-500 transition-colors">
             About
-          </a>
-          <a href="/contact" className="hover:text-orange-500 transition-colors">
+          </Link>
+          <Link href="/contact" className="hover:text-orange-500 transition-colors">
             Contact
-          </a>
+          </Link>
         </div>
 
         {/* Mobile Button */}
@@ -103,27 +105,27 @@ export default function Nav() {
             className="md:hidden "
           >
             <div className="flex ml-4 flex-col text-lg font-medium border-b">
-              <a
+              <Link
                 href="/blog"
                 onClick={() => setOpen(false)}
                 className="p-4 px-6 hover:text-orange-500 transition-colors"
               >
                 Works
-              </a>
-              <a
+              </Link>
+              <Link
                 href="/about"
                 onClick={() => setOpen(false)}
                 className="p-4 px-6 hover:text-orange-500 transition-colors"
               >
                 About
-              </a>
-              <a
+              </Link>
+              <Link
                 href="/contact"
                 onClick={() => setOpen(false)}
                 className="p-4 px-6 hover:text-orange-500 transition-colors"
               >
                 Contact
-              </a>
+              </Link>
             </div>
           </motion.div>
         )}

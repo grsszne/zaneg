@@ -2,9 +2,12 @@ import Image from "next/image";
 import Nav from "./components/nav.js";
 import Items from "./components/items.js";
 import Footer from "./components/footer.js";
+import Link from 'next/link';
+
 export default function Home() {
     const imgs = [
         "https://github.com/grsszne/zaneg.net--assets/blob/main/static/imgs/jumper.png?raw=true",
+        "https://github.com/grsszne/zaneg.net--assets/blob/main/static/imgs/sail.png?raw=true",
         "https://github.com/grsszne/zaneg.net--assets/blob/main/static/imgs/butterfly.png?raw=true",
         "https://github.com/grsszne/zaneg.net--assets/blob/main/static/imgs/d.png?raw=true",
         "https://github.com/grsszne/zaneg.net--assets/blob/main/static/imgs/two.png?raw=true",
@@ -47,7 +50,7 @@ export default function Home() {
                                 className=" p-4 border-b border-r relative "
                             >
                                 <div className="post-item transition">
-                                    <a href={`/posts/${item.postId}`}>
+                                    <Link href={`/posts/${item.postId}`}>
                                         {" "}
                                         <p className=" text-sm text-xl py-2 font-light">
                                             {item.date}
@@ -80,7 +83,7 @@ export default function Home() {
   "
                                             ></div>
                                         </div>{" "}
-                                    </a>
+                                    </Link>
                                 </div>
                             </div>
                         ))}{" "}
@@ -89,20 +92,30 @@ export default function Home() {
                         <div className="md:flex">
                             <div className="md:mr-4 grow-1">
                                 {imgsa.map((item, index) => (
-                                    <img
+                                    <Image
                                         key={index}
                                         className="mt-4"
                                         src={item}
-                                    ></img>
+                                        alt="image"
+                                        width={0}
+                                        height={0}
+                                        sizes="100vw"
+                                        style={{ width: '100%', height: 'auto' }}
+                                    />
                                 ))}
                             </div>
                             <div className=" grow-1">
                                 {imgsb.map((item, index) => (
-                                    <img
+                                    <Image
                                         key={index}
                                         className="mt-4"
                                         src={item}
-                                    ></img>
+                                        alt="image"
+                                        width={0}
+                                        height={0}
+                                        sizes="100vw"
+                                        style={{ width: '100%', height: 'auto' }}
+                                    />
                                 ))}
                             </div>
                         </div>

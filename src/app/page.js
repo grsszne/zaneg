@@ -7,8 +7,10 @@ import Link from 'next/link';
 export default function Home() {
     const imgs = [
         "https://github.com/grsszne/zaneg.net--assets/blob/main/static/imgs/jumper.png?raw=true",
-        "https://github.com/grsszne/zaneg.net--assets/blob/main/static/imgs/sail.png?raw=true",
+
         "https://github.com/grsszne/zaneg.net--assets/blob/main/static/imgs/butterfly.png?raw=true",
+
+        "https://github.com/grsszne/zaneg.net--assets/blob/main/static/imgs/sail.png?raw=true",
         "https://github.com/grsszne/zaneg.net--assets/blob/main/static/imgs/d.png?raw=true",
         "https://github.com/grsszne/zaneg.net--assets/blob/main/static/imgs/two.png?raw=true",
         "https://github.com/grsszne/zaneg.net--assets/blob/main/static/imgs/alu.png?raw=true",
@@ -89,10 +91,10 @@ export default function Home() {
                         ))}{" "}
                     </div>{" "}
                     <div>
-                        <div className="md:flex">
-                            <div className="md:mr-4 grow-1">
+                        <div className="md:flex gap-4">
+                            <div className="flex-1">
                                 {imgsa.map((item, index) => (
-                                    <Image
+                                    <img
                                         key={index}
                                         className="mt-4"
                                         src={item}
@@ -104,7 +106,7 @@ export default function Home() {
                                     />
                                 ))}
                             </div>
-                            <div className=" grow-1">
+                            <div className=" flex-1">
                                 {imgsb.map((item, index) => (
                                     <Image
                                         key={index}

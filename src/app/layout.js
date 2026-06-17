@@ -14,7 +14,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata = {
-  // title: "zaneg.net",
+  title: "zaneg.net",
   description: "zaneg.net; things I find interesting and projects I've worked on",
 };
 

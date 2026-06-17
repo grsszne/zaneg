@@ -1,21 +1,12 @@
-@import url("https://fonts.cdnfonts.com/css/open-sauce-one");
-@import url("https://fonts.cdnfonts.com/css/helvetica-neue-55'");
-@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&display=swap');
 @import "tailwindcss";
 
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-
 :root {
-  --background: #ffffff;
+  --background: #f7f7f5;
   --foreground: #171717;
+  --muted: #6f6f68;
+  --line: #deded8;
+  --surface: #ffffff;
 }
-
-* {
-  scroll-behavior: smooth;
-}
-
 
 @theme inline {
   --color-background: var(--background);
@@ -24,35 +15,46 @@
   --font-mono: var(--font-geist-mono);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #000000;
-    --foreground: #ffffff;
-  }
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
 }
 
 body {
+  min-height: 100vh;
   background: var(--background);
   color: var(--foreground);
-  font-family: 'Helvetica Neue', 'Open Sauce Two', sans-serif;
-  font-size: 62%;
+  font-family: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
+  font-size: 16px;
+  line-height: 1.5;
 }
 
-.text-highlight {
-  color: #FF5800;
-}
-.bg-highlight {
-  background-color: #FF5800;
+a {
+  text-underline-offset: 0.2em;
 }
 
-:root {
-  --color-highlight: #FF5800;
+::selection {
+  background: #171717;
+  color: #ffffff;
 }
 
-.font-mono {
-  font-family: 'IBM Plex Mono', monospace;
+.container-page {
+  width: min(100% - 2rem, 760px);
+  margin-inline: auto;
 }
 
-.post-item:hover {
-  transform: scale(.96);
+.container-wide {
+  width: min(100% - 2rem, 1040px);
+  margin-inline: auto;
+}
+
+.text-muted {
+  color: var(--muted);
+}
+
+.border-line {
+  border-color: var(--line);
 }

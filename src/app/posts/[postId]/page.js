@@ -1,116 +1,132 @@
-import Nav from "@/app/components/nav";
-import items from "@/app/components/items"; // Import the items array
-import Footer from "@/app/components/footer";
 import Image from "next/image";
+import Footer from "@/app/components/footer";
+import items from "@/app/components/items";
+import Nav from "@/app/components/nav";
+
+export async function generateMetadata({ params }) {
+  const { postId } = await params;
+  const post = items.find((item) => item.postId === postId);
+
+  if (!post) {
+    return {
+      title: "Post not found | zaneg.net",
+    };
+  }
+
+  return {
+    title: `${post.title} | zaneg.net`,
+    description: post.description,
+  };
+}
 
 export default async function PostPage({ params }) {
-    const { postId } = params;
+  const { postId } = await params;
+  const post = items.find((item) => item.postId === postId);
 
-    // Find the item that matches the postId
-    const post = items.find(
-        (item) => item.title.toLowerCase().replace(/\s+/g, "-") === postId
-    );
-
-    if (!post) {
-        return (
-            <>
-                <Nav />
-                <div>Post not found</div>
-            </>
-        );
-    }
-    //set document title to post title
-    let title = "zaneg.net > " + post.title.toLowerCase();
-
-    let headers = [];
-    post.content.forEach((contentItem) => {
-        if (contentItem.contentType === "text" && contentItem.header) {
-            headers.push(contentItem.header);
-        }
-    });
-
+  if (!post) {
     return (
-        <>
-            <title>{title}</title>
-
-            <div className="hidden lg:flex lg:fixed lg:top-0 lg:left-0 lg:z-[10]  lg:h-screen lg:items-ccenter  lg:justify-center lg:px-6 lg:w-[20vw] xl:w-[18vw] 2xl:w-[15vw]">
-                <div className="w-full pt-[100px]">
-                    <div className="backdrop-blur-lg border-l pl-2">
-                    {headers.map((header, index) => (
-                        <a
-                            key={index}
-                            href={`#${header
-                                .toLowerCase()
-                                .replace(/\s+/g, "-")}`}
-                            className="block py-2 px-2 font-light  text-xl hover:underline"
-                        >
-                            {header}
-                        </a>
-                    ))}
-                </div>
-                </div>
-            </div>
-
-            <div className="relative">
-                <Nav />
-                <div className="p-10 min-h-screen max-w-4xl mx-auto lg:ml-[22vw] xl:ml-[20vw] 2xl:ml-[18vw] tracking-tight">
-
-                    <h1 className="font-normal text-5xl pb-4">{post.title}</h1>
-                    <p className=" font-light text-2xl pb-8">{post.date}</p>
-                    <p className=" pb-8 font-light text-2xl">
-                        {post.description}
-                    </p>
-                    <div className="prose prose-lg max-w-none text-inherit">
-                        {post.content.map((contentItem, index) => (
-                            <div key={index}>
-                                {contentItem.contentType === "text" && (
-                                    <>
-                                        {contentItem.header && (
-                                            <h1
-                                                id={contentItem.header
-                                                    .toLowerCase()
-                                                    .replace(/\s+/g, "-")}
-                                                className="md:text-4xl text-2xl font-normal my-6 scroll-mt-[100px]"
-                                            >
-                                                {contentItem.header}
-                                            </h1>
-                                        )}
-                                        <p
-                                            className="text-justify  text-[.85rem] leading-loose md:text-[1rem] lg:text-[1.25rem] font-light indent-6"
-                                            dangerouslySetInnerHTML={{
-                                                __html: contentItem.content.replace(
-                                                    /(https?:\/\/[^\s]+)/g,
-                                                    '<a href="$1" target="_blank" rel="noopener noreferrer" class="text-blue-500 underline">$1</a>'
-                                                ),
-                                            }}
-                                        />
-                                    </>
-                                )}
-
-                                {contentItem.contentType === "image" && (
-                                    <div className="my-4">
-                                        <Image
-                                            src={contentItem.source}
-                                            alt={contentItem.alt || "Image"}
-                                            className="w-full h-auto rounded"
-                                            width={0}
-                                            height={0}
-                                            sizes="100vw"
-                                            style={{ width: '100%', height: 'auto' }}
-                                        />
-                                        {contentItem.caption && (
-                                            <p className="text-[.65rem] md:text-[.85rem] leading-10 font-light mt-2 text-center">
-                                                {contentItem.caption}
-                                            </p>
-                                        )}
-                                    </div>
-                                )}
-                            </div>
-                        ))}
-                    </div>
-                </div>
-                <Footer />
-            </div>
-        </>
+      <>
+        <Nav />
+        <main className="container-page min-h-screen py-16">
+          <h1 className="text-3xl font-medium">Post not found</h1>
+        </main>
+        <Footer />
+      </>
     );
+  }
+
+  const headers = post.content.filter(
+    (item) => item.contentType === "text" && item.header
+  );
+
+  return (
+    <>
+      <Nav />
+      <main className="container-page min-h-screen py-16 sm:py-20">
+        <article>
+          <header className="border-b border-line pb-10">
+            <p className="text-sm text-muted">{post.date}</p>
+            <h1 className="mt-4 text-4xl font-medium leading-tight sm:text-5xl">
+              {post.title}
+            </h1>
+            <p className="mt-6 text-lg leading-8 text-muted">
+              {post.description}
+            </p>
+          </header>
+
+          {headers.length > 0 && (
+            <nav
+              aria-label="Sections"
+              className="my-8 flex flex-wrap gap-x-4 gap-y-2 text-sm text-muted"
+            >
+              {headers.map((item) => (
+                <a
+                  key={item.header}
+                  href={`#${slugify(item.header)}`}
+                  className="hover:text-foreground hover:underline"
+                >
+                  {item.header}
+                </a>
+              ))}
+            </nav>
+          )}
+
+          <div className="space-y-9">
+            {post.content.map((contentItem, index) => (
+              <section key={index}>
+                {contentItem.contentType === "text" && (
+                  <>
+                    {contentItem.header && (
+                      <h2
+                        id={slugify(contentItem.header)}
+                        className="scroll-mt-24 text-2xl font-medium"
+                      >
+                        {contentItem.header}
+                      </h2>
+                    )}
+                    <p
+                      className="mt-4 text-lg leading-8 text-foreground/90"
+                      dangerouslySetInnerHTML={{
+                        __html: linkify(contentItem.content),
+                      }}
+                    />
+                  </>
+                )}
+
+                {contentItem.contentType === "image" && (
+                  <figure>
+                    <Image
+                      src={contentItem.source}
+                      alt={contentItem.alt || contentItem.caption || post.title}
+                      className="h-auto w-full border border-line bg-white"
+                      width={1200}
+                      height={800}
+                      sizes="(max-width: 800px) 100vw, 760px"
+                    />
+                    {contentItem.caption && (
+                      <figcaption className="mt-3 text-sm leading-6 text-muted">
+                        {contentItem.caption}
+                      </figcaption>
+                    )}
+                  </figure>
+                )}
+              </section>
+            ))}
+          </div>
+        </article>
+      </main>
+      <Footer />
+    </>
+  );
+}
+
+function slugify(value) {
+  return value.toLowerCase().replace(/\s+/g, "-").replace(/[^\w-]+/g, "");
+}
+
+function linkify(value) {
+  return value.replace(
+    /(https?:\/\/[^\s]+)/g,
+    '<a href="$1" target="_blank" rel="noopener noreferrer" class="underline">$1</a>'
+  );
 }

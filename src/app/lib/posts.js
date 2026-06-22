@@ -1,7 +1,19 @@
 import fs from "node:fs";
 import path from "node:path";
+import { marked } from "marked";
 
 const postsDirectory = path.join(process.cwd(), "src", "content", "writing");
+
+marked.use({
+  renderer: {
+    heading(token) {
+      const text = this.parser.parseInline(token.tokens, this.parser.textRenderer);
+      const html = this.parser.parseInline(token.tokens);
+
+      return `<h${token.depth} id="${slugify(text)}">${html}</h${token.depth}>`;
+    },
+  },
+});
 
 export function getAllPosts() {
   return fs
@@ -39,7 +51,7 @@ export function getPostBySlug(slug) {
     date: frontmatter.date,
     order: Number(frontmatter.order ?? 999),
     headings: getHeadings(content),
-    html: markdownToHtml(content),
+    html: renderMarkdown(content),
   };
 }
 
@@ -81,111 +93,46 @@ function parseFrontmatter(file) {
   };
 }
 
-function markdownToHtml(markdown) {
-  const blocks = markdown.split(/\n{2,}/);
+function renderMarkdown(markdown) {
+  const normalized = normalizeCustomFormatting(markdown);
+  const html = marked.parse(normalized, {
+    gfm: true,
+    breaks: false,
+  });
 
-  return blocks
-    .map((block) => {
-      const trimmed = block.trim();
-
-      if (!trimmed) {
-        return "";
-      }
-
-      const image = trimmed.match(/^!\[(.*?)\]\((\S+)(?:\s+"(.*?)")?\)$/);
-
-      if (image) {
-        const [, alt, src, caption] = image;
-
-        return `<figure><img src="${src}" alt="${alt}" />${
-          caption ? `<figcaption>${caption}</figcaption>` : ""
-        }</figure>`;
-      }
-
-      if (trimmed.startsWith(">")) {
-        const quote = trimmed
-          .split("\n")
-          .map((line) => line.replace(/^>\s?/, ""))
-          .join("<br />");
-
-        return `<blockquote><p>${formatInline(quote)}</p></blockquote>`;
-      }
-
-      if (isTable(trimmed)) {
-        return tableToHtml(trimmed);
-      }
-
-      const heading = trimmed.match(/^(#{2,3})\s+(.+)$/);
-
-      if (heading) {
-        const level = heading[1].length;
-        const text = heading[2].trim();
-
-        return `<h${level} id="${slugify(text)}">${formatInline(text)}</h${level}>`;
-      }
-
-      return `<p>${formatInline(trimmed.replace(/\n/g, " "))}</p>`;
-    })
-    .join("\n");
+  return wrapTables(html);
 }
 
-function isTable(value) {
-  const lines = value.split("\n");
-
-  return (
-    lines.length >= 2 &&
-    lines[0].includes("|") &&
-    /^\s*\|?\s*:?-{3,}:?\s*(\|\s*:?-{3,}:?\s*)+\|?\s*$/.test(lines[1])
-  );
+function normalizeCustomFormatting(markdown) {
+  return markdown
+    .replace(/<\*>\s*([\s\S]*?)\s*<\/\*>/g, "**$1**")
+    .replace(/<_>\s*([\s\S]*?)\s*<\/_>/g, "*$1*");
 }
 
-function tableToHtml(value) {
-  const rows = value
-    .split("\n")
-    .filter((line) => line.trim())
-    .map(parseTableRow);
-  const [headers, , ...bodyRows] = rows;
-
-  return `<div class="table-wrap"><table><thead><tr>${headers
-    .map((cell) => `<th>${formatInline(cell)}</th>`)
-    .join("")}</tr></thead><tbody>${bodyRows
-    .map(
-      (row) =>
-        `<tr>${row.map((cell) => `<td>${formatInline(cell)}</td>`).join("")}</tr>`
-    )
-    .join("")}</tbody></table></div>`;
-}
-
-function parseTableRow(value) {
-  return value
-    .trim()
-    .replace(/^\|/, "")
-    .replace(/\|$/, "")
-    .split("|")
-    .map((cell) => cell.trim());
+function wrapTables(html) {
+  return html
+    .replace(/<table>/g, '<div class="table-wrap"><table>')
+    .replace(/<\/table>/g, "</table></div>");
 }
 
 function getHeadings(markdown) {
-  return markdown
+  return normalizeCustomFormatting(markdown)
     .split("\n")
     .map((line) => line.match(/^##\s+(.+)$/))
     .filter(Boolean)
     .map((match) => ({
-      text: match[1],
-      id: slugify(match[1]),
+      text: stripMarkdownFormatting(match[1]),
+      id: slugify(stripMarkdownFormatting(match[1])),
     }));
 }
 
-function formatInline(value) {
+function stripMarkdownFormatting(value) {
   return value
-    .replace(/<\*>(.*?)<\/\*>/g, "<strong>$1</strong>")
-    .replace(/<_>(.*?)<\/_>/g, "<em>$1</em>")
-    .replace(/\*\*(.*?)\*\*/g, "<strong>$1</strong>")
-    .replace(/\[(.*?)\]\((https?:\/\/.*?)\)/g, '<a href="$2">$1</a>')
-    .replace(
-      /(https?:\/\/[^\s<]+)/g,
-      '<a href="$1" target="_blank" rel="noopener noreferrer">$1</a>'
-    );
+    .replace(/<\*>\s*([\s\S]*?)\s*<\/\*>/g, "$1")
+    .replace(/<_>\s*([\s\S]*?)\s*<\/_>/g, "$1")
+    .replace(/\*\*(.*?)\*\*/g, "$1")
+    .replace(/\*(.*?)\*/g, "$1")
+    .replace(/\[(.*?)\]\((.*?)\)/g, "$1");
 }
 
 export function slugify(value) {

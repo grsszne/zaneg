@@ -1,9 +1,11 @@
 import Link from "next/link";
 import Footer from "./components/footer";
-import Items from "./components/items";
 import Nav from "./components/nav";
+import { getAllPosts } from "./lib/posts";
 
 export default function Home() {
+  const posts = getAllPosts();
+
   return (
     <>
       <Nav />
@@ -16,18 +18,17 @@ export default function Home() {
         </section>
 
         <section aria-label="Latest writing" className="border-t border-line">
-          {Items.map((item) => (
-            <article key={item.postId} className="border-b border-line py-8">
-              <Link href={`/posts/${item.postId}`} className="group block">
+          {posts.map((post) => (
+            <article key={post.slug} className="border-b border-line py-8">
+              <Link href={`/posts/${post.slug}`} className="group block">
                 <div className="mb-3 flex flex-col gap-1 text-sm text-muted sm:flex-row sm:items-center sm:justify-between">
-                  <time>{item.date}</time>
-                  <span>{item.content.length} sections</span>
+                  <time>{post.date}</time>
                 </div>
                 <h2 className="text-2xl font-medium leading-snug group-hover:underline">
-                  {item.title}
+                  {post.title}
                 </h2>
                 <p className="mt-3 max-w-2xl leading-7 text-muted">
-                  {item.description}
+                  {post.description}
                 </p>
               </Link>
             </article>

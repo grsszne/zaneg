@@ -8,7 +8,7 @@ const links = [
 
 export default function Nav() {
   return (
-    <header className="border-b border-line bg-background/90 sticky top-0 z-20 backdrop-blur">
+    <header className="sticky top-0 z-20 border-b border-line bg-background/90 backdrop-blur">
       <nav className="container-wide flex min-h-14 items-center justify-between gap-6 py-3">
         <Link href="/" className="text-sm font-medium tracking-normal">
           zaneg.net

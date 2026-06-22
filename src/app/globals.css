@@ -1,11 +1,12 @@
 @import "tailwindcss";
 
 :root {
-  --background: #f7f7f5;
+  --background: #f8f6f1;
   --foreground: #171717;
   --muted: #6f6f68;
-  --line: #deded8;
-  --surface: #ffffff;
+  --line: #e2ded5;
+  --surface: #fffdf8;
+  color-scheme: light;
 }
 
 @theme inline {
@@ -41,6 +42,22 @@ a {
   color: #ffffff;
 }
 
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #23221f;
+    --foreground: #f1eee7;
+    --muted: #b9b3a8;
+    --line: #3f3c36;
+    --surface: #2b2a26;
+    color-scheme: dark;
+  }
+
+  ::selection {
+    background: #f1eee7;
+    color: #23221f;
+  }
+}
+
 .container-page {
   width: min(100% - 2rem, 760px);
   margin-inline: auto;
@@ -57,4 +74,104 @@ a {
 
 .border-line {
   border-color: var(--line);
+}
+
+.markdown-post {
+  display: grid;
+  gap: 2.25rem;
+}
+
+.markdown-post h2,
+.markdown-post h3 {
+  scroll-margin-top: 6rem;
+  font-weight: 500;
+  line-height: 1.2;
+}
+
+.markdown-post h2 {
+  font-size: 1.5rem;
+}
+
+.markdown-post h3 {
+  font-size: 1.25rem;
+}
+
+.markdown-post p {
+  color: color-mix(in srgb, var(--foreground) 90%, transparent);
+  font-size: 1.125rem;
+  line-height: 2rem;
+  text-align: justify;
+}
+
+.markdown-post a {
+  text-decoration: underline;
+}
+
+.markdown-post figure {
+  margin: 0;
+}
+
+.markdown-post img {
+  width: 100%;
+  height: auto;
+  border: 1px solid var(--line);
+  background: var(--surface);
+}
+
+.markdown-post figcaption {
+  margin-top: 0.75rem;
+  color: var(--muted);
+  font-size: 0.875rem;
+  line-height: 1.5rem;
+}
+
+.markdown-post blockquote {
+  border-left: 2px solid var(--foreground);
+  padding: 0.25rem 0 0.25rem 1.25rem;
+}
+
+.markdown-post blockquote p {
+  color: var(--foreground);
+  font-size: 1.25rem;
+  line-height: 2rem;
+  text-align: justify;
+}
+
+.markdown-post .table-wrap {
+  width: 100%;
+  overflow-x: auto;
+}
+
+.markdown-post table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.95rem;
+  line-height: 1.5rem;
+}
+
+.markdown-post th,
+.markdown-post td {
+  border-bottom: 1px solid var(--line);
+  padding: 0.75rem 0.875rem;
+  text-align: left;
+  vertical-align: top;
+}
+
+.markdown-post th:first-child,
+.markdown-post td:first-child {
+  padding-left: 0;
+}
+
+.markdown-post th:last-child,
+.markdown-post td:last-child {
+  padding-right: 0;
+}
+
+.markdown-post th {
+  color: var(--foreground);
+  font-weight: 500;
+}
+
+.markdown-post td {
+  color: color-mix(in srgb, var(--foreground) 90%, transparent);
 }

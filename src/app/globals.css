@@ -6,6 +6,13 @@
   --muted: #6f6f68;
   --line: #e2ded5;
   --surface: #fffdf8;
+  /* Wada-inspired screen palette: Dark Medici Blue, Deep Grayish Olive,
+     and Dark Slate Purple. Shared by diagrams and interactive states.
+     https://en.seigensha.com/books/978-4-86152-247-5/
+     https://colorcombinations.org/colors/ */
+  --signal-primary: #547076;
+  --signal-secondary: #635a3a;
+  --signal-error: #704357;
   color-scheme: light;
 }
 
@@ -49,6 +56,9 @@ a {
     --muted: #b9b3a8;
     --line: #3f3c36;
     --surface: #2b2a26;
+    --signal-primary: #a5c8d1;
+    --signal-secondary: #c1c494;
+    --signal-error: #c0a9b3;
     color-scheme: dark;
   }
 
@@ -111,6 +121,11 @@ a {
   margin: 0;
 }
 
+.markdown-post .photo-portrait {
+  width: min(100%, 560px);
+  margin-inline: auto;
+}
+
 .markdown-post img {
   width: 100%;
   height: auto;
@@ -123,6 +138,32 @@ a {
   color: var(--muted);
   font-size: 0.875rem;
   line-height: 1.5rem;
+}
+
+.markdown-post .photo-gallery {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 2rem 1.5rem;
+}
+
+.photo-gallery a {
+  display: block;
+}
+
+.photo-gallery a:focus-visible {
+  outline: 2px solid var(--signal-primary);
+  outline-offset: 4px;
+}
+
+.markdown-post .photo-gallery img {
+  display: block;
+  aspect-ratio: 4 / 3;
+}
+
+@media (max-width: 640px) {
+  .markdown-post .photo-gallery {
+    grid-template-columns: 1fr;
+  }
 }
 
 .markdown-post blockquote {

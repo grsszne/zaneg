@@ -1,0 +1,60 @@
+.board {
+  --pcb-line: 6px;
+  position: relative;
+  width: 100%;
+  font-family: var(--font-geist-mono), monospace;
+}
+
+.art {
+  display: grid;
+  height: calc(56 * var(--pcb-line));
+  overflow: hidden;
+  user-select: none;
+}
+
+.art pre {
+  grid-area: 1 / 1;
+  margin: 0;
+  min-height: 384px;
+  font-family: inherit;
+  font-size: 6px;
+  font-weight: 400;
+  line-height: var(--pcb-line);
+  letter-spacing: 0;
+  white-space: pre;
+  transform: translate(-12ch, calc(-4 * var(--pcb-line)));
+}
+
+.substrate { color: var(--line); }
+.copper { color: var(--signal-primary); }
+.art .components {
+  color: color-mix(in srgb, var(--foreground) 82%, var(--background));
+}
+
+.regenerate {
+  position: absolute;
+  right: 1rem;
+  bottom: 0.5rem;
+  display: block;
+  width: 28px;
+  height: 28px;
+  color: var(--muted);
+  font-size: 16px;
+  cursor: pointer;
+  opacity: 0.6;
+  background: var(--background);
+}
+
+.regenerate:hover { color: var(--foreground); opacity: 1; }
+.regenerate:focus-visible {
+  outline: 2px solid var(--signal-primary);
+  outline-offset: 2px;
+}
+
+@media (max-width: 480px) {
+  .board { --pcb-line: 5px; }
+  .art pre {
+    font-size: clamp(4.6px, 1.2vw, 6px);
+    min-height: 320px;
+  }
+}

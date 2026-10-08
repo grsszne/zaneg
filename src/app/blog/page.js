@@ -1,10 +1,11 @@
 import Link from "next/link";
 import Footer from "../components/footer";
 import Nav from "../components/nav";
+import PostTopics from "../components/post-topics";
 import { getAllPosts } from "../lib/posts";
 
 export const metadata = {
-  title: "Writing | zaneg.net",
+  title: "Writing | zgro.net",
 };
 
 export default function Blog() {
@@ -18,12 +19,13 @@ export default function Blog() {
         <div className="mt-10 border-t border-line">
           {posts.map((post) => (
             <article key={post.slug} className="border-b border-line py-6">
-              <Link href={`/posts/${post.slug}`} className="group block">
+              <Link href={post.url} className="group block">
                 <time className="text-sm text-muted">{post.date}</time>
                 <h2 className="mt-2 text-xl font-medium group-hover:underline">
                   {post.title}
                 </h2>
                 <p className="mt-2 leading-7 text-muted">{post.description}</p>
+                <PostTopics topics={post.topics} />
               </Link>
             </article>
           ))}

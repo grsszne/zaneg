@@ -2,7 +2,7 @@ import Footer from "../components/footer";
 import Nav from "../components/nav";
 
 export const metadata = {
-  title: "Contact | zaneg.net",
+  title: "Contact | zgro.net",
 };
 
 export default function Contact() {

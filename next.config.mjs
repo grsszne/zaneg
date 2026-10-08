@@ -1,10 +1,22 @@
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { PHASE_DEVELOPMENT_SERVER } from 'next/constants.js';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  async redirects() {
+    return [{
+      source: '/laser!',
+      destination: '/laser',
+      permanent: true,
+    }, {
+      source: '/posts/laser-sending-data-through-light',
+      destination: '/laser',
+      permanent: true,
+    }];
+  },
   turbopack: {
     root: __dirname,
   },
@@ -26,4 +38,10 @@ const nextConfig = {
   },
 };
 
-export default nextConfig;
+export default function config(phase) {
+  return {
+    ...nextConfig,
+    // Keep production builds from overwriting a running dev server's artifacts.
+    distDir: phase === PHASE_DEVELOPMENT_SERVER ? '.next-dev' : '.next',
+  };
+}

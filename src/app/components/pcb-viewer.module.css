@@ -1,0 +1,32 @@
+.viewer { min-width: 0; margin: 0; }
+.stage { position: relative; width: 100%; aspect-ratio: 1.25; min-height: 280px; }
+.stage canvas { display: block; width: 100%; height: 100%; cursor: grab; }
+.stage canvas:active { cursor: grabbing; }
+.stage canvas:focus-visible { outline: 1px solid var(--muted); outline-offset: 3px; }
+.placeholder { position: absolute; inset: 0; display: flex; justify-content: center; align-items: center; gap: 1rem; color: var(--muted); font-size: 0.8125rem; }
+.viewer button { border: 0; background: transparent; color: var(--muted); font: inherit; font-size: 0.75rem; cursor: pointer; min-height: 40px; }
+.viewer button:hover, .viewer button[aria-pressed="true"] { color: var(--foreground); text-decoration: underline; text-underline-offset: 0.3em; }
+.viewer button:disabled { opacity: 0.35; cursor: default; text-decoration: none; }
+.viewer button:focus-visible, .viewer a:focus-visible { outline: 1px solid var(--foreground); outline-offset: 4px; }
+.toolbar { display: flex; align-items: center; gap: 1.25rem; border-top: 1px solid var(--line); }
+.zoom { display: flex; margin-left: auto; gap: 0.75rem; }
+.zoom button { width: 28px; font-size: 1.125rem; }
+.toolbar a { color: var(--muted); font-size: 0.75rem; white-space: nowrap; text-decoration: underline; text-underline-offset: 0.3em; }
+.caption { margin-top: 0.5rem; color: var(--muted); font-size: 0.625rem; line-height: 1.7; }
+.pins { position: absolute; inset: 0; z-index: 1; pointer-events: none; }
+.viewer .pin { position: absolute; transform: translate(-50%, -50%); pointer-events: auto; width: 20px; height: 20px; min-height: 20px; border-radius: 50%; border: 1px solid var(--muted); background: var(--background); color: var(--foreground); font-size: 9px; box-shadow: 0 1px 4px #0003; opacity: 0.9; }
+.pin::after { content: ""; position: absolute; inset: -4px; }
+.viewer .pin[aria-pressed="true"] { background: var(--foreground); color: var(--background); text-decoration: none; opacity: 1; }
+.options { display: flex; gap: 1.5rem; padding-top: 0.4rem; color: var(--muted); font-size: 0.6875rem; }
+.options label { display: inline-flex; align-items: center; gap: 0.4rem; min-height: 30px; cursor: pointer; }
+.options input { accent-color: var(--foreground); width: 12px; height: 12px; }
+.annotation { margin-top: 0.75rem; min-height: 100px; font-size: 0.75rem; line-height: 1.65; }
+.annotationHeading { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 0.25rem 0.75rem; }
+.annotationHeading > span { font-weight: 500; }
+.annotationNav { display: flex; gap: 0.125rem; }
+.viewer .annotationNav button { width: 23px; min-height: 28px; font-size: 0.625rem; }
+.annotation p { color: var(--muted); margin: 0.5rem 0 0; max-width: 58ch; }
+@media (max-width: 420px) {
+  .toolbar { gap: 0.875rem; }
+  .zoom { gap: 0.25rem; }
+}

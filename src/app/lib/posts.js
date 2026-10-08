@@ -25,8 +25,10 @@ export function getAllPosts() {
 
       return {
         slug,
+        url: post.url,
         title: post.title,
         description: post.description,
+        topics: post.topics,
         date: post.date,
         order: post.order,
       };
@@ -43,16 +45,69 @@ export function getPostBySlug(slug) {
 
   const file = fs.readFileSync(filePath, "utf8");
   const { frontmatter, content } = parseFrontmatter(file);
+  const html = renderMarkdown(content);
 
   return {
     slug,
+    url: slug === "laser-sending-data-through-light" ? "/laser" : `/posts/${slug}`,
     title: frontmatter.title,
     description: frontmatter.description,
+    topics: (frontmatter.tags ?? "").split(",").map(tag => tag.trim()).filter(Boolean),
     date: frontmatter.date,
     order: Number(frontmatter.order ?? 999),
+    status: frontmatter.status,
+    visual: frontmatter.visual,
     headings: getHeadings(content),
-    html: renderMarkdown(content),
+    html,
+    blocks: renderContentBlocks(content, html),
   };
+}
+
+function renderContentBlocks(content, html) {
+  const pattern = /<!--\s*(pcb|checklist):([\w-]+)\s*-->([\s\S]*?)<!--\s*\/\1\s*-->/g;
+  const blocks = [];
+  let position = 0;
+  for (const match of content.matchAll(pattern)) {
+    const preceding = content.slice(position, match.index).trim();
+    if (preceding) blocks.push({ type: "markdown", html: renderMarkdown(preceding) });
+    if (match[1] === "checklist") {
+      blocks.push({ type: "checklist", id: match[2], stages: parseChecklist(match[3]) });
+    } else {
+      blocks.push({ type: "pcb", model: match[2], html: renderMarkdown(match[3].trim()) });
+    }
+    position = match.index + match[0].length;
+  }
+  if (!blocks.length) return [{ type: "markdown", html }];
+  const remaining = content.slice(position).trim();
+  if (remaining) blocks.push({ type: "markdown", html: renderMarkdown(remaining) });
+  return blocks;
+}
+
+function parseChecklist(markdown) {
+  const stages = [];
+  for (const token of marked.lexer(markdown)) {
+    if (token.type === "heading") {
+      stages.push({ title: token.text.replace(/^\d+\.\s*/, ""), items: [], notes: "" });
+    } else if (stages.length) {
+      const stage = stages[stages.length - 1];
+      if (token.type === "list") {
+        for (const item of token.items) {
+          if (!item.task) continue;
+          const widget = item.text.match(/<!--\s*explore:(tx|rx|cdr)\s*-->/)?.[1];
+          const text = item.text.replace(/<!--\s*explore:(tx|rx|cdr)\s*-->/g, "").trim();
+          stage.items.push({
+            id: `${stage.title}/${text}`,
+            checked: Boolean(item.checked),
+            html: marked.parseInline(text),
+            ...(widget ? { widget } : {}),
+          });
+        }
+      } else if (token.type !== "space") {
+        stage.notes += renderMarkdown(token.raw);
+      }
+    }
+  }
+  return stages;
 }
 
 function parseFrontmatter(file) {

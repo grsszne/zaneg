@@ -1,0 +1,108 @@
+.experiment {
+  --beam: var(--signal-primary);
+  margin-block: 3rem 4rem;
+  color: var(--foreground);
+}
+.experiment h2 { font-size: 1.25rem; font-weight: 500; line-height: 1.4; }
+.form { margin-top: 1.5rem; }
+.form > label { display: block; margin-bottom: 0.5rem; color: var(--muted); font-size: 0.75rem; }
+.messageRow { display: flex; border: 1px solid var(--line); border-radius: 3px; overflow: hidden; }
+.messageRow:focus-within { border-color: var(--signal-primary); }
+.messageRow input { min-width: 0; flex: 1; padding: 0.625rem 0.875rem; outline: none; border: 0; border-radius: 0; background: transparent; color: var(--foreground); font: inherit; }
+.messageRow input:disabled { color: var(--muted); }
+.experiment button { color: var(--foreground); font: inherit; font-size: 0.8125rem; background: transparent; border: 0; cursor: pointer; }
+.experiment button:hover { text-decoration: underline; text-underline-offset: 0.3em; }
+.experiment button:disabled { cursor: default; opacity: 0.4; text-decoration: none; }
+.experiment button:focus-visible { outline: 1px solid var(--signal-primary); outline-offset: 5px; }
+.experiment .sendButton { padding-inline: 1.5rem; background: var(--foreground); color: var(--background); font-weight: 500; white-space: nowrap; }
+.experiment .sendButton:hover { text-decoration: none; background: color-mix(in srgb, var(--foreground) 88%, var(--background)); }
+.experiment .sendButton:disabled { opacity: 1; background: var(--line); color: var(--muted); }
+.experiment .sendButton:focus-visible { outline: 1px solid var(--background); outline-offset: -4px; }
+.endpoints { display: flex; justify-content: space-between; gap: 2rem; margin-top: 2.5rem; }
+.endpoints > div { min-width: 0; flex: 1; }
+.endpoints > div:last-child { text-align: right; }
+.endpoints span { font-size: 0.75rem; color: var(--muted); }
+.endpoints p { min-height: 1.75rem; max-height: 5.25rem; overflow-y: auto; margin-top: 0.5rem; font-size: 1.125rem; overflow-wrap: anywhere; }
+.corrupted { color: var(--signal-error); text-decoration: line-through; }
+.illustration { display: block; width: 100%; height: auto; margin-top: 0.5rem; overflow: visible; }
+.station { stroke: var(--foreground); stroke-width: 1.25; fill: none; }
+.sled { opacity: 0.13; stroke-dasharray: 2 5; }
+.rail { opacity: 0.22; }
+.board { fill: var(--background); }
+.chip { fill: var(--foreground); fill-opacity: 0.12; }
+.pcbDrawing { stroke-width: 0.55; stroke-linejoin: round; }
+.pcbMetal { fill: color-mix(in srgb, var(--foreground) 9%, var(--background)); }
+.pcbPackage { fill: color-mix(in srgb, var(--foreground) 65%, var(--background)); fill-opacity: 1; }
+.pcbContacts { fill: var(--background); stroke-width: 0.25; }
+.pcbDetail { fill: none; stroke-width: 0.45; }
+.coolerFin { stroke-width: 1; }
+.fanBlade { fill: var(--muted); stroke: var(--background); stroke-width: 0.25; }
+.selectedPart .pcbOutline { stroke: var(--beam); stroke-width: 1.5; }
+.lens { fill: var(--background); }
+.wiring { fill: none; stroke: var(--muted); stroke-width: 1.25; stroke-linecap: round; stroke-linejoin: round; opacity: 0.55; }
+.activeWire { stroke: var(--beam); opacity: 0.85; }
+.focusCone { fill: none; stroke: var(--muted); stroke-width: 0.75; opacity: 0.3; }
+.station g { cursor: pointer; }
+.selectedPart { stroke-width: 2.5; }
+.selectedPart .chip, .selectedPart .lens { fill: var(--beam); fill-opacity: 0.55; }
+.hardwareLabels { fill: var(--muted); font-size: 16px; }
+.beamGuide { fill: none; stroke: var(--beam); stroke-opacity: 0.3; stroke-width: 1; }
+.returnGuide { fill: none; stroke: var(--signal-secondary); stroke-opacity: 0.3; stroke-width: 1; }
+.pulse { stroke: var(--beam); stroke-width: 3; stroke-linecap: round; }
+.emitter { fill: var(--beam); }
+.spaceLabel { fill: var(--muted); font-size: 16px; }
+.returnLabel { fill: var(--muted); font-size: 13px; }
+.ackLabel { fill: var(--foreground); font-size: 14px; }
+.shutter { fill: var(--foreground); stroke: var(--muted); stroke-width: 1; transition: transform 220ms ease; cursor: pointer; }
+.shutterEdge { stroke: var(--background); opacity: 0.4; }
+.controls { display: flex; align-items: center; gap: 1.25rem; margin-top: 0.5rem; }
+.beamToggle { display: inline-flex; align-items: center; gap: 0.5rem; min-height: 2.5rem; margin-right: auto; color: var(--muted); font-size: 0.8125rem; cursor: pointer; }
+.beamToggle input { width: 14px; height: 14px; margin: 0; accent-color: var(--foreground); cursor: pointer; }
+.beamToggle input:focus-visible { outline: 1px solid var(--foreground); outline-offset: 4px; }
+.beamToggle:has(input:checked) { color: var(--foreground); }
+.controls button { min-height: 2.5rem; color: var(--muted); }
+.status { min-height: 1.5rem; margin-bottom: 0.75rem; color: var(--muted); font-size: 0.75rem; line-height: 1.7; text-align: right; }
+.scope { border-block: 1px solid var(--line); padding-block: 1rem; }
+.traceRow { display: flex; align-items: center; gap: 1rem; }
+.traceRow > span { flex: 0 0 4rem; font-size: 0.6875rem; color: var(--muted); }
+.traceRow small { display: block; margin-top: 0.125rem; font-size: 0.625rem; }
+.trace { display: block; width: 100%; min-width: 0; height: 40px; overflow: visible; }
+.voltageTrace { height: 56px; }
+.traceBaseline, .traceGrid { fill: none; stroke: var(--line); stroke-width: 0.7; }
+.traceGrid { stroke-dasharray: 1 4; }
+.sentTrace, .receivedTrace, .analogTrace { fill: none; stroke: var(--foreground); stroke-width: 1.25; vector-effect: non-scaling-stroke; }
+.analogTrace { stroke: var(--signal-secondary); stroke-linejoin: round; }
+.receivedTrace { stroke: var(--beam); }
+.scopeNote { margin-top: 0.875rem; color: var(--muted); font-size: 0.625rem; line-height: 1.7; }
+.scopeNote a { text-decoration: underline; text-decoration-color: var(--line); }
+.cursor { stroke: var(--muted); stroke-width: 0.75; stroke-dasharray: 2 3; }
+.inspector { display: flex; align-items: center; gap: 1rem; margin-top: 0.75rem; padding-left: 5rem; }
+.inspector input { flex: 1; min-width: 0; height: 1rem; appearance: none; -webkit-appearance: none; background: transparent; cursor: pointer; }
+.inspector input::-webkit-slider-runnable-track { height: 1px; background: var(--muted); }
+.inspector input::-webkit-slider-thumb { -webkit-appearance: none; width: 10px; height: 10px; margin-top: -4.5px; border-radius: 50%; background: var(--foreground); }
+.inspector input::-moz-range-track { height: 1px; background: var(--muted); }
+.inspector input::-moz-range-thumb { width: 10px; height: 10px; border: 0; border-radius: 50%; background: var(--foreground); }
+.inspector input:focus-visible { outline: 1px solid var(--foreground); outline-offset: 4px; }
+.inspector input:disabled { opacity: 0.4; cursor: default; }
+.inspector span { min-width: 7rem; color: var(--muted); font-family: var(--font-geist-mono), monospace; font-size: 0.625rem; }
+.parts { display: flex; flex-wrap: wrap; gap: 0.75rem 1.5rem; margin-top: 1.5rem; }
+.parts button { color: var(--muted); text-decoration: underline; text-decoration-color: var(--line); text-underline-offset: 0.3em; }
+.parts button[aria-pressed="true"] { color: var(--signal-primary); text-decoration-color: var(--signal-primary); }
+.partDetail { min-height: 5.5rem; margin-top: 0.875rem; color: var(--muted); font-size: 0.8125rem; line-height: 1.8; }
+.caption { margin-top: 1rem; color: var(--muted); font-size: 0.6875rem; line-height: 1.7; }
+@media (max-width: 540px) {
+  .endpoints { gap: 1rem; }
+  .endpoints p { font-size: 0.875rem; }
+  .hardwareLabels { display: none; }
+  .spaceLabel { font-size: 25px; }
+  .returnLabel { font-size: 21px; }
+  .station { stroke-width: 2; }
+  .pcbDrawing { stroke-width: 0.85; }
+  .pulse { stroke-width: 5; }
+  .illustration { margin-block: 1rem; }
+  .traceRow { gap: 0.5rem; }
+  .traceRow > span { flex-basis: 3.25rem; }
+  .inspector { padding-left: 0; }
+  .partDetail { min-height: 8rem; }
+}
+@media (prefers-reduced-motion: reduce) { .shutter { transition: none; } }

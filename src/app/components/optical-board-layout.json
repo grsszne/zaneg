@@ -1,0 +1,1286 @@
+{
+  "tx-a": {
+    "width": 47,
+    "height": 45,
+    "components": [
+      {
+        "ref": "C16",
+        "cx": 11.47,
+        "cy": 24.03,
+        "width": 1.6,
+        "height": 0.8,
+        "angle": 0
+      },
+      {
+        "ref": "R13",
+        "cx": 23.57,
+        "cy": 23.48,
+        "width": 1.6,
+        "height": 0.8,
+        "angle": -180
+      },
+      {
+        "ref": "C8",
+        "cx": 33.1,
+        "cy": 14.97,
+        "width": 1.6,
+        "height": 0.8,
+        "angle": 0
+      },
+      {
+        "ref": "U5",
+        "cx": 28.64,
+        "cy": 35.3,
+        "width": 2.5,
+        "height": 3,
+        "angle": 0
+      },
+      {
+        "ref": "FB1",
+        "cx": 15.6,
+        "cy": 10.74,
+        "width": 2,
+        "height": 1.25,
+        "angle": 90
+      },
+      {
+        "ref": "D2",
+        "cx": 40.66,
+        "cy": 9.47,
+        "width": 3.5,
+        "height": 1.7,
+        "angle": -180
+      },
+      {
+        "ref": "U6",
+        "cx": 33.95,
+        "cy": 25.15,
+        "width": 2.5,
+        "height": 3,
+        "angle": -90
+      },
+      {
+        "ref": "R26",
+        "cx": 36.05,
+        "cy": 23,
+        "width": 1.6,
+        "height": 0.8,
+        "angle": 0
+      },
+      {
+        "ref": "R8",
+        "cx": 35.4,
+        "cy": 16.73,
+        "width": 1.6,
+        "height": 0.8,
+        "angle": -90
+      },
+      {
+        "ref": "R1",
+        "cx": 13.48,
+        "cy": 12.8,
+        "width": 1,
+        "height": 0.5,
+        "angle": 90
+      },
+      {
+        "ref": "R16",
+        "cx": 5.3,
+        "cy": 21.48,
+        "width": 1.6,
+        "height": 0.8,
+        "angle": -90
+      },
+      {
+        "ref": "R10",
+        "cx": 33.1,
+        "cy": 13.5,
+        "width": 1.6,
+        "height": 0.8,
+        "angle": -180
+      },
+      {
+        "ref": "R19",
+        "cx": 30.7,
+        "cy": 26.05,
+        "width": 1.6,
+        "height": 0.8,
+        "angle": 0
+      },
+      {
+        "ref": "R27",
+        "cx": 15.51,
+        "cy": 34.51,
+        "width": 1.6,
+        "height": 0.8,
+        "angle": 90
+      },
+      {
+        "ref": "R17",
+        "cx": 18.7,
+        "cy": 31.05,
+        "width": 1.6,
+        "height": 0.8,
+        "angle": -90
+      },
+      {
+        "ref": "F1",
+        "cx": 11.3,
+        "cy": 19.41,
+        "width": 3.2,
+        "height": 1.6,
+        "angle": -90
+      },
+      {
+        "ref": "R9",
+        "cx": 37.65,
+        "cy": 15.98,
+        "width": 1.6,
+        "height": 0.8,
+        "angle": 0
+      },
+      {
+        "ref": "R11",
+        "cx": 24.47,
+        "cy": 18.95,
+        "width": 1.6,
+        "height": 0.8,
+        "angle": 90
+      },
+      {
+        "ref": "R5",
+        "cx": 25.1,
+        "cy": 37.38,
+        "width": 1.6,
+        "height": 0.8,
+        "angle": 0
+      },
+      {
+        "ref": "D1",
+        "cx": 24.97,
+        "cy": 10.63,
+        "width": 1.6,
+        "height": 0.8,
+        "angle": -90
+      },
+      {
+        "ref": "R14",
+        "cx": 21.88,
+        "cy": 31.9,
+        "width": 1.6,
+        "height": 0.8,
+        "angle": -180
+      },
+      {
+        "ref": "U3",
+        "cx": 36.6,
+        "cy": 11.27,
+        "width": 4.9,
+        "height": 3,
+        "angle": -90
+      },
+      {
+        "ref": "R6",
+        "cx": 35.35,
+        "cy": 37.02,
+        "width": 1.6,
+        "height": 0.8,
+        "angle": -90
+      },
+      {
+        "ref": "C18",
+        "cx": 30.4,
+        "cy": 37.38,
+        "width": 1.6,
+        "height": 0.8,
+        "angle": 90
+      },
+      {
+        "ref": "D3",
+        "cx": 4.3,
+        "cy": 23.95,
+        "width": 2.5,
+        "height": 1.25,
+        "angle": -180
+      },
+      {
+        "ref": "C7",
+        "cx": 21.07,
+        "cy": 38.35,
+        "width": 1.6,
+        "height": 0.8,
+        "angle": 90
+      },
+      {
+        "ref": "U2",
+        "cx": 22.54,
+        "cy": 35.15,
+        "width": 2.8,
+        "height": 2.9,
+        "angle": -180
+      },
+      {
+        "ref": "C11",
+        "cx": 40.7,
+        "cy": 11.73,
+        "width": 3.2,
+        "height": 1.6,
+        "angle": -180
+      },
+      {
+        "ref": "C21",
+        "cx": 33.77,
+        "cy": 10.2,
+        "width": 2,
+        "height": 1.25,
+        "angle": 90
+      },
+      {
+        "ref": "R12",
+        "cx": 14.02,
+        "cy": 34.51,
+        "width": 1.6,
+        "height": 0.8,
+        "angle": -90
+      },
+      {
+        "ref": "C13",
+        "cx": 18.82,
+        "cy": 27.49,
+        "width": 1,
+        "height": 0.5,
+        "angle": 90
+      },
+      {
+        "ref": "J1",
+        "cx": 13.14,
+        "cy": 3.95,
+        "width": 8.94,
+        "height": 7.9,
+        "angle": -180
+      },
+      {
+        "ref": "C5",
+        "cx": 30.25,
+        "cy": 3.72,
+        "width": 3.2,
+        "height": 1.6,
+        "angle": -90
+      },
+      {
+        "ref": "C1",
+        "cx": 17.55,
+        "cy": 14.9,
+        "width": 3.2,
+        "height": 1.6,
+        "angle": 90
+      },
+      {
+        "ref": "D4",
+        "cx": 9.45,
+        "cy": 11.35,
+        "width": 3.8,
+        "height": 1.8,
+        "angle": 90
+      },
+      {
+        "ref": "R3",
+        "cx": 25.75,
+        "cy": 8.37,
+        "width": 1.6,
+        "height": 0.8,
+        "angle": -180
+      },
+      {
+        "ref": "J2",
+        "cx": 27.05,
+        "cy": 42.35,
+        "width": 7.9,
+        "height": 4.55,
+        "angle": 0
+      },
+      {
+        "ref": "Q2",
+        "cx": 11.35,
+        "cy": 34.71,
+        "width": 2.5,
+        "height": 3,
+        "angle": -180
+      },
+      {
+        "ref": "R25",
+        "cx": 31.48,
+        "cy": 23.82,
+        "width": 1.6,
+        "height": 0.8,
+        "angle": -90
+      },
+      {
+        "ref": "J3",
+        "cx": 5.38,
+        "cy": 28.19,
+        "width": 5.54,
+        "height": 6.2,
+        "angle": 90
+      },
+      {
+        "ref": "R23",
+        "cx": 26.58,
+        "cy": 17,
+        "width": 1.6,
+        "height": 0.8,
+        "angle": -90
+      },
+      {
+        "ref": "R24",
+        "cx": 22.67,
+        "cy": 18.93,
+        "width": 1.6,
+        "height": 0.8,
+        "angle": -90
+      },
+      {
+        "ref": "C10",
+        "cx": 40.7,
+        "cy": 14.02,
+        "width": 3.2,
+        "height": 1.6,
+        "angle": -180
+      },
+      {
+        "ref": "C6",
+        "cx": 28.17,
+        "cy": 4.4,
+        "width": 1.6,
+        "height": 0.8,
+        "angle": -90
+      },
+      {
+        "ref": "U4",
+        "cx": 20.01,
+        "cy": 24.8,
+        "width": 2.8,
+        "height": 2.9,
+        "angle": -180
+      },
+      {
+        "ref": "R4",
+        "cx": 24.07,
+        "cy": 38.85,
+        "width": 1.6,
+        "height": 0.8,
+        "angle": -180
+      },
+      {
+        "ref": "R15",
+        "cx": 15.9,
+        "cy": 21.07,
+        "width": 6.3,
+        "height": 3.2,
+        "angle": 90
+      },
+      {
+        "ref": "JP1",
+        "cx": 43.02,
+        "cy": 35.67,
+        "width": 2.54,
+        "height": 5.08,
+        "angle": -90
+      },
+      {
+        "ref": "R18",
+        "cx": 8.05,
+        "cy": 20.95,
+        "width": 6.3,
+        "height": 3.2,
+        "angle": 90
+      },
+      {
+        "ref": "C9",
+        "cx": 31.2,
+        "cy": 8.48,
+        "width": 1.6,
+        "height": 0.8,
+        "angle": -90
+      },
+      {
+        "ref": "R28",
+        "cx": 14.75,
+        "cy": 36.75,
+        "width": 1.6,
+        "height": 0.8,
+        "angle": -180
+      },
+      {
+        "ref": "R2",
+        "cx": 11.27,
+        "cy": 12.8,
+        "width": 1,
+        "height": 0.5,
+        "angle": 90
+      },
+      {
+        "ref": "Q1",
+        "cx": 13.53,
+        "cy": 29.41,
+        "width": 7,
+        "height": 6.5,
+        "angle": -180
+      },
+      {
+        "ref": "D5",
+        "cx": 12.37,
+        "cy": 10.89,
+        "width": 2.5,
+        "height": 3,
+        "angle": 90
+      },
+      {
+        "ref": "C25",
+        "cx": 17.75,
+        "cy": 39.61,
+        "width": 2,
+        "height": 1.25,
+        "angle": 90
+      },
+      {
+        "ref": "C17",
+        "cx": 9.99,
+        "cy": 25.27,
+        "width": 1,
+        "height": 0.5,
+        "angle": 0
+      },
+      {
+        "ref": "C14",
+        "cx": 20.62,
+        "cy": 28.87,
+        "width": 3.2,
+        "height": 1.6,
+        "angle": 90
+      },
+      {
+        "ref": "U1",
+        "cx": 25.8,
+        "cy": 6.1,
+        "width": 2.1,
+        "height": 2,
+        "angle": 0
+      },
+      {
+        "ref": "D7",
+        "cx": 26.05,
+        "cy": 14.27,
+        "width": 1.6,
+        "height": 0.8,
+        "angle": 0
+      },
+      {
+        "ref": "D8",
+        "cx": 22.65,
+        "cy": 15.41,
+        "width": 1.6,
+        "height": 0.8,
+        "angle": 90
+      },
+      {
+        "ref": "R7",
+        "cx": 21.48,
+        "cy": 7.6,
+        "width": 1.6,
+        "height": 0.8,
+        "angle": 90
+      },
+      {
+        "ref": "C15",
+        "cx": 3.72,
+        "cy": 21.48,
+        "width": 1.6,
+        "height": 0.8,
+        "angle": 90
+      },
+      {
+        "ref": "C12",
+        "cx": 23.57,
+        "cy": 24.95,
+        "width": 1.6,
+        "height": 0.8,
+        "angle": 0
+      },
+      {
+        "ref": "C24",
+        "cx": 19.55,
+        "cy": 39.23,
+        "width": 1.6,
+        "height": 0.8,
+        "angle": 90
+      },
+      {
+        "ref": "C3",
+        "cx": 15.63,
+        "cy": 14.07,
+        "width": 1.6,
+        "height": 0.8,
+        "angle": 90
+      },
+      {
+        "ref": "U8",
+        "cx": 18.75,
+        "cy": 35.64,
+        "width": 2.8,
+        "height": 2.9,
+        "angle": 90
+      },
+      {
+        "ref": "C2",
+        "cx": 17.52,
+        "cy": 10.77,
+        "width": 2,
+        "height": 1.25,
+        "angle": -90
+      },
+      {
+        "ref": "C23",
+        "cx": 32.7,
+        "cy": 23.33,
+        "width": 1,
+        "height": 0.5,
+        "angle": 90
+      },
+      {
+        "ref": "R20",
+        "cx": 28.17,
+        "cy": 37.75,
+        "width": 1.6,
+        "height": 0.8,
+        "angle": -180
+      },
+      {
+        "ref": "C4",
+        "cx": 22.45,
+        "cy": 4.95,
+        "width": 2,
+        "height": 1.25,
+        "angle": -180
+      },
+      {
+        "ref": "D6",
+        "cx": 32.88,
+        "cy": 37.61,
+        "width": 2.5,
+        "height": 3,
+        "angle": -90
+      }
+    ]
+  },
+  "rx-a": {
+    "width": 72,
+    "height": 45,
+    "components": [
+      {
+        "ref": "R22",
+        "cx": 41.66,
+        "cy": 26.52,
+        "width": 1,
+        "height": 0.5,
+        "angle": -180
+      },
+      {
+        "ref": "C31",
+        "cx": 28.05,
+        "cy": 18.68,
+        "width": 1.6,
+        "height": 0.8,
+        "angle": -90
+      },
+      {
+        "ref": "C4",
+        "cx": 16,
+        "cy": 22.55,
+        "width": 1,
+        "height": 0.5,
+        "angle": 0
+      },
+      {
+        "ref": "R18",
+        "cx": 39.65,
+        "cy": 20.08,
+        "width": 1,
+        "height": 0.5,
+        "angle": -180
+      },
+      {
+        "ref": "C26",
+        "cx": 35.15,
+        "cy": 27.38,
+        "width": 1,
+        "height": 0.5,
+        "angle": -180
+      },
+      {
+        "ref": "C25",
+        "cx": 20.09,
+        "cy": 9.55,
+        "width": 1.6,
+        "height": 0.8,
+        "angle": 0
+      },
+      {
+        "ref": "C37",
+        "cx": 12.87,
+        "cy": 9.55,
+        "width": 1.6,
+        "height": 0.8,
+        "angle": 0
+      },
+      {
+        "ref": "C30",
+        "cx": 29.25,
+        "cy": 19.55,
+        "width": 1,
+        "height": 0.5,
+        "angle": -90
+      },
+      {
+        "ref": "C40",
+        "cx": 22.6,
+        "cy": 18,
+        "width": 1.6,
+        "height": 0.8,
+        "angle": -90
+      },
+      {
+        "ref": "R15",
+        "cx": 24.75,
+        "cy": 18.44,
+        "width": 1,
+        "height": 0.5,
+        "angle": -90
+      },
+      {
+        "ref": "R20",
+        "cx": 41.64,
+        "cy": 28.42,
+        "width": 1,
+        "height": 0.5,
+        "angle": -180
+      },
+      {
+        "ref": "R16",
+        "cx": 24.75,
+        "cy": 21.3,
+        "width": 1,
+        "height": 0.5,
+        "angle": 90
+      },
+      {
+        "ref": "C1",
+        "cx": 8.62,
+        "cy": 26.56,
+        "width": 1,
+        "height": 0.5,
+        "angle": -90
+      },
+      {
+        "ref": "R13",
+        "cx": 28.65,
+        "cy": 34.51,
+        "width": 1,
+        "height": 0.5,
+        "angle": -90
+      },
+      {
+        "ref": "R12",
+        "cx": 39.35,
+        "cy": 33.5,
+        "width": 1,
+        "height": 0.5,
+        "angle": 0
+      },
+      {
+        "ref": "C24",
+        "cx": 19.55,
+        "cy": 8.35,
+        "width": 1,
+        "height": 0.5,
+        "angle": 0
+      },
+      {
+        "ref": "U3",
+        "cx": 31.62,
+        "cy": 6.75,
+        "width": 2.8,
+        "height": 2.9,
+        "angle": 90
+      },
+      {
+        "ref": "R6",
+        "cx": 23.78,
+        "cy": 21.27,
+        "width": 1,
+        "height": 0.5,
+        "angle": -90
+      },
+      {
+        "ref": "C17",
+        "cx": 27.34,
+        "cy": 9.5,
+        "width": 1.6,
+        "height": 0.8,
+        "angle": 0
+      },
+      {
+        "ref": "C6",
+        "cx": 22.33,
+        "cy": 21.07,
+        "width": 1,
+        "height": 0.5,
+        "angle": -90
+      },
+      {
+        "ref": "FB1",
+        "cx": 12.65,
+        "cy": 17.79,
+        "width": 2,
+        "height": 1.25,
+        "angle": 90
+      },
+      {
+        "ref": "R21",
+        "cx": 41.66,
+        "cy": 25.58,
+        "width": 1,
+        "height": 0.5,
+        "angle": -180
+      },
+      {
+        "ref": "C10",
+        "cx": 34.04,
+        "cy": 8.3,
+        "width": 1,
+        "height": 0.5,
+        "angle": 0
+      },
+      {
+        "ref": "C44",
+        "cx": 33.16,
+        "cy": 1.93,
+        "width": 1,
+        "height": 0.5,
+        "angle": -90
+      },
+      {
+        "ref": "C20",
+        "cx": 39.1,
+        "cy": 23.33,
+        "width": 1,
+        "height": 0.5,
+        "angle": 0
+      },
+      {
+        "ref": "C32",
+        "cx": 38.07,
+        "cy": 29.63,
+        "width": 1.6,
+        "height": 0.8,
+        "angle": 90
+      },
+      {
+        "ref": "R17",
+        "cx": 24.75,
+        "cy": 25.04,
+        "width": 1,
+        "height": 0.5,
+        "angle": -90
+      },
+      {
+        "ref": "R10",
+        "cx": 14.9,
+        "cy": 31.34,
+        "width": 1,
+        "height": 0.5,
+        "angle": -90
+      },
+      {
+        "ref": "R24",
+        "cx": 41.68,
+        "cy": 23.67,
+        "width": 1,
+        "height": 0.5,
+        "angle": -180
+      },
+      {
+        "ref": "C8",
+        "cx": 34.07,
+        "cy": 5.2,
+        "width": 1,
+        "height": 0.5,
+        "angle": 0
+      },
+      {
+        "ref": "C3",
+        "cx": 14.25,
+        "cy": 19.23,
+        "width": 1.6,
+        "height": 0.8,
+        "angle": -90
+      },
+      {
+        "ref": "U2",
+        "cx": 20.11,
+        "cy": 23.42,
+        "width": 4.9,
+        "height": 3,
+        "angle": 0
+      },
+      {
+        "ref": "R23",
+        "cx": 41.68,
+        "cy": 24.62,
+        "width": 1,
+        "height": 0.5,
+        "angle": -180
+      },
+      {
+        "ref": "R25",
+        "cx": 41.66,
+        "cy": 22.72,
+        "width": 1,
+        "height": 0.5,
+        "angle": -180
+      },
+      {
+        "ref": "U7",
+        "cx": 33.76,
+        "cy": 34.13,
+        "width": 7.8,
+        "height": 5.3,
+        "angle": -180
+      },
+      {
+        "ref": "C27",
+        "cx": 35.15,
+        "cy": 29.32,
+        "width": 1.6,
+        "height": 0.8,
+        "angle": 90
+      },
+      {
+        "ref": "R19",
+        "cx": 41.65,
+        "cy": 27.48,
+        "width": 1,
+        "height": 0.5,
+        "angle": -180
+      },
+      {
+        "ref": "R26",
+        "cx": 41.53,
+        "cy": 20.33,
+        "width": 1,
+        "height": 0.5,
+        "angle": -180
+      },
+      {
+        "ref": "C34",
+        "cx": 28.65,
+        "cy": 36.75,
+        "width": 1,
+        "height": 0.5,
+        "angle": 90
+      },
+      {
+        "ref": "R9",
+        "cx": 14.9,
+        "cy": 33.85,
+        "width": 1,
+        "height": 0.5,
+        "angle": 90
+      },
+      {
+        "ref": "C21",
+        "cx": 44.73,
+        "cy": 23.85,
+        "width": 1.6,
+        "height": 0.8,
+        "angle": -45
+      },
+      {
+        "ref": "C39",
+        "cx": 23.8,
+        "cy": 18.2,
+        "width": 1,
+        "height": 0.5,
+        "angle": -90
+      },
+      {
+        "ref": "R2",
+        "cx": 16.2,
+        "cy": 25.75,
+        "width": 1.6,
+        "height": 0.8,
+        "angle": 90
+      },
+      {
+        "ref": "C12",
+        "cx": 24.23,
+        "cy": 22.7,
+        "width": 1,
+        "height": 0.5,
+        "angle": 0
+      },
+      {
+        "ref": "U1",
+        "cx": 11.29,
+        "cy": 23.17,
+        "width": 6,
+        "height": 4.9,
+        "angle": 0
+      },
+      {
+        "ref": "C42",
+        "cx": 35.88,
+        "cy": 1.93,
+        "width": 1.6,
+        "height": 0.8,
+        "angle": -90
+      },
+      {
+        "ref": "C14",
+        "cx": 26.82,
+        "cy": 5.25,
+        "width": 1,
+        "height": 0.5,
+        "angle": 0
+      },
+      {
+        "ref": "C23",
+        "cx": 20.3,
+        "cy": 6.5,
+        "width": 1.6,
+        "height": 0.8,
+        "angle": 0
+      },
+      {
+        "ref": "C22",
+        "cx": 19.57,
+        "cy": 5.3,
+        "width": 1,
+        "height": 0.5,
+        "angle": 0
+      },
+      {
+        "ref": "J1",
+        "cx": 21.02,
+        "cy": 33.08,
+        "width": 5.08,
+        "height": 10.16,
+        "angle": 90
+      },
+      {
+        "ref": "R3",
+        "cx": 19.65,
+        "cy": 20.15,
+        "width": 1.6,
+        "height": 0.8,
+        "angle": -90
+      },
+      {
+        "ref": "U4",
+        "cx": 33.85,
+        "cy": 22.78,
+        "width": 7,
+        "height": 7,
+        "angle": 0
+      },
+      {
+        "ref": "C15",
+        "cx": 27.55,
+        "cy": 6.45,
+        "width": 1.6,
+        "height": 0.8,
+        "angle": 0
+      },
+      {
+        "ref": "C41",
+        "cx": 43.83,
+        "cy": 17,
+        "width": 1,
+        "height": 0.5,
+        "angle": -180
+      },
+      {
+        "ref": "C28",
+        "cx": 39.9,
+        "cy": 21.3,
+        "width": 1,
+        "height": 0.5,
+        "angle": 0
+      },
+      {
+        "ref": "U9",
+        "cx": 9.87,
+        "cy": 6.84,
+        "width": 2.8,
+        "height": 2.9,
+        "angle": 90
+      },
+      {
+        "ref": "R8",
+        "cx": 41.05,
+        "cy": 30.05,
+        "width": 1,
+        "height": 0.5,
+        "angle": -90
+      },
+      {
+        "ref": "C18",
+        "cx": 39.53,
+        "cy": 24.25,
+        "width": 1,
+        "height": 0.5,
+        "angle": 0
+      },
+      {
+        "ref": "R7",
+        "cx": 23.78,
+        "cy": 25.03,
+        "width": 1,
+        "height": 0.5,
+        "angle": 90
+      },
+      {
+        "ref": "C2",
+        "cx": 12.58,
+        "cy": 20,
+        "width": 1,
+        "height": 0.5,
+        "angle": -180
+      },
+      {
+        "ref": "C45",
+        "cx": 28.41,
+        "cy": 22.54,
+        "width": 1,
+        "height": 0.5,
+        "angle": 135
+      },
+      {
+        "ref": "R29",
+        "cx": 18.45,
+        "cy": 20.65,
+        "width": 1,
+        "height": 0.5,
+        "angle": 90
+      },
+      {
+        "ref": "C9",
+        "cx": 34.8,
+        "cy": 6.4,
+        "width": 1.6,
+        "height": 0.8,
+        "angle": 0
+      },
+      {
+        "ref": "R14",
+        "cx": 25.06,
+        "cy": 19.85,
+        "width": 1,
+        "height": 0.5,
+        "angle": -180
+      },
+      {
+        "ref": "D1",
+        "cx": 4.15,
+        "cy": 22.66,
+        "width": 6.15,
+        "height": 6.14,
+        "angle": -180
+      },
+      {
+        "ref": "R27",
+        "cx": 36.73,
+        "cy": 17.68,
+        "width": 1,
+        "height": 0.5,
+        "angle": 90
+      },
+      {
+        "ref": "R30",
+        "cx": 28.19,
+        "cy": 33.1,
+        "width": 1,
+        "height": 0.5,
+        "angle": 0
+      },
+      {
+        "ref": "C29",
+        "cx": 43.65,
+        "cy": 21.05,
+        "width": 1.6,
+        "height": 0.8,
+        "angle": -45
+      },
+      {
+        "ref": "C38",
+        "cx": 13.07,
+        "cy": 6.5,
+        "width": 1.6,
+        "height": 0.8,
+        "angle": 0
+      },
+      {
+        "ref": "C19",
+        "cx": 38.82,
+        "cy": 27.33,
+        "width": 1.6,
+        "height": 0.8,
+        "angle": -180
+      },
+      {
+        "ref": "J2",
+        "cx": 51.9,
+        "cy": 12.42,
+        "width": 20.75,
+        "height": 4.95,
+        "angle": 45
+      },
+      {
+        "ref": "C36",
+        "cx": 12.3,
+        "cy": 8.35,
+        "width": 1,
+        "height": 0.5,
+        "angle": 0
+      },
+      {
+        "ref": "U5",
+        "cx": 24.37,
+        "cy": 6.79,
+        "width": 2.8,
+        "height": 2.9,
+        "angle": 90
+      },
+      {
+        "ref": "C7",
+        "cx": 21.13,
+        "cy": 20.2,
+        "width": 1.6,
+        "height": 0.8,
+        "angle": -90
+      },
+      {
+        "ref": "C33",
+        "cx": 36.83,
+        "cy": 27.99,
+        "width": 1,
+        "height": 0.5,
+        "angle": 90
+      },
+      {
+        "ref": "C43",
+        "cx": 34.38,
+        "cy": 1.93,
+        "width": 1.6,
+        "height": 0.8,
+        "angle": -90
+      },
+      {
+        "ref": "R4",
+        "cx": 19.08,
+        "cy": 26.67,
+        "width": 1,
+        "height": 0.5,
+        "angle": -180
+      },
+      {
+        "ref": "U6",
+        "cx": 17.12,
+        "cy": 6.81,
+        "width": 2.8,
+        "height": 2.9,
+        "angle": 90
+      },
+      {
+        "ref": "C11",
+        "cx": 34.62,
+        "cy": 9.5,
+        "width": 1.6,
+        "height": 0.8,
+        "angle": 0
+      },
+      {
+        "ref": "C13",
+        "cx": 24.23,
+        "cy": 23.63,
+        "width": 1,
+        "height": 0.5,
+        "angle": 0
+      },
+      {
+        "ref": "C16",
+        "cx": 26.8,
+        "cy": 8.3,
+        "width": 1,
+        "height": 0.5,
+        "angle": 0
+      },
+      {
+        "ref": "C5",
+        "cx": 16,
+        "cy": 23.8,
+        "width": 1,
+        "height": 0.5,
+        "angle": 0
+      },
+      {
+        "ref": "R1",
+        "cx": 16.18,
+        "cy": 20.6,
+        "width": 1.6,
+        "height": 0.8,
+        "angle": -90
+      },
+      {
+        "ref": "C35",
+        "cx": 12.3,
+        "cy": 5.3,
+        "width": 1,
+        "height": 0.5,
+        "angle": 0
+      },
+      {
+        "ref": "R5",
+        "cx": 19.05,
+        "cy": 25.7,
+        "width": 1,
+        "height": 0.5,
+        "angle": -180
+      },
+      {
+        "ref": "R28",
+        "cx": 37.7,
+        "cy": 17.7,
+        "width": 1,
+        "height": 0.5,
+        "angle": -90
+      },
+      {
+        "ref": "R11",
+        "cx": 39.36,
+        "cy": 36.05,
+        "width": 1,
+        "height": 0.5,
+        "angle": -180
+      },
+      {
+        "ref": "C46",
+        "cx": 26.9,
+        "cy": 24.45,
+        "width": 1.6,
+        "height": 0.8,
+        "angle": 135
+      }
+    ]
+  }
+}

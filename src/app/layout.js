@@ -14,8 +14,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata = {
-  title: "zaneg.net",
-  description: "zaneg.net; things I find interesting and projects I've worked on",
+  title: "zgro.net",
+  description: "zgro.net; things I find interesting and projects I've worked on",
 };
 
 export default function RootLayout({ children }) {

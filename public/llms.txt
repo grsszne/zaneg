@@ -1,0 +1,22 @@
+# zgro.net
+
+> Personal projects and writing by Zane Grosse, an electrical engineering student in Texas.
+
+The laser project is a work in progress. Its interactive signal diagrams are illustrations, not measured results. The bring-up checklist records completed milestones and remaining work. All power rails, the STM32 clock, and GPIO/control signals have been verified, and a simple program has been flashed to the STM32. Optical link performance has not yet been demonstrated.
+
+## Writing
+
+- [Projects and notes](https://www.zgro.net/): The site's writing index.
+- [Sending Data Through Lasers](https://www.zgro.net/laser): A 638 nm optical link between two Raspberry Pis with six custom PCBs, from USB interfaces and laser drivers to mixed-signal, FPGA-based receivers.
+- [GPT-0.1875: Training a Language Model Before Modern Physics](https://www.zgro.net/posts/gpt-01875-training-a-language-model-before-modern-physics): A language-model project using English texts published before 1876.
+
+## Laser project sections
+
+- [Overall architecture](https://www.zgro.net/laser#overall-architecture): The two nodes, host software, and transmit and receive paths.
+- [PCBs](https://www.zgro.net/laser#pcbs): Board descriptions and interactive 3D models exported from KiCad.
+- [Bring-up](https://www.zgro.net/laser#bring-up): Board testing notes, a documentation checklist, and interactive signal illustrations.
+
+## Optional
+
+- [About](https://www.zgro.net/about): Brief background.
+- [Contact](https://www.zgro.net/contact): Contact information.

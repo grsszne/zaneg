@@ -1,0 +1,47 @@
+[
+  {
+    "id": "usb-interface",
+    "label": "USB interface",
+    "source": "phy.step",
+    "sourceSHA256": "9f7b081340a72f80689141b240dc31651c1a943c18c26f570a7dd14ba3ac8a3e",
+    "exportedAt": "2026-09-08T10:08:34",
+    "dimensionsMm": [
+      72.0,
+      45.03,
+      11.94
+    ],
+    "materials": 22,
+    "glbBytes": 12827296,
+    "converter": "Open CASCADE 7.9.3 / XCAF glTF writer"
+  },
+  {
+    "id": "tx-a",
+    "label": "TX-A",
+    "source": "tx-a.step",
+    "sourceSHA256": "b4d46388e0d643eeab3a1cb962fe1720aafd255c29dfd76fb38c461b44403e7f",
+    "exportedAt": "2026-09-08T10:15:58",
+    "dimensionsMm": [
+      47.0,
+      45.0,
+      12.04
+    ],
+    "materials": 24,
+    "glbBytes": 6509068,
+    "converter": "Open CASCADE 7.9.3 / XCAF glTF writer"
+  },
+  {
+    "id": "rx-a",
+    "label": "RX-A",
+    "source": "phy-a-a.step",
+    "sourceSHA256": "c9b9dc44f50db87f5480404c123ffb05621d56b82c769761aef844417d06eddb",
+    "exportedAt": "2026-09-08T10:08:32",
+    "dimensionsMm": [
+      72.0,
+      45.0,
+      15.33
+    ],
+    "materials": 19,
+    "glbBytes": 9347696,
+    "converter": "Open CASCADE 7.9.3 / XCAF glTF writer"
+  }
+]

@@ -32,22 +32,45 @@ class Heap {
 
 const D = [[1, 0], [1, 1], [0, 1], [-1, 1], [-1, 0], [-1, -1], [0, -1], [1, -1]];
 
-export function generateBoard(width, height = BOARD_ROWS, random = Math.random) {
+export function generateBoard(width, height = BOARD_ROWS, random = Math.random, options = {}) {
   width = Math.max(100, Math.floor(width));
   const size = width * height;
   const layers = { components: Array(size).fill(' '), copper: Array(size).fill(' '), substrate: Array(size).fill(' ') };
-  const blocked = new Uint8Array(size);
+  const keepOut = options.keepOut;
+  const blocked = keepOut ? Uint8Array.from(keepOut) : new Uint8Array(size);
   const parts = [], pads = [], frames = [];
   const idx = (x, y) => y * width + x;
+  const captureFootprint = (x, y, width, height, kind) => {
+    if (!options.footprints) return;
+    const cells = [];
+    // Record actual pads and body cells, not the empty corners of a package.
+    // Later passives can occupy those corners without becoming part of the IC.
+    for (let yy = y; yy < y + height; yy++) {
+      for (let xx = x; xx < x + width; xx++) {
+        if (layers.components[idx(xx, yy)] !== ' ') cells.push((yy - y) * width + xx - x);
+      }
+    }
+    options.footprints.push({ x, y, width, height, kind, cells });
+  };
   const r = (a, b) => a + Math.floor(random() * (b - a + 1));
   const inside = (x, y) => x > 3 && x < width - 4 && y > 2 && y < height - 3;
   const lines = cells => Array.from({ length: height }, (_, y) => cells.slice(y * width, (y + 1) * width).join('')).join('\n');
-  const snapshot = () => frames.push(Object.fromEntries(Object.entries(layers).map(([name, cells]) => [name, lines(cells)])));
+  let snapshotCount = 0;
+  const snapshot = (force = false) => {
+    if (!force && snapshotCount++ % (options.frameStride ?? 1) !== 0) return;
+    frames.push(Object.fromEntries(Object.entries(layers).map(([name, cells]) => [name, lines(cells)])));
+  };
   const put = (layer, x, y, text) => [...text].forEach((char, i) => { if (x + i >= 0 && x + i < width && y >= 0 && y < height) layers[layer][idx(x + i, y)] = char; });
   function fits(x, y, w, h, margin = 2) {
-    if (x < 7 || y < 5 || x + w > width - 7 || y + h > height - 5) return false;
+    const edgeX = options.fill ? 3 : 7, edgeY = options.fill ? 2 : 5;
+    if (x < edgeX || y < edgeY || x + w > width - edgeX || y + h > height - edgeY) return false;
     for (let yy = y - margin; yy < y + h + margin; yy++) {
-      for (let xx = x - margin; xx < x + w + margin; xx++) if (blocked[idx(xx, yy)]) return false;
+      for (let xx = x - margin; xx < x + w + margin; xx++) {
+        const p = idx(xx, yy);
+        // Keep clearance between parts, but let their actual footprints meet
+        // the invisible lettering without adding an extra halo of whitespace.
+        if (blocked[p] && (!keepOut?.[p] || (xx >= x && xx < x + w && yy >= y && yy < y + h))) return false;
+      }
     }
     return true;
   }
@@ -61,8 +84,13 @@ export function generateBoard(width, height = BOARD_ROWS, random = Math.random) 
     const pad = { x, y, direction, part, used: false };
     pads.push(pad); part.pads.push(pad);
   }
+  const chipFits = (x, y, w, h, type) => {
+    const padX = keepOut && type === 'horizontal' ? 0 : 4;
+    const padY = keepOut && type === 'dual' ? 0 : 3;
+    return fits(x - padX, y - padY, w + padX * 2, h + padY * 2);
+  };
   function chip(x, y, w, h, type) {
-    if (!fits(x - 4, y - 3, w + 8, h + 6)) return null;
+    if (!chipFits(x, y, w, h, type)) return null;
     const part = { x, y, w, h, type, pads: [] };
     parts.push(part);
     reserve(x, y, w, h);
@@ -85,12 +113,21 @@ export function generateBoard(width, height = BOARD_ROWS, random = Math.random) 
         terminal(part, xx, y - 3, 6); terminal(part, xx, y + h + 2, 2);
       }
     }
+    const pinX = type === 'horizontal' ? 0 : 3;
+    const pinY = type === 'dual' ? 0 : 2;
+    captureFootprint(x - pinX, y - pinY, w + pinX * 2, h + pinY * 2, 'ic');
     snapshot();
     return part;
   }
   const mainWidth = width > 200 ? 38 : 29;
-  const main = chip(Math.floor(width * 0.44) - Math.floor(mainWidth / 2), 22 + r(-2, 2), mainWidth, 21, 'quad');
-  const majorCount = Math.max(3, Math.floor(width / 34));
+  let main = chip(Math.floor(width * 0.44) - Math.floor(mainWidth / 2), 22 + r(-2, 2), mainWidth, 21, 'quad');
+  if (options.fill) {
+    for (let attempt = 0; !main && attempt < 60; attempt++) {
+      main = chip(r(13, width - mainWidth - 12), r(10, height - 31), mainWidth, 21, 'quad');
+    }
+  }
+  const areaScale = options.fill ? height / BOARD_ROWS : 1;
+  const majorCount = Math.max(3, Math.floor(width / 34 * areaScale));
   const types = [
     [23, 9, 'horizontal'], [13, 15, 'dual'], [18, 7, 'dual'],
     [26, 8, 'horizontal'], [12, 11, 'dual'], [17, 7, 'dual'],
@@ -104,8 +141,22 @@ export function generateBoard(width, height = BOARD_ROWS, random = Math.random) 
     let placed = null;
     for (let attempt = 0; attempt < 90 && !placed; attempt++) {
       const x = attempt < 25 ? Math.floor(width * zone) + r(-5, 5) : r(13, width - w - 12);
-      const y = attempt < 25 ? targetY + r(-3, 3) : r(10, height - h - 10);
+      const y = attempt < 25 ? Math.floor(targetY * areaScale) + r(-3, 3) : r(10, height - h - 10);
       placed = chip(x, y, w, h, type);
+    }
+  }
+  if (keepOut) {
+    // Pack smaller packages into every remaining pocket, including the
+    // overscan at the viewport edges and the counters inside the numerals.
+    for (const [w, h, type] of [[12, 9, 'dual'], [9, 5, 'horizontal']]) {
+      const sites = [];
+      for (let y = 2; y < height - 2; y += 2) {
+        for (let x = 4; x < width - 4; x += 2) {
+          if (chipFits(x, y, w, h, type)) sites.push({ x, y, rank: random() });
+        }
+      }
+      sites.sort((a, b) => a.rank - b.rank);
+      for (const { x, y } of sites) chip(x, y, w, h, type);
     }
   }
   // Edge headers use annular pads, not electrical schematic symbols.
@@ -117,6 +168,7 @@ export function generateBoard(width, height = BOARD_ROWS, random = Math.random) 
       put('components', x, y, '(o)(o)'); reserve(x, y, 6, 1);
       terminal(part, x - 1, y, 4); terminal(part, x + 6, y, 0);
     }
+    captureFootprint(x, part.y, part.w, part.h - 2, 'header');
     snapshot();
   }
 
@@ -223,6 +275,11 @@ export function generateBoard(width, height = BOARD_ROWS, random = Math.random) 
   function smd(x, y, vertical, capacitor) {
     const w = vertical ? 2 : 6, h = vertical ? 4 : 2;
     if (!fits(x, y, w, h, 1)) return false;
+    if (keepOut) {
+      const a = vertical ? idx(x, y - 1) : idx(x - 1, y);
+      const b = vertical ? idx(x, y + h) : idx(x + w, y);
+      if (blocked[a] || blocked[b]) return false;
+    }
     reserve(x, y, w, h);
     const part = { x, y, w, h, type: 'smd', pads: [] };
     if (vertical) {
@@ -233,10 +290,11 @@ export function generateBoard(width, height = BOARD_ROWS, random = Math.random) 
       put('components', x, y, capacitor ? '##==##' : '##::##'); put('components', x, y + 1, capacitor ? '##==##' : '##::##');
       terminal(part, x - 1, y, 4); terminal(part, x + 6, y, 0);
     }
+    captureFootprint(x, y, w, h, capacitor ? 'capacitor' : 'resistor');
     return true;
   }
   const anchors = parts.filter(part => part.type !== 'header');
-  for (let i = 0; i < Math.floor(width * 0.85); i++) {
+  for (let i = 0; anchors.length && i < Math.floor(width * 0.85 * areaScale); i++) {
     const anchor = anchors[i % anchors.length];
     let best = null;
     for (let attempt = 0; attempt < 45; attempt++) {
@@ -261,6 +319,18 @@ export function generateBoard(width, height = BOARD_ROWS, random = Math.random) 
     if (best && smd(best.x, best.y, best.vertical, i % 3 !== 0) && i % 3 === 0) snapshot();
   }
   snapshot();
+
+  if (keepOut) {
+    // Fill the smaller gaps with complete two-terminal footprints. Keep the
+    // terminals outside the lettering so every part can receive real nets.
+    for (let y = 2; y < height - 2; y += 2) {
+      for (let x = 4; x < width - 4; x += 2) {
+        const vertical = !!(keepOut[idx(x - 2, y)] || keepOut[idx(x + 3, y)]);
+        smd(x, y, vertical, random() < 0.7) || smd(x, y, !vertical, random() < 0.7);
+      }
+    }
+    snapshot();
+  }
 
   const free = (x, y) => inside(x, y) && !blocked[idx(x, y)];
   function route(a, b) {
@@ -372,6 +442,6 @@ export function generateBoard(width, height = BOARD_ROWS, random = Math.random) 
       if (clear && random() < 0.52) layers.substrate[idx(x, y)] = '.';
     }
   }
-  snapshot();
+  snapshot(true);
   return frames;
 }

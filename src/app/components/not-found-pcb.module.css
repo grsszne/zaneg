@@ -1,0 +1,36 @@
+.board {
+  --cell-size: clamp(4px, 0.36vw, 5.5px);
+  position: absolute;
+  inset: 0;
+  display: grid;
+  overflow: hidden;
+  pointer-events: none;
+  user-select: none;
+}
+
+.board pre {
+  grid-area: 1 / 1;
+  margin: 0;
+  font-family: var(--font-geist-mono), monospace;
+  font-size: var(--cell-size);
+  font-weight: 400;
+  line-height: var(--cell-size);
+  letter-spacing: 0;
+  white-space: pre;
+  transform: translate(-12ch, calc(-4 * var(--cell-size)));
+}
+
+.substrate { color: var(--line); }
+.copper { color: var(--signal-primary); }
+.components { color: color-mix(in srgb, var(--foreground) 82%, var(--background)); }
+
+.gravity {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  visibility: hidden;
+}
+
+.board[data-falling='true'] pre { visibility: hidden; }
+.board[data-falling='true'] .gravity { visibility: visible; }

@@ -121,6 +121,43 @@ All power rails check out, and a simple test program has been flashed to the STM
   <figcaption>USB interface during initial programming. Select the photo for the full-resolution image.</figcaption>
 </figure>
 
+### USB enumeration on macOS
+
+**October 28, 2026.** The STM32F723 on PHY-A now enumerates over USB on the Mac as **STM32 Virtual ComPort**. macOS creates a CDC serial port at `/dev/cu.usbmodem3784356930311`. The board appears as its own USB device alongside the ST-Link programmer.
+
+<figure>
+  <a href="/images/laser/bring-up/stm32-usb-macos-full.webp" aria-label="View the full-resolution STM32 USB enumeration screenshot">
+    <img src="/images/laser/bring-up/stm32-usb-macos-1200.webp" srcset="/images/laser/bring-up/stm32-usb-macos-1200.webp 1200w, /images/laser/bring-up/stm32-usb-macos-full.webp 2264w" sizes="(max-width: 1072px) calc(100vw - 32px), 1040px" width="2264" height="1010" loading="lazy" decoding="async" alt="macOS terminal showing STM32 Virtual ComPort and STM32 STLink as separate USB devices, followed by three serial-port listings in which the STM32 usbmodem port is present, absent, and present again.">
+  </a>
+  <figcaption>First USB enumeration on the Mac. The serial-port listings show the STM32 port disappearing and reappearing.</figcaption>
+</figure>
+
+A separate live check of the Mac's USB and serial registries confirmed the device was active and configured:
+
+| Check | Observed result |
+| --- | --- |
+| USB product | STM32 Virtual ComPort |
+| Manufacturer | STMicroelectronics |
+| Vendor / product ID | `0483:5740` |
+| USB configuration | 1 (configured) |
+| Serial port | `/dev/cu.usbmodem3784356930311` |
+| Reported USB link speed | 480 Mb/s (high speed) |
+
+The [captured USB and serial registry output](/evidence/laser/stm32-usb-macos-2026-10-28.txt) records the independent enumeration check. The 480 Mb/s figure is the reported bus speed, not measured application throughput.
+
+### First USB echo
+
+**October 28, 2026.** With a CDC echo handler added to the firmware, the first text exchange works: `Hello PHY-A!` is sent from the Mac and echoed back by the STM32 over USB. The terminal session uses `screen /dev/cu.usbmodem3784356930311 115200`.
+
+<figure>
+  <a href="/images/laser/bring-up/stm32-usb-echo-macos.webp" aria-label="View the full-resolution first USB echo screenshot">
+    <img src="/images/laser/bring-up/stm32-usb-echo-macos.webp" width="1010" height="778" loading="lazy" decoding="async" alt="Mac terminal running screen on the STM32 USB serial port and displaying Hello PHY-A!, with the CDC receive handler and its echo buffer visible behind the terminal.">
+  </a>
+  <figcaption>First USB echo — “Hello PHY-A!” returned in the Mac's serial terminal, with the firmware echo handler visible behind it.</figcaption>
+</figure>
+
+The receive callback copies incoming bytes into a 512-byte buffer and sends them back with `CDC_Transmit_HS`, then rearms reception. This demonstrates a short host-to-board-to-host text exchange. Sustained throughput and Raspberry Pi host testing are still to come.
+
 ### TX-A / 8 V rail
 
 The TPS61085 boosts the incoming 5 V supply to the nominal 8 V laser-driver rail on TX-A. This rail requires two arming conditions: the physical jumper must be fitted, and the PHY board (PHY-A) must assert its digital arm signal.
@@ -171,8 +208,10 @@ The [TPS61085 documentation from Texas Instruments](https://www.ti.com/product/T
 - [x] MCU successfully detected/programmed
 - [x] Clock verified
 - [x] GPIO/control signals verified
+- [x] USB CDC enumeration on Mac verified
+- [x] First USB text echo between Mac and STM32
 - [ ] USB communication with Pi working
-- [ ] Screenshot/log of first successful host communication
+- [x] Screenshot/log of first successful host communication
 - [ ] Note any firmware/debugging issue worth discussing
 
 #### 4. Transmitter validation

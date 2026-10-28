@@ -1,0 +1,24 @@
+STM32 USB enumeration on macOS
+Captured: 2026-10-28T14:07:39-05:00
+
+$ ioreg -p IOUSB -l -w 0
+Selected STM32 Virtual ComPort registry fields (excerpt):
+  | +-o STM32 Virtual ComPort@00100000  <class IOUSBHostDevice, id 0x1000bb92e, registered, matched, active, busy 0 (251 ms), retain 23>
+  |       "UsbLinkSpeed" = 480000000
+  |       "idProduct" = 22336
+  |       "bDeviceClass" = 2
+  |       "USB Product Name" = "STM32 Virtual ComPort"
+  |       "bDeviceSubClass" = 2
+  |       "bcdUSB" = 512
+  |       "kUSBCurrentConfiguration" = 1
+  |       "USB Vendor Name" = "STMicroelectronics"
+  |       "idVendor" = 1155
+
+$ ioreg -r -c IOSerialBSDClient -l -w 0
+Matching serial device paths (excerpt):
+      "IOCalloutDevice" = "/dev/cu.usbmodem3784356930311"
+      "IODialinDevice" = "/dev/tty.usbmodem3784356930311"
+
+Scope: USB enumeration and macOS serial device creation.
+UsbLinkSpeed is the reported USB bus speed, not measured payload throughput.
+No payload exchange, firmware modification, or reflash was performed.

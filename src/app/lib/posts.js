@@ -64,7 +64,7 @@ export function getPostBySlug(slug) {
 }
 
 function renderContentBlocks(content, html) {
-  const pattern = /<!--\s*(pcb|checklist):([\w-]+)\s*-->([\s\S]*?)<!--\s*\/\1\s*-->/g;
+  const pattern = /<!--\s*(pcb|mechanical|checklist):([\w-]+)\s*-->([\s\S]*?)<!--\s*\/\1\s*-->/g;
   const blocks = [];
   let position = 0;
   for (const match of content.matchAll(pattern)) {
@@ -73,7 +73,7 @@ function renderContentBlocks(content, html) {
     if (match[1] === "checklist") {
       blocks.push({ type: "checklist", id: match[2], stages: parseChecklist(match[3]) });
     } else {
-      blocks.push({ type: "pcb", model: match[2], html: renderMarkdown(match[3].trim()) });
+      blocks.push({ type: match[1], model: match[2], html: renderMarkdown(match[3].trim()) });
     }
     position = match.index + match[0].length;
   }

@@ -2,6 +2,7 @@ import Footer from "@/app/components/footer";
 import Nav from "@/app/components/nav";
 import LaserArchitecture from "@/app/components/laser-architecture";
 import PcbSection from "@/app/components/pcb-section";
+import MechanicalViewer from "@/app/components/mechanical-viewer";
 import DocumentationChecklist from "@/app/components/documentation-checklist";
 import PostTopics from "@/app/components/post-topics";
 
@@ -49,6 +50,11 @@ export default function PostArticle({ post }) {
           <div className="grid grid-cols-1 gap-9">
             {post.blocks.map((block, index) => block.type === "pcb" ? (
               <PcbSection key={`${block.model}-${index}`} model={block.model} html={block.html} />
+            ) : block.type === "mechanical" ? (
+              <section key={`${block.model}-${index}`} aria-label="Interactive mechanical assembly">
+                <div className="markdown-post mb-6" dangerouslySetInnerHTML={{ __html: block.html }} />
+                <MechanicalViewer model={block.model} label="Laser sled" />
+              </section>
             ) : block.type === "checklist" ? (
               <DocumentationChecklist key={block.id} stages={block.stages} />
             ) : (

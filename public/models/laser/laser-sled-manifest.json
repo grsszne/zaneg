@@ -1,0 +1,17 @@
+{
+  "id": "laser-sled",
+  "label": "Laser sled mechanical assembly",
+  "source": "laser-sled.step",
+  "sourceSHA256": "26b0aebb5032fcc667cfecc7af2b15e8e074288ddd2664b91a5d886cbdc15fcf",
+  "dimensionsMm": [
+    180.0,
+    1003.3,
+    106.0
+  ],
+  "materials": 35,
+  "meshes": 302,
+  "glbBytes": 19140688,
+  "linearDeflectionMm": 0.08,
+  "angularDeflectionRadians": 0.25,
+  "converter": "Open CASCADE 7.9.3 / XCAF glTF writer"
+}

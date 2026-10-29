@@ -20,6 +20,16 @@ You can start editing the page by modifying `app/page.js`. The page auto-updates
 
 This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
 
+## PostHog analytics
+
+PostHog initializes in `src/instrumentation-client.js`, following the [PostHog Next.js setup](https://posthog.com/docs/libraries/next-js). It captures the initial pageview, client-side navigation, page exits, and automatic interaction events. Session recording is disabled.
+
+Copy the PostHog variables from `.env.example` into `.env.local` and set the public project token from PostHog's project settings. Use the ingestion host for the project's region: `https://us.i.posthog.com` or `https://eu.i.posthog.com`.
+
+Set the same variables in Vercel before deploying. Next.js embeds `NEXT_PUBLIC_` variables at build time, so changing them requires a new deployment. Tracking runs only in production mode when both variables are present; `npm run dev` does not send events.
+
+To verify, run `npm run build` and `npm start`, visit a page and navigate using the site links, then check PostHog's live events for `$pageview` events. Vercel Analytics and Speed Insights remain enabled.
+
 ## Learn More
 
 To learn more about Next.js, take a look at the following resources:

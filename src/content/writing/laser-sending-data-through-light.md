@@ -63,6 +63,40 @@ The transimpedance amplifier converts that current to a voltage. The limiting am
 The FPGA is intended to recover timing, decode the stream, and deliver recovered bytes to the USB interface. Programming done via SPI to external flash.
 <!-- /pcb -->
 
+## Mechanical layout
+
+The mechanical assembly brings the Raspberry Pi, USB interface, transmitter, and receiver onto a shared sled. A common baseplate carries the board mounts, laser holder, and receiver optics above the 2040 rail.
+
+These images were captured directly from the Fusion assembly on October 14, 2026. The close-ups show the receiver shroud and the laser mounting hardware. This is the current CAD layout; physical fit and optical alignment still need to be checked during assembly.
+
+<figure>
+  <a href="/images/laser/mechanical/sled-assembly-2400.webp" aria-label="View the laser sled CAD image at full size">
+    <img src="/images/laser/mechanical/sled-assembly-1200.webp" srcset="/images/laser/mechanical/sled-assembly-1200.webp 1200w, /images/laser/mechanical/sled-assembly-2400.webp 2400w" sizes="(max-width: 1072px) calc(100vw - 32px), 1040px" width="2400" height="1800" loading="lazy" decoding="async" alt="Three-quarter Fusion CAD view of the laser sled, showing the Raspberry Pi, custom boards, laser holder, and black receiver shroud on a shared baseplate above an aluminum rail.">
+  </a>
+  <figcaption>Laser sled — the electronics and optical hardware on a common rail-mounted baseplate.</figcaption>
+</figure>
+
+<div class="photo-gallery">
+  <figure>
+    <a href="/images/laser/mechanical/receiver-shroud-1600.webp" aria-label="View the receiver shroud CAD close-up at full size">
+      <img src="/images/laser/mechanical/receiver-shroud-960.webp" srcset="/images/laser/mechanical/receiver-shroud-960.webp 960w, /images/laser/mechanical/receiver-shroud-1600.webp 1600w" sizes="(max-width: 640px) calc(100vw - 32px), (max-width: 1072px) calc((100vw - 56px) / 2), 508px" width="1600" height="1200" loading="lazy" decoding="async" alt="Fusion CAD close-up of the black receiver lens hood and shroud, its support feet, and the upright receiver board behind it.">
+    </a>
+    <figcaption>Receiver — lens hood, shroud, and support hardware in front of the upright RX-A board.</figcaption>
+  </figure>
+  <figure>
+    <a href="/images/laser/mechanical/transmitter-mount-1600.webp" aria-label="View the laser mounting hardware CAD close-up at full size">
+      <img src="/images/laser/mechanical/transmitter-mount-960.webp" srcset="/images/laser/mechanical/transmitter-mount-960.webp 960w, /images/laser/mechanical/transmitter-mount-1600.webp 1600w" sizes="(max-width: 640px) calc(100vw - 32px), (max-width: 1072px) calc((100vw - 56px) / 2), 508px" width="1600" height="1200" loading="lazy" decoding="async" alt="Fusion CAD close-up of the red laser module in its upright holder, with the leveling platform, mounting hardware, and green TX-A board beside it.">
+    </a>
+    <figcaption>Transmitter — laser holder and leveling platform beside TX-A.</figcaption>
+  </figure>
+</div>
+
+<!-- mechanical:laser-sled -->
+### Explore the assembly
+
+Rotate the sled to inspect the board carriers, receiver shroud, and laser mount. Select **Full rail** to see the complete assembly, or **Reset** to return to the sled. The STEP download contains the full assembly exported from Fusion.
+<!-- /mechanical -->
+
 ## Bring-up
 
 Notes on initial power-up, board testing, and the first optical link.
@@ -157,6 +191,18 @@ The [captured USB and serial registry output](/evidence/laser/stm32-usb-macos-20
 </figure>
 
 The receive callback copies incoming bytes into a 512-byte buffer and sends them back with `CDC_Transmit_HS`, then rearms reception. This demonstrates a short host-to-board-to-host text exchange. Sustained throughput and Raspberry Pi host testing are still to come.
+
+### 256 byte send-receive test
+
+**October 29, 2026.** With [test/usb-speed/main.py](https://github.com/grsszne/Laser-Software/tree/main/test/usb-speed/main.py). `bytes(range(256))` is sent to the MCU over USB, which is then sent back to the host to verify integrity.
+
+<figure>
+  <a href="/images/laser/bring-up/stm32-usb-echo-macos.webp" aria-label="View the full-resolution first USB echo screenshot">
+    <img src="/images/laser/bring-up/stm32-usb-echo-macos.webp" width="1010" height="778" loading="lazy" decoding="async" alt="Mac terminal running screen on the STM32 USB serial port and displaying Hello PHY-A!, with the CDC receive handler and its echo buffer visible behind the terminal.">
+  </a>
+  <figcaption>First USB echo — “Hello PHY-A!” returned in the Mac's serial terminal, with the firmware echo handler visible behind it.</figcaption>
+</figure>
+
 
 ### TX-A / 8 V rail
 

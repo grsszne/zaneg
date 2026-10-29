@@ -11,11 +11,14 @@ function disposeModel(model) {
   });
 }
 
-export function mountPcbViewer(host, { url, label, helpId, annotations, onPins, onReady, onError, onViewChange }) {
+export function mountPcbViewer(host, { url, label, helpId, annotations = [], onPins = () => {}, onReady, onError, onViewChange, assembly = false }) {
   let disposed = false;
   let model;
   let distance = 1;
   let anchors = [];
+  let modelBounds;
+  let assemblyBounds;
+  let activeView = "isometric";
   const scene = new THREE.Scene();
   const camera = new THREE.PerspectiveCamera(35, 1, 0.001, 10);
   camera.up.set(0, 0, 1);
@@ -81,11 +84,45 @@ export function mountPcbViewer(host, { url, label, helpId, annotations, onPins, 
     const { width, height } = host.getBoundingClientRect();
     if (!width || !height || disposed) return;
     renderer.setSize(width, height, false);
+    const previousAspect = camera.aspect;
     camera.aspect = width / height;
     camera.updateProjectionMatrix();
+    if (assembly && modelBounds && activeView !== "custom" && previousAspect !== camera.aspect) setView(activeView);
     render();
   }
   function setView(view) {
+    activeView = view;
+    if (assembly && modelBounds) {
+      const bounds = view === "full" ? modelBounds : assemblyBounds;
+      const sphere = bounds.getBoundingSphere(new THREE.Sphere());
+      const halfFov = THREE.MathUtils.degToRad(camera.fov / 2);
+      controls.target.copy(sphere.center);
+      const direction = view === "top" ? new THREE.Vector3(0, -0.001, 1)
+        : view === "front" ? new THREE.Vector3(0, 1, 0.08)
+        : new THREE.Vector3(0.9, 1.25, 1.15);
+      direction.normalize();
+      const right = new THREE.Vector3().crossVectors(camera.up, direction).normalize();
+      const up = new THREE.Vector3().crossVectors(direction, right).normalize();
+      // Fit all eight box corners in camera space, including on narrow screens.
+      // A bounding sphere leaves excessive space around the long, thin rail.
+      distance = 0;
+      for (const x of [bounds.min.x, bounds.max.x]) {
+        for (const y of [bounds.min.y, bounds.max.y]) {
+          for (const z of [bounds.min.z, bounds.max.z]) {
+            const corner = new THREE.Vector3(x, y, z).sub(sphere.center);
+            const depth = corner.dot(direction);
+            distance = Math.max(distance,
+              Math.abs(corner.dot(right)) / (Math.tan(halfFov) * camera.aspect) + depth,
+              Math.abs(corner.dot(up)) / Math.tan(halfFov) + depth);
+          }
+        }
+      }
+      distance *= 1.12;
+      camera.position.copy(controls.target).add(direction.multiplyScalar(distance));
+      controls.update();
+      render();
+      return;
+    }
     controls.target.set(0, 0, 0);
     if (view === "top") camera.position.set(0, -distance * 0.001, distance);
     else if (view === "bottom") camera.position.set(0, -distance * 0.001, -distance);
@@ -95,6 +132,7 @@ export function mountPcbViewer(host, { url, label, helpId, annotations, onPins, 
   }
   function zoom(factor) {
     if (!model) return;
+    activeView = "custom";
     const offset = camera.position.clone().sub(controls.target);
     offset.setLength(THREE.MathUtils.clamp(offset.length() * factor, controls.minDistance, controls.maxDistance));
     camera.position.copy(controls.target).add(offset);
@@ -108,6 +146,7 @@ export function mountPcbViewer(host, { url, label, helpId, annotations, onPins, 
     if (event.key === "+" || event.key === "=") return zoom(1 / 1.2);
     if (event.key === "-") return zoom(1.2);
     if (event.key === "Home") { setView("isometric"); onViewChange("isometric"); return; }
+    activeView = "custom";
     const axis = new THREE.Vector3(1, 0, 0);
     const offset = camera.position.clone().sub(controls.target).applyAxisAngle(axis, -Math.PI / 2);
     const spherical = new THREE.Spherical().setFromVector3(offset);
@@ -125,7 +164,7 @@ export function mountPcbViewer(host, { url, label, helpId, annotations, onPins, 
   // Page scrolling stays available until the reader focuses or touches a model.
   function activate() { controls.enableZoom = true; }
   function deactivate() { controls.enableZoom = false; }
-  function startOrbit() { onViewChange("custom"); }
+  function startOrbit() { activeView = "custom"; onViewChange("custom"); }
   function contextLost(event) { event.preventDefault(); if (!disposed) onError(); }
   canvas.addEventListener("pointerdown", activate, true);
   canvas.addEventListener("focus", activate);
@@ -159,7 +198,9 @@ export function mountPcbViewer(host, { url, label, helpId, annotations, onPins, 
         THREE.MeshStandardMaterial.prototype.copy.call(material, original);
         material.defines = { STANDARD: "", PHYSICAL: "" };
         const { r, g, b } = material.color;
-        const metal = ["copper", "pad", "via"].includes(layer) || (!layer && r > 0.3 && g > 0.25 && b < r * 1.05);
+        const metal = assembly
+          ? Math.min(r, g, b) > 0.25 && Math.max(r, g, b) - Math.min(r, g, b) < 0.12
+          : ["copper", "pad", "via"].includes(layer) || (!layer && r > 0.3 && g > 0.25 && b < r * 1.05);
         material.metalness = metal ? 0.8 : 0;
         material.roughness = metal ? 0.3 : 0.62;
         if (layer === "soldermask") {
@@ -184,6 +225,36 @@ export function mountPcbViewer(host, { url, label, helpId, annotations, onPins, 
     sourceMaterials.forEach(material => material.dispose());
     scene.add(model);
     model.updateMatrixWorld(true);
+    if (assembly) {
+      modelBounds = new THREE.Box3().setFromObject(model);
+      assemblyBounds = new THREE.Box3();
+      model.traverse(object => {
+        if (!object.isMesh) return;
+        // Keep the exported rail intact, but frame the hardware on Reset.
+        for (let part = object; part; part = part.parent) {
+          if (part.userData.mechanicalRole === "rail") return;
+        }
+        assemblyBounds.union(new THREE.Box3().setFromObject(object));
+      });
+      if (assemblyBounds.isEmpty()) assemblyBounds.copy(modelBounds);
+      const focus = assemblyBounds.getBoundingSphere(new THREE.Sphere());
+      const full = modelBounds.getBoundingSphere(new THREE.Sphere());
+      const lightScale = focus.radius;
+      keyLight.position.copy(focus.center).add(new THREE.Vector3(2, -3, 5).multiplyScalar(lightScale));
+      keyLight.target.position.copy(focus.center);
+      scene.add(keyLight.target);
+      Object.assign(keyLight.shadow.camera, {
+        left: -lightScale * 1.7, right: lightScale * 1.7,
+        top: lightScale * 1.7, bottom: -lightScale * 1.7,
+        near: lightScale * 0.05, far: lightScale * 12,
+      });
+      keyLight.shadow.normalBias = lightScale * 0.0005;
+      keyLight.shadow.camera.updateProjectionMatrix();
+      camera.far = Math.max(10, full.radius * 30);
+      camera.updateProjectionMatrix();
+      controls.minDistance = focus.radius * 0.3;
+      controls.maxDistance = full.radius * 30;
+    }
     anchors = annotations.flatMap(({ ref }) => {
       const component = model.getObjectByName(ref);
       if (!component) return [];
@@ -194,8 +265,10 @@ export function mountPcbViewer(host, { url, label, helpId, annotations, onPins, 
     });
     const sphere = new THREE.Box3().setFromObject(model).getBoundingSphere(new THREE.Sphere());
     distance = sphere.radius / Math.sin(THREE.MathUtils.degToRad(camera.fov / 2)) * 1.1;
-    controls.minDistance = sphere.radius * 1.1;
-    controls.maxDistance = distance * 3;
+    if (!assembly) {
+      controls.minDistance = sphere.radius * 1.1;
+      controls.maxDistance = distance * 3;
+    }
     setView("isometric");
     onViewChange("isometric");
     onReady();

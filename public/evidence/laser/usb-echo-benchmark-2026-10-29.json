@@ -1,0 +1,48 @@
+{
+  "measuredAt": "2026-10-29T19:58:58.773875+00:00",
+  "host": "macOS-26.6.1-arm64-arm-64bit-Mach-O",
+  "pythonVersion": "3.15.1",
+  "port": "/dev/cu.usbmodem3784356930311",
+  "baudSetting": 115200,
+  "source": "test/usb-speed/benchmark.py",
+  "sourceSha256": "d3970d9e0de0bb3bbe1e2dab7673a731eb7ab56b7d059dd3f5e8cf84fcde0778",
+  "method": "200 sequential random-payload write/read/compare round trips per chunk size; payload bits sent divided by wall-clock elapsed time. Includes Python payload generation and verification. Does not add returned echo bytes to throughput.",
+  "results": [
+    {
+      "chunkBytes": 64,
+      "iterations": 200,
+      "payloadBytes": 12800,
+      "elapsedSeconds": 0.03835612500552088,
+      "averageRoundTripMicroseconds": 191.7806250276044,
+      "throughputMbps": 2.669717026557318,
+      "passed": true
+    },
+    {
+      "chunkBytes": 128,
+      "iterations": 200,
+      "payloadBytes": 25600,
+      "elapsedSeconds": 0.04171299992594868,
+      "averageRoundTripMicroseconds": 208.5649996297434,
+      "throughputMbps": 4.909740377426049,
+      "passed": true
+    },
+    {
+      "chunkBytes": 256,
+      "iterations": 200,
+      "payloadBytes": 51200,
+      "elapsedSeconds": 0.050104000023566186,
+      "averageRoundTripMicroseconds": 250.52000011783093,
+      "throughputMbps": 8.174996004457658,
+      "passed": true
+    },
+    {
+      "chunkBytes": 512,
+      "iterations": 200,
+      "payloadBytes": 102400,
+      "elapsedSeconds": 0.0922389590414241,
+      "averageRoundTripMicroseconds": 461.1947952071205,
+      "throughputMbps": 8.881279759804109,
+      "passed": true
+    }
+  ]
+}

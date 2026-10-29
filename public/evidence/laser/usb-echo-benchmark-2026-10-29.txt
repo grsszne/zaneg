@@ -1,0 +1,6 @@
+Connected to PHY-A: /dev/cu.usbmodem3784356930311
+
+  64 B |   12800 bytes | 0.038 s | 2.670 Mbit/s | PASS
+ 128 B |   25600 bytes | 0.042 s | 4.910 Mbit/s | PASS
+ 256 B |   51200 bytes | 0.050 s | 8.175 Mbit/s | PASS
+ 512 B |  102400 bytes | 0.092 s | 8.881 Mbit/s | PASS

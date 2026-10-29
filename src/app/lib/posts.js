@@ -64,7 +64,7 @@ export function getPostBySlug(slug) {
 }
 
 function renderContentBlocks(content, html) {
-  const pattern = /<!--\s*(pcb|mechanical|checklist):([\w-]+)\s*-->([\s\S]*?)<!--\s*\/\1\s*-->/g;
+  const pattern = /<!--\s*(pcb|mechanical|checklist|benchmark):([\w-]+)\s*-->([\s\S]*?)<!--\s*\/\1\s*-->/g;
   const blocks = [];
   let position = 0;
   for (const match of content.matchAll(pattern)) {

@@ -190,7 +190,7 @@ The [captured USB and serial registry output](/evidence/laser/stm32-usb-macos-20
   <figcaption>First USB echo — “Hello PHY-A!” returned in the Mac's serial terminal, with the firmware echo handler visible behind it.</figcaption>
 </figure>
 
-The receive callback copies incoming bytes into a 512-byte buffer and sends them back with `CDC_Transmit_HS`, then rearms reception. This demonstrates a short host-to-board-to-host text exchange. Sustained throughput and Raspberry Pi host testing are still to come.
+The receive callback copies incoming bytes into a 512-byte buffer and sends them back with `CDC_Transmit_HS`, then rearms reception. This demonstrates a short host-to-board-to-host text exchange. The chunk-size benchmark below measures repeated binary exchanges on the Mac; Raspberry Pi host testing is still to come.
 
 <figure>
   <a href="/images/laser/bring-up/stm32-usb-echo-macos.webp" aria-label="View the full-resolution first USB echo screenshot">
@@ -203,6 +203,19 @@ The receive callback copies incoming bytes into a 512-byte buffer and sends them
 
 **October 29, 2026.** With [test/usb-speed/main.py](https://github.com/grsszne/Laser-Software/blob/main/test/usb-speed/256byte.py). `bytes(range(256))` is sent to the MCU over USB, which is then sent back to the host to verify integrity.
 
+
+### USB echo throughput
+
+**October 29, 2026.** Running [test/usb-speed/benchmark.py](https://github.com/grsszne/Laser-Software/blob/main/test/usb-speed/benchmark.py) against PHY-A on the Mac verified **800 binary round trips with no mismatches**. The script sends a fresh random payload, waits for the complete echo, and compares every byte before sending the next payload: 200 exchanges each at 64, 128, 256, and 512 bytes.
+
+<!-- benchmark:usb-echo -->
+<!-- /benchmark -->
+
+Measured payload throughput rises from **2.670 Mbit/s at 64 bytes** to **8.881 Mbit/s at 512 bytes**. Larger chunks carry more data per exchange, although the average round trip also increases. These are single-run measurements on macOS over USB CDC, with the serial port configured at 115200 baud.
+
+Throughput is calculated as outgoing payload bits divided by the elapsed time for the complete send-and-echo loop; returned echo bytes are not added to that numerator. Average round trip is the total elapsed time divided by 200, including Python payload generation, serial I/O, and byte verification. This measures the host and firmware echo loop, rather than the USB bus rate or the optical link's throughput.
+
+Download the [benchmark output](/evidence/laser/usb-echo-benchmark-2026-10-29.txt) or the [full-precision timings and run metadata](/evidence/laser/usb-echo-benchmark-2026-10-29.json).
 
 ### TX-A / 8 V rail
 

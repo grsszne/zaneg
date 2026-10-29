@@ -201,7 +201,7 @@ The receive callback copies incoming bytes into a 512-byte buffer and sends them
 
 ### 256 byte send-receive test
 
-**October 29, 2026.** With [test/usb-speed/main.py](https://github.com/grsszne/Laser-Software/tree/main/test/usb-speed/main.py). `bytes(range(256))` is sent to the MCU over USB, which is then sent back to the host to verify integrity.
+**October 29, 2026.** With [test/usb-speed/main.py](https://github.com/grsszne/Laser-Software/blob/main/test/usb-speed/256byte.py). `bytes(range(256))` is sent to the MCU over USB, which is then sent back to the host to verify integrity.
 
 
 ### TX-A / 8 V rail

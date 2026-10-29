@@ -192,16 +192,16 @@ The [captured USB and serial registry output](/evidence/laser/stm32-usb-macos-20
 
 The receive callback copies incoming bytes into a 512-byte buffer and sends them back with `CDC_Transmit_HS`, then rearms reception. This demonstrates a short host-to-board-to-host text exchange. Sustained throughput and Raspberry Pi host testing are still to come.
 
-### 256 byte send-receive test
-
-**October 29, 2026.** With [test/usb-speed/main.py](https://github.com/grsszne/Laser-Software/tree/main/test/usb-speed/main.py). `bytes(range(256))` is sent to the MCU over USB, which is then sent back to the host to verify integrity.
-
 <figure>
   <a href="/images/laser/bring-up/stm32-usb-echo-macos.webp" aria-label="View the full-resolution first USB echo screenshot">
     <img src="/images/laser/bring-up/stm32-usb-echo-macos.webp" width="1010" height="778" loading="lazy" decoding="async" alt="Mac terminal running screen on the STM32 USB serial port and displaying Hello PHY-A!, with the CDC receive handler and its echo buffer visible behind the terminal.">
   </a>
   <figcaption>First USB echo — “Hello PHY-A!” returned in the Mac's serial terminal, with the firmware echo handler visible behind it.</figcaption>
 </figure>
+
+### 256 byte send-receive test
+
+**October 29, 2026.** With [test/usb-speed/main.py](https://github.com/grsszne/Laser-Software/tree/main/test/usb-speed/main.py). `bytes(range(256))` is sent to the MCU over USB, which is then sent back to the host to verify integrity.
 
 
 ### TX-A / 8 V rail

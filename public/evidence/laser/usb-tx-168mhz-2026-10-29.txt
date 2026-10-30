@@ -1,0 +1,12 @@
+User-provided terminal capture — October 29, 2026
+MCU core clock: 168 MHz (confirmed in firmware configuration)
+Command: python3 tx-benchmark.py --trace off
+
+Connected to PHY-A: /dev/cu.usbmodem3784356930311
+Trace: off
+Requesting 10,485,760 bytes...
+Received: 10,485,760 bytes
+Transfer time: 0.960 seconds
+Throughput: 87.37 Mbit/s
+Verifying data integrity...
+PASS: All bytes verified

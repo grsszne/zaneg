@@ -217,6 +217,30 @@ Throughput is calculated as outgoing payload bits divided by the elapsed time fo
 
 Download the [benchmark output](/evidence/laser/usb-echo-benchmark-2026-10-29.txt) or the [full-precision timings and run metadata](/evidence/laser/usb-echo-benchmark-2026-10-29.json).
 
+### 87.37 Mbit/s USB transmit at 168 MHz
+
+**October 29, 2026.** A major step forward for PHY-A: with the STM32F723 core clock set to **168 MHz** and trace disabled, the board streamed **10 MiB to the Mac at 87.37 Mbit/s** over USB CDC. The captured run received all **10,485,760 bytes in 0.960 seconds**, then verified every byte successfully.
+
+The [TX benchmark, `test/usb-speed/tx-benchmark.py`](https://github.com/grsszne/Laser-Software/blob/87e5efd23ec594d72dfe65f27ed8d62b51ae66eb/test/usb-speed/tx-benchmark.py) is now published alongside the matching firmware and clock configuration. Run it with:
+
+```sh
+python3 tx-benchmark.py --trace off
+```
+
+| Measurement | Captured result |
+| --- | ---: |
+| MCU core clock | 168 MHz |
+| Trace | Disabled (`--trace off`) |
+| Direction | PHY-A → Mac |
+| Payload received | 10,485,760 bytes (10 MiB) |
+| Transfer time | 0.960 s |
+| Payload throughput | **87.37 Mbit/s** |
+| Data integrity | **PASS — all bytes verified** |
+
+The host sends a start command, and the firmware generates a deterministic XOR byte pattern and transmits it in 4,096-byte chunks. The script times the transfer from the start request until the full payload arrives; the byte-by-byte integrity check runs afterward. This is continuous MCU-to-host USB throughput. The earlier graph records sequential host-to-MCU-to-host echo exchanges, so the two tests measure different workloads.
+
+The [captured terminal output](/evidence/laser/usb-tx-168mhz-2026-10-29.txt) preserves this run's result.
+
 ### TX-A / 8 V rail
 
 The TPS61085 boosts the incoming 5 V supply to the nominal 8 V laser-driver rail on TX-A. This rail requires two arming conditions: the physical jumper must be fitted, and the PHY board (PHY-A) must assert its digital arm signal.

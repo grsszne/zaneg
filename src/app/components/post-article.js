@@ -6,6 +6,7 @@ import MechanicalViewer from "@/app/components/mechanical-viewer";
 import DocumentationChecklist from "@/app/components/documentation-checklist";
 import PostTopics from "@/app/components/post-topics";
 import UsbEchoBenchmark from "@/app/components/usb-echo-benchmark";
+import UsbClockBenchmark from "@/app/components/usb-clock-benchmark";
 
 export default function PostArticle({ post }) {
   const hasPcbSections = post.blocks.some(block => block.type === "pcb");
@@ -60,6 +61,8 @@ export default function PostArticle({ post }) {
               <DocumentationChecklist key={block.id} stages={block.stages} />
             ) : block.type === "benchmark" && block.model === "usb-echo" ? (
               <UsbEchoBenchmark key={`usb-echo-${index}`} />
+            ) : block.type === "benchmark" && block.model === "usb-clock" ? (
+              <UsbClockBenchmark key={`usb-clock-${index}`} />
             ) : (
               <div key={index} className="markdown-post" dangerouslySetInnerHTML={{ __html: block.html }} />
             ))}

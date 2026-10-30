@@ -1,0 +1,12 @@
+{
+  "source": "Values transcribed from the user's clipboard image of the CPU clock throughput comparison.",
+  "clockUnit": "MHz",
+  "throughputUnit": "Mbit/s",
+  "results": [
+    { "clockMHz": 96, "txOnlyMbps": 27.59, "bidirectionalEchoMbps": 15.50 },
+    { "clockMHz": 144, "txOnlyMbps": 84.05, "bidirectionalEchoMbps": 21.68 },
+    { "clockMHz": 168, "txOnlyMbps": 87.36, "bidirectionalEchoMbps": 22.83 },
+    { "clockMHz": 192, "txOnlyMbps": 39.03, "bidirectionalEchoMbps": 22.94 },
+    { "clockMHz": 216, "txOnlyMbps": 40.31, "bidirectionalEchoMbps": 23.01 }
+  ]
+}

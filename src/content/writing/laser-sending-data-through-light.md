@@ -246,7 +246,12 @@ python3 tx-benchmark.py --trace off
 
 The host sends a start command, and the firmware generates a deterministic XOR byte pattern and transmits it in 4,096-byte chunks. The script times the transfer from the start request until the full payload arrives; the byte-by-byte integrity check runs afterward. This is continuous MCU-to-host USB throughput. The earlier graph records sequential host-to-MCU-to-host echo exchanges, so the two tests measure different workloads.
 
-The [captured terminal output](/evidence/laser/usb-tx-168mhz-2026-10-29.txt) preserves this run's result.
+The [captured terminal output can be viewed here](/evidence/laser/usb-tx-168mhz-2026-10-29.txt).
+
+Some weird behaviour: most of this jump from previous echo tests to ~87mbit/s is attributable to increasing clock speed `SYSCLK` to 168 MHz and compiling to optimize for speed rather than binary size, with build flag in CubeIDE set to `03` (Optimize most / Aggressive optimization) as opposed to defaults `-0g` or `0s` which optimize for debugging and binary size respectively. However, when `SYSCLK` is increased beyond 168 MHz to, say, 192 or 216, the throughput actually _decreases_. I'm looking into that now.
+
+<!-- benchmark:usb-clock -->
+<!-- /benchmark -->
 
 ### TX-A / 8 V rail
 

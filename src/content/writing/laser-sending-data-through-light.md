@@ -221,6 +221,13 @@ Download the [benchmark output](/evidence/laser/usb-echo-benchmark-2026-10-29.tx
 
 **October 29, 2026.** A major step forward for PHY-A: with the STM32F723 core clock set to **168 MHz** and trace disabled, the board streamed **10 MiB to the Mac at 87.37 Mbit/s** over USB CDC. The captured run received all **10,485,760 bytes in 0.960 seconds**, then verified every byte successfully.
 
+<figure>
+  <a href="/images/laser/bring-up/cubemx-168mhz-full.webp" aria-label="View the full-resolution CubeMX 168 MHz clock configuration">
+    <img src="/images/laser/bring-up/cubemx-168mhz-1200.webp" srcset="/images/laser/bring-up/cubemx-168mhz-1200.webp 1200w, /images/laser/bring-up/cubemx-168mhz-full.webp 2746w" sizes="(max-width: 1072px) calc(100vw - 32px), 1040px" width="2746" height="1852" loading="lazy" decoding="async" alt="STM32CubeMX clock tree for PHY-A, showing a 25 MHz HSE divided by 25, multiplied by 336, and divided by 2 to produce 168 MHz SYSCLK and HCLK. PLLQ divides by 7 to supply the 48 MHz USB peripheral clock. APB1 runs at 42 MHz and APB2 at 84 MHz.">
+  </a>
+  <figcaption>PHY-A clock configuration in CubeMX — 168 MHz core/AHB clock and a 48 MHz USB peripheral clock, derived from the 25 MHz HSE. Select the image to read the full clock tree.</figcaption>
+</figure>
+
 The [TX benchmark, `test/usb-speed/tx-benchmark.py`](https://github.com/grsszne/Laser-Software/blob/87e5efd23ec594d72dfe65f27ed8d62b51ae66eb/test/usb-speed/tx-benchmark.py) is now published alongside the matching firmware and clock configuration. Run it with:
 
 ```sh

@@ -6,8 +6,6 @@
 }
 
 .figure { margin: 0 0 3rem; }
-.placeholderNote { margin-bottom: 2rem; color: var(--muted); font-size: 0.875rem; line-height: 1.7; }
-.placeholderNote strong { font-weight: 500; color: var(--foreground); }
 .figure h4, .tuning h4 { font-size: 1.25rem; font-weight: 500; line-height: 1.3; margin-block: 0 0.75rem; }
 .figure figcaption > p, .tuning > p { color: var(--muted); max-width: 54rem; }
 .axisTitle { color: var(--muted); font-size: 0.8rem; margin-block: 1.75rem 0.5rem; }
@@ -55,7 +53,6 @@
 .tuning { margin-top: 3rem; }
 .footer { margin-top: 2rem; color: var(--muted); font-size: 0.8rem; }
 .footer a { display: inline-block; margin-top: 0.75rem; text-decoration: underline; }
-.footer a + a { margin-left: 1.5rem; }
 
 @media (prefers-color-scheme: dark) {
   .section { --plot-primary: #8ebaff; }

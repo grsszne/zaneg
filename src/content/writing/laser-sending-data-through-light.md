@@ -258,9 +258,9 @@ Some weird behaviour: most of this jump from previous echo tests to ~87mbit/s is
 ### 162 Mbit/s USB transmit at 216 MHz
 **October 30, 2026.** As mentioned above, increasing clock speed to 216 MHz from 168 Mhz (which previously yielded the best result of ~87 Mbit/s) resulted in worse USB throughput. Today, I investigated whether this limitation was in the firmware’s execution path rather than the USB link itself.
 
-The clearest change came from enabling the M7's instruction cache, with `SCB_EnableICache();` in `main()`. While keeping `SYSCLK` at 168 MHz, 5 consecutive 10-mebibyte transfers from MCU to Mac saw throughputs converging on **137 Mbit/s**. Only by enabling instruction cache, throughputs increased by **~58%** against measurements with the same clock speed.
+The clearest change came from enabling the M7's instruction cache, with `SCB_EnableICache();` in `main()`. While keeping `SYSCLK` at 168 MHz, four fully logged 10-mebibyte transfers from MCU to Mac averaged **137.90 Mbit/s**. With instruction cache enabled, throughput increased by **~58%** against the prior-day measurement with the same clock speed.
 
-With instruction cache still enabled, increasing `SYSCLK` to 216 MHz now produced the expected throughput increase. 5 transfers again from MCU to Mac now resulted in **~157 Mbit/s**. The earlier regression associated with higher clock speeds no longer appeared in this configuration. It is worth noting that while instruction caching did mitigate the regression, it does not necessarily isolate the cause of the original slow down at 216 Mhz.
+With instruction cache still enabled, increasing `SYSCLK` to 216 MHz now produced the expected throughput increase. Four fully logged transfers from MCU to Mac averaged **157.13 Mbit/s**. The earlier regression associated with higher clock speeds no longer appeared in this configuration. While instruction caching did mitigate the regression, it does not necessarily isolate the cause of the original slow down at 216 MHz.
 
 I then tested transfer sizes and buffering. Increasing the transmit chunk from 4 KiB to 16 KiB moved two verified runs from about 157.1 Mbit/s to 159.8–160.4 Mbit/s. This was a much smaller improvement than enabling I-cache. Longer, 100 MiB streaming echo tests measured approximately 76.9 Mbit/s with successful verification.
 

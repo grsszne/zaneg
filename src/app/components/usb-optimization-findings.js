@@ -1,10 +1,8 @@
-// Replace this import with the measured dataset when real trials are ready.
-import evidence from "../../../public/evidence/laser/usb-optimization-placeholders.json";
+import evidence from "../../../public/evidence/laser/usb-optimization-findings-2026-10-31.json";
 import styles from "./usb-optimization-findings.module.css";
 
-const placeholderMode = evidence.synthetic === true;
-const clockSweep = evidence.clockSweep ?? evidence.reportedClockSweep;
-const trialGroups = evidence.trialGroups ?? evidence.loggedGroups;
+const clockSweep = evidence.reportedClockSweep;
+const trialGroups = evidence.loggedGroups;
 const number = (value) => new Intl.NumberFormat("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 }).format(value);
 const average = (values) => values.reduce((sum, value) => sum + value, 0) / values.length;
 const group = (id) => trialGroups.find((item) => item.id === id);
@@ -24,7 +22,7 @@ function RunTable({ groups }) {
       <summary>Run values</summary>
       <div className={styles.tableWrap}>
         <table>
-          <caption>{placeholderMode ? "Simulated placeholder trials; no hardware verification was performed." : "Complete logged runs; all listed transfers passed byte verification."}</caption>
+          <caption>Throughput per trial, group means and sample counts.</caption>
           <thead><tr><th scope="col">Configuration</th><th scope="col">Payload</th><th scope="col">Runs (Mbit/s)</th><th scope="col">Mean</th><th scope="col">n</th></tr></thead>
           <tbody>{groups.map((item) => {
             const config = setup(item);
@@ -53,7 +51,7 @@ function ClockChart() {
       <p className={styles.axisTitle}>TX throughput (Mbit/s)</p>
       <svg className={styles.clockChart} viewBox="0 0 744 352" role="img" aria-labelledby="usb-cache-plot-title usb-cache-plot-description">
         <title id="usb-cache-plot-title">CPU clock and instruction cache</title>
-        <desc id="usb-cache-plot-description">{`${placeholderMode ? "Simulated placeholder" : "Recorded"} CPU clock comparison. I-cache-on means are ${number(mean(cached[0]))} Mbit/s at 168 MHz (n=${cached[0].runs.length}) and ${number(mean(cached[1]))} Mbit/s at 216 MHz (n=${cached[1].runs.length}). The table lists every trial.`}</desc>
+        <desc id="usb-cache-plot-description">{`CPU clock comparison. I-cache-on means are ${number(mean(cached[0]))} Mbit/s at 168 MHz (n=${cached[0].runs.length}) and ${number(mean(cached[1]))} Mbit/s at 216 MHz (n=${cached[1].runs.length}). The table lists every trial.`}</desc>
         {[0, 30, 60, 90, 120, 150, 180].map((tick) => (
           <g key={tick}>
             <line className={styles.gridLine} x1="76" x2="686" y1={y(tick)} y2={y(tick)} />
@@ -65,7 +63,7 @@ function ClockChart() {
         {clockSweep.map((row) => (
           <g key={row.clockMHz}>
             <circle className={styles.reportedPoint} cx={x(row.clockMHz)} cy={y(average(row.valuesMbps))} r="5">
-              <title>{`${row.clockMHz} MHz, I-cache off: ${number(average(row.valuesMbps))} Mbit/s mean; n=${row.valuesMbps.length}; ${placeholderMode ? "simulated placeholders" : "user-reported rates"}.`}</title>
+              <title>{`${row.clockMHz} MHz, I-cache off: ${number(average(row.valuesMbps))} Mbit/s mean; n=${row.valuesMbps.length}.`}</title>
             </circle>
             <text className={styles.tick} x={x(row.clockMHz)} y="315" textAnchor="middle">{row.clockMHz}</text>
           </g>
@@ -73,7 +71,7 @@ function ClockChart() {
         {cached.map((item) => (
           <g key={item.id}>
             <circle className={styles.verifiedPoint} cx={x(setup(item).sysclk_mhz)} cy={y(mean(item))} r="6">
-              <title>{`${setup(item).sysclk_mhz} MHz, I-cache on: ${number(mean(item))} Mbit/s mean; n=${item.runs.length}; range ${number(Math.min(...values(item)))}–${number(Math.max(...values(item)))}; ${placeholderMode ? "simulated placeholders" : "all PASS"}.`}</title>
+              <title>{`${setup(item).sysclk_mhz} MHz, I-cache on: ${number(mean(item))} Mbit/s mean; n=${item.runs.length}; range ${number(Math.min(...values(item)))}–${number(Math.max(...values(item)))}.`}</title>
             </circle>
             <text className={styles.valueLabel} x={x(setup(item).sysclk_mhz)} y={y(mean(item)) - 15} textAnchor="middle">{number(mean(item))}</text>
           </g>
@@ -81,17 +79,17 @@ function ClockChart() {
         <text className={styles.tick} x="381" y="347" textAnchor="middle">CPU clock (MHz)</text>
       </svg>
       <ul className={styles.legend} aria-label="Clock chart legend">
-        <li><span className={styles.verifiedSwatch} aria-hidden="true" />I-cache on · {placeholderMode ? "simulated means" : "logged PASS means"}</li>
-        <li><span className={styles.reportedSwatch} aria-hidden="true" />I-cache off · {placeholderMode ? "simulated means" : "reported sweep means"}</li>
+        <li><span className={styles.verifiedSwatch} aria-hidden="true" />I-cache on · logged means</li>
+        <li><span className={styles.reportedSwatch} aria-hidden="true" />I-cache off · reported sweep</li>
       </ul>
-      <p className={styles.note}>10 MiB TX payloads, 4 KiB submissions. {placeholderMode ? `Simulated cache-on groups: n=${cached[0].runs.length} at 168 MHz and n=${cached[1].runs.length} at 216 MHz.` : "Cache-enabled means each contain four logged, verified runs; the uncached sweep contains reported rates."}</p>
+      <p className={styles.note}>10 MiB TX payloads, 4 KiB submissions. I-cache-on groups: n={cached[0].runs.length} at 168 MHz and n={cached[1].runs.length} at 216 MHz.</p>
       <RunTable groups={cacheGroups} />
       <details className={styles.details}>
-        <summary>{placeholderMode ? "Uncached placeholder values" : "Original uncached clock sweep"}</summary>
+        <summary>Uncached clock sweep</summary>
         <div className={styles.tableWrap}>
           <table>
-            <caption>{placeholderMode ? "Simulated clock-sweep trials for chart layout." : "User-reported rates; complete terminal logs are unavailable for this sweep."}</caption>
-            <thead><tr><th scope="col">CPU clock</th><th scope="col">{placeholderMode ? "Simulated" : "Reported"} rates (Mbit/s)</th><th scope="col">Mean</th><th scope="col">n</th></tr></thead>
+            <caption>Original user-reported rates; complete terminal logs are unavailable for this sweep.</caption>
+            <thead><tr><th scope="col">CPU clock</th><th scope="col">Rates (Mbit/s)</th><th scope="col">Mean</th><th scope="col">n</th></tr></thead>
             <tbody>{clockSweep.map((row) => <tr key={row.clockMHz}><th scope="row">{row.clockMHz} MHz</th><td>{row.valuesMbps.map(number).join(", ")}</td><td>{number(average(row.valuesMbps))}</td><td>{row.valuesMbps.length}</td></tr>)}</tbody>
           </table>
         </div>
@@ -103,7 +101,7 @@ function ClockChart() {
 function RunChart({ groups, maximum, ticks, label, describe, chartLabel }) {
   return (
     <div className={styles.runChart} role="group" aria-label={chartLabel}>
-      <p className={styles.axisTitle}>Mean throughput (Mbit/s); dots show individual {placeholderMode ? "simulated trials" : "verified runs"}</p>
+      <p className={styles.axisTitle}>Mean throughput (Mbit/s); dots show individual trials</p>
       <div className={styles.runAxis} aria-hidden="true">{ticks.map((tick) => <span key={tick} style={{ left: `${tick / maximum * 100}%` }}>{tick}</span>)}</div>
       {groups.map((item) => {
         const rates = values(item);
@@ -112,11 +110,11 @@ function RunChart({ groups, maximum, ticks, label, describe, chartLabel }) {
         return (
           <div className={styles.runRow} key={item.id}>
             <div className={styles.runLabel}><strong>{label(item)}</strong><span>{describe(item)} · n={rates.length}</span></div>
-            <div className={styles.runPlot} style={{ height: `${Math.max(42, rates.length * 9 + 12)}px` }} role="img" aria-label={`${label(item)}: mean ${number(mean(item))} Mbit/s; individual runs ${rates.map(number).join(", ")}; ${placeholderMode ? "simulated placeholders" : "all PASS"}.`}>
+            <div className={styles.runPlot} style={{ height: `${Math.max(42, rates.length * 9 + 12)}px` }} role="img" aria-label={`${label(item)}: mean ${number(mean(item))} Mbit/s; individual trials ${rates.map(number).join(", ")}.`}>
               {ticks.map((tick) => <i key={tick} className={styles.runGrid} style={{ left: `${tick / maximum * 100}%` }} />)}
               <span className={styles.meanBar} style={{ width: `${mean(item) / maximum * 100}%` }} />
               <span className={styles.runRange} style={{ left: `${low / maximum * 100}%`, width: `max(1px, ${(high - low) / maximum * 100}%)` }} />
-              {rates.map((rate, index) => <span key={index} className={styles.runDot} style={{ left: `${rate / maximum * 100}%`, top: `${10 + index * 9}px` }} title={`${placeholderMode ? "Simulated trial" : "Run"} ${index + 1}: ${number(rate)} Mbit/s${placeholderMode ? "" : " · PASS"}`} />)}
+              {rates.map((rate, index) => <span key={index} className={styles.runDot} style={{ left: `${rate / maximum * 100}%`, top: `${10 + index * 9}px` }} title={`Trial ${index + 1}: ${number(rate)} Mbit/s`} />)}
             </div>
             <div className={styles.runValue}><strong>{number(mean(item))}</strong><span>mean</span></div>
           </div>
@@ -129,27 +127,26 @@ function RunChart({ groups, maximum, ticks, label, describe, chartLabel }) {
 export default function UsbOptimizationFindings() {
   return (
     <section id="usb-optimization-findings" className={styles.section} aria-label="USB performance measurements">
-      {placeholderMode && <p className={styles.placeholderNote}><strong>Placeholder data.</strong> These charts use simulated trials (n=5–15), each within ±0.5 Mbit/s of its measured reference mean. Replace them with real trials before citing results.</p>}
       <figure className={styles.figure}>
-        <figcaption><h4>Instruction cache and CPU clock</h4><p>{placeholderMode ? "Placeholder means" : "Recorded means"} at 168 MHz: {number(mean(cacheGroups[0]))} Mbit/s without I-cache and {number(mean(cacheGroups[1]))} Mbit/s with I-cache ({cacheGain.toFixed(1)}% difference). At 216 MHz with I-cache: {number(mean(cacheGroups[2]))} Mbit/s.</p></figcaption>
+        <figcaption><h4>Instruction cache and CPU clock</h4><p>Mean TX throughput at 168 MHz: {number(mean(cacheGroups[0]))} Mbit/s without I-cache and {number(mean(cacheGroups[1]))} Mbit/s with I-cache ({cacheGain.toFixed(1)}% difference). At 216 MHz with I-cache: {number(mean(cacheGroups[2]))} Mbit/s.</p></figcaption>
         <ClockChart />
       </figure>
 
       <figure className={styles.figure}>
-        <figcaption><h4>TX submission size</h4><p>At 216 MHz with I-cache, the {placeholderMode ? "placeholder" : "recorded"} 4 and 16 KiB groups differ by {chunkGain.toFixed(2)}%. The highest {placeholderMode ? "simulated trial" : "verified run"} is {number(Math.max(...values(chunkGroups[1])))} Mbit/s.</p></figcaption>
+        <figcaption><h4>TX submission size</h4><p>At 216 MHz with I-cache, the 4 and 16 KiB groups differ by {chunkGain.toFixed(2)}%. The highest trial is {number(Math.max(...values(chunkGroups[1])))} Mbit/s.</p></figcaption>
         <RunChart groups={chunkGroups} maximum={180} ticks={[0, 40, 80, 120, 160, 180]} label={(item) => `${setup(item).tx_bench_chunk_bytes / 1024} KiB TX submission`} describe={() => "10 MiB payload"} chartLabel="Dedicated TX chunk comparison at 216 MHz" />
         <RunTable groups={chunkGroups} />
       </figure>
 
       <figure className={styles.figure}>
-        <figcaption><h4>Streaming echo</h4><p>The 100 MiB {placeholderMode ? "placeholder groups average" : "tests average"} {number(mean(echoGroups[1]))} and {number(mean(echoGroups[2]))} Mbit/s. Throughput counts the payload once over the complete round trip.</p></figcaption>
+        <figcaption><h4>Streaming echo</h4><p>The 100 MiB groups average {number(mean(echoGroups[1]))} and {number(mean(echoGroups[2]))} Mbit/s. Throughput counts the payload once over the complete round trip.</p></figcaption>
         <RunChart groups={echoGroups} maximum={100} ticks={[0, 20, 40, 60, 80, 100]} label={(item) => `${mib(item)} MiB echo`} describe={(item) => `${setup(item).tx_bench_chunk_bytes / 1024} KiB TX setting`} chartLabel="Streaming echo results by payload size" />
         <p className={styles.note}>The 4/16 KiB labels record the TX-only setting; echo queue batching is independent of this value.</p>
         <RunTable groups={echoGroups} />
       </figure>
 
       <div className={styles.tuning}>
-        <h4>D-cache, FIFO and DMA{placeholderMode ? " — recorded context" : ""}</h4>
+        <h4>D-cache, FIFO and DMA</h4>
         <p>Later reported rates stayed around 161 Mbit/s TX. These results have no complete transfer log or explicit full-payload PASS.</p>
         <div className={styles.tableWrap}>
           <table>
@@ -167,14 +164,12 @@ export default function UsbOptimizationFindings() {
       <footer className={styles.footer}>
         <details className={styles.details}>
           <summary>Measurement notes</summary>
-          {placeholderMode ? <p>The plotted trials and their sample counts are synthetic placeholders. Their means, ranges and deviations describe generated samples, not hardware performance or reliability. All plotted samples are within ±0.5 Mbit/s of the corresponding reference mean. The original measured dataset is preserved separately.</p> : <>
-          <p>The record contains 18 successful transfers with complete logs, measured October 29–30, 2026. Sample counts include only those logs; plots use printed rates rather than rates recomputed from rounded times. Bars start at zero. Dots are individual runs, stacked vertically when close, and short range marks show observed minimum–maximum values, not confidence intervals.</p>
-          <p>The uncached control is from the prior day. The dedicated chunk comparison uses its own 4 KiB control. Configuration labels follow documented settings; flashed images were not independently identified. TX submissions of 4/16 KiB do not change the 512-byte USB bulk packet size or the independent echo queue’s batching.</p>
+          <p>Bars start at zero. Dots show individual trials, stacked vertically when close; short range marks show minimum–maximum values, not confidence intervals. TX submissions of 4/16 KiB do not change the 512-byte USB bulk packet size or the independent echo queue’s batching.</p>
+          <p>The record contains 18 successful transfers with complete logs, measured October 29–30, 2026. Sample counts include only those logs; plots use printed rates rather than rates recomputed from rounded times.</p>
+          <p>The uncached control is from the prior day. The dedicated chunk comparison uses its own 4 KiB control. Configuration labels follow documented settings; flashed images were not independently identified.</p>
           <p>The D-cache timeout received 10,409,767 of 10,485,760 bytes before verification. A later short echo was reported to pass. A separate, earlier trace-on test stopped 27,669 bytes short. The record does not establish a failure rate or identify the cause of either timeout or the original clock regression.</p>
-          </>}
         </details>
-        {placeholderMode && <a href="/evidence/laser/usb-optimization-placeholders.json" download>Placeholder chart data (JSON)</a>}
-        <a href="/evidence/laser/usb-optimization-findings-2026-10-31.json" download>{placeholderMode ? "Measured reference data (JSON)" : "Chart data (JSON)"}</a>
+        <a href="/evidence/laser/usb-optimization-findings-2026-10-31.json" download>Chart data (JSON)</a>
       </footer>
     </section>
   );

@@ -1,0 +1,411 @@
+{
+  "title": "PHY-A USB optimization findings",
+  "measurementDates": [
+    "2026-10-29",
+    "2026-10-30"
+  ],
+  "recordReviewed": "2026-10-31",
+  "transport": "STM32F723 PHY-A to macOS over USB high-speed CDC; USB subsystem measurements.",
+  "units": {
+    "throughput": "Mbit/s (decimal)",
+    "payload": "MiB (1048576 bytes)",
+    "clock": "MHz",
+    "txChunk": "KiB (1024 bytes)"
+  },
+  "notes": [
+    "Curated numerical evidence from the supplied research record. Conversation text and private message references are omitted.",
+    "Logged runs contain a full-payload PASS. Configuration labels describe documented experiment settings, not an independently verified flashed image.",
+    "Throughput uses printed rates. Printed transfer times are rounded and are not used to recompute rates.",
+    "TX integrity verification takes place after the transfer timer stops. Streaming echo counts the original payload once, not the sum of both directions.",
+    "Keep sessions and payload sizes separate. The uncached logged control is from the prior day. Counts include complete logs available in this record only.",
+    "TX_BENCH_CHUNK is a firmware TX submission size, not the USB packet size or the independent echo queue batch size.",
+    "The original uncached sweep is user-reported. The preliminary 216 MHz value of 40.3 is excluded in favor of its separate repeated group.",
+    "Later D-cache, FIFO, and DMA values are reports without complete logs or explicit PASS; unknown values remain null.",
+    "The record does not establish a failure rate, the exact cause of the clock regression, or the cause of the D-cache timeout."
+  ],
+  "configurations": {
+    "icache_168_4k": {
+      "sysclk_mhz": 168,
+      "icache_enabled": true,
+      "dcache_enabled": false,
+      "usb_dma_enabled": false,
+      "tx_bench_chunk_bytes": 4096,
+      "build": "Release",
+      "optimization": "-O3",
+      "intended_trace": "off",
+      "fifo_layout": "original"
+    },
+    "icache_216_4k": {
+      "sysclk_mhz": 216,
+      "icache_enabled": true,
+      "dcache_enabled": false,
+      "usb_dma_enabled": false,
+      "tx_bench_chunk_bytes": 4096,
+      "build": "Release",
+      "optimization": "-O3",
+      "intended_trace": "off",
+      "fifo_layout": "original"
+    },
+    "icache_216_16k": {
+      "sysclk_mhz": 216,
+      "icache_enabled": true,
+      "dcache_enabled": false,
+      "usb_dma_enabled": false,
+      "tx_bench_chunk_bytes": 16384,
+      "build": "Release",
+      "optimization": "-O3",
+      "intended_trace": "off",
+      "fifo_layout": "original"
+    },
+    "dcache_216_16k": {
+      "sysclk_mhz": 216,
+      "icache_enabled": true,
+      "dcache_enabled": true,
+      "usb_dma_enabled": false,
+      "tx_bench_chunk_bytes": 16384,
+      "build": "Release",
+      "optimization": "-O3",
+      "intended_trace": "off",
+      "fifo_layout": "original"
+    },
+    "fifo_216_16k": {
+      "sysclk_mhz": 216,
+      "icache_enabled": true,
+      "dcache_enabled": false,
+      "usb_dma_enabled": false,
+      "tx_bench_chunk_bytes": 16384,
+      "build": "Release",
+      "optimization": "-O3",
+      "intended_trace": "off",
+      "fifo_layout": "reallocated"
+    },
+    "dma_216_16k": {
+      "sysclk_mhz": 216,
+      "icache_enabled": true,
+      "dcache_enabled": false,
+      "usb_dma_enabled": true,
+      "tx_bench_chunk_bytes": 16384,
+      "build": "Release",
+      "optimization": "-O3",
+      "intended_trace": "off",
+      "fifo_layout": "reallocated"
+    },
+    "uncached_168_4k_trace_control": {
+      "sysclk_mhz": 168,
+      "icache_enabled": false,
+      "dcache_enabled": false,
+      "usb_dma_enabled": false,
+      "tx_bench_chunk_bytes": 4096,
+      "build": "Release",
+      "optimization": "-O3",
+      "intended_trace": "off"
+    }
+  },
+  "loggedGroups": [
+    {
+      "id": "tx_168_uncached_trace_control",
+      "configurationId": "uncached_168_4k_trace_control",
+      "test": "tx_only",
+      "payloadBytes": 10485760,
+      "runs": [
+        {
+          "throughputMbps": 87.36,
+          "elapsedSeconds": 0.96,
+          "integrity": "PASS: All bytes verified",
+          "trace": "off"
+        }
+      ]
+    },
+    {
+      "id": "tx_168_icache_4k",
+      "configurationId": "icache_168_4k",
+      "test": "tx_only",
+      "payloadBytes": 10485760,
+      "runs": [
+        {
+          "throughputMbps": 137.89,
+          "elapsedSeconds": 0.608,
+          "integrity": "PASS: All bytes verified",
+          "trace": "off"
+        },
+        {
+          "throughputMbps": 137.89,
+          "elapsedSeconds": 0.608,
+          "integrity": "PASS: All bytes verified",
+          "trace": "off"
+        },
+        {
+          "throughputMbps": 137.91,
+          "elapsedSeconds": 0.608,
+          "integrity": "PASS: All bytes verified",
+          "trace": "off"
+        },
+        {
+          "throughputMbps": 137.91,
+          "elapsedSeconds": 0.608,
+          "integrity": "PASS: All bytes verified",
+          "trace": "off"
+        }
+      ]
+    },
+    {
+      "id": "tx_216_icache_4k_initial",
+      "configurationId": "icache_216_4k",
+      "test": "tx_only",
+      "payloadBytes": 10485760,
+      "runs": [
+        {
+          "throughputMbps": 157.14,
+          "elapsedSeconds": 0.534,
+          "integrity": "PASS: All bytes verified",
+          "trace": "off"
+        },
+        {
+          "throughputMbps": 157.13,
+          "elapsedSeconds": 0.534,
+          "integrity": "PASS: All bytes verified",
+          "trace": "off"
+        },
+        {
+          "throughputMbps": 157.04,
+          "elapsedSeconds": 0.534,
+          "integrity": "PASS: All bytes verified",
+          "trace": "off"
+        },
+        {
+          "throughputMbps": 157.22,
+          "elapsedSeconds": 0.534,
+          "integrity": "PASS: All bytes verified",
+          "trace": "off"
+        }
+      ]
+    },
+    {
+      "id": "echo_216_icache_10mib",
+      "configurationId": "icache_216_4k",
+      "test": "streaming_echo",
+      "payloadBytes": 10485760,
+      "runs": [
+        {
+          "throughputMbps": 80.3,
+          "elapsedSeconds": 1.045,
+          "integrity": "PASS: All bytes verified",
+          "trace": null
+        }
+      ]
+    },
+    {
+      "id": "echo_216_icache_100mib_16k",
+      "configurationId": "icache_216_16k",
+      "test": "streaming_echo",
+      "payloadBytes": 104857600,
+      "runs": [
+        {
+          "throughputMbps": 76.87,
+          "elapsedSeconds": 10.913,
+          "integrity": "PASS: All bytes verified",
+          "trace": null
+        },
+        {
+          "throughputMbps": 76.97,
+          "elapsedSeconds": 10.898,
+          "integrity": "PASS: All bytes verified",
+          "trace": null
+        }
+      ]
+    },
+    {
+      "id": "echo_216_icache_100mib_4k",
+      "configurationId": "icache_216_4k",
+      "test": "streaming_echo",
+      "payloadBytes": 104857600,
+      "runs": [
+        {
+          "throughputMbps": 76.92,
+          "elapsedSeconds": 10.905,
+          "integrity": "PASS: All bytes verified",
+          "trace": null
+        },
+        {
+          "throughputMbps": 76.91,
+          "elapsedSeconds": 10.907,
+          "integrity": "PASS: All bytes verified",
+          "trace": null
+        }
+      ]
+    },
+    {
+      "id": "tx_216_icache_4k_chunk_control",
+      "configurationId": "icache_216_4k",
+      "test": "tx_only",
+      "payloadBytes": 10485760,
+      "runs": [
+        {
+          "throughputMbps": 157.07,
+          "elapsedSeconds": 0.534,
+          "integrity": "PASS: All bytes verified",
+          "trace": "off"
+        },
+        {
+          "throughputMbps": 157.08,
+          "elapsedSeconds": 0.534,
+          "integrity": "PASS: All bytes verified",
+          "trace": "off"
+        }
+      ]
+    },
+    {
+      "id": "tx_216_icache_16k",
+      "configurationId": "icache_216_16k",
+      "test": "tx_only",
+      "payloadBytes": 10485760,
+      "runs": [
+        {
+          "throughputMbps": 160.4,
+          "elapsedSeconds": 0.523,
+          "integrity": "PASS: All bytes verified",
+          "trace": "off"
+        },
+        {
+          "throughputMbps": 159.78,
+          "elapsedSeconds": 0.525,
+          "integrity": "PASS: All bytes verified",
+          "trace": "off"
+        }
+      ]
+    }
+  ],
+  "reportedClockSweep": [
+    {
+      "clockMHz": 96,
+      "valuesMbps": [
+        27.59,
+        27.59
+      ],
+      "evidence": "User-reported rates; no complete terminal logs."
+    },
+    {
+      "clockMHz": 144,
+      "valuesMbps": [
+        84.05
+      ],
+      "evidence": "User-reported rates; no complete terminal logs."
+    },
+    {
+      "clockMHz": 168,
+      "valuesMbps": [
+        87.36
+      ],
+      "evidence": "User-reported rates; no complete terminal logs."
+    },
+    {
+      "clockMHz": 192,
+      "valuesMbps": [
+        39.03
+      ],
+      "evidence": "User-reported rates; no complete terminal logs."
+    },
+    {
+      "clockMHz": 216,
+      "valuesMbps": [
+        40.32,
+        40.31,
+        40.31
+      ],
+      "evidence": "User-reported rates; no complete terminal logs."
+    }
+  ],
+  "laterReports": [
+    {
+      "measurement_id": "dcache_tx_reported",
+      "configuration_id": "dcache_216_16k",
+      "test": "tx_only",
+      "reported_throughput_mbit_s": 161,
+      "is_approximate": true,
+      "integrity_result": null,
+      "run_count": null,
+      "note": "User said reached 161; no full log, byte count, exact time or PASS provided."
+    },
+    {
+      "measurement_id": "dcache_echo_reported",
+      "configuration_id": "dcache_216_16k",
+      "test": "streaming_echo",
+      "reported_throughput_mbit_s": 78.83,
+      "is_approximate": false,
+      "integrity_result": null,
+      "run_count": null,
+      "note": "User supplied only78.83 after request for100MiB echo. Test and configuration from immediate context, not a full log."
+    },
+    {
+      "measurement_id": "fifo_reported",
+      "configuration_id": "fifo_216_16k",
+      "test": "tx_and_echo_not_separated",
+      "reported_throughput_mbit_s": null,
+      "is_approximate": null,
+      "integrity_result": null,
+      "run_count": null,
+      "note": "User: results look identical. Do not turn into invented numerical datapoints."
+    },
+    {
+      "measurement_id": "dma_tx_reported",
+      "configuration_id": "dma_216_16k",
+      "test": "tx_only",
+      "reported_throughput_mbit_s": 161,
+      "is_approximate": true,
+      "integrity_result": null,
+      "run_count": null,
+      "note": "User says results converging to161 or so; unknown number of runs, no raw values."
+    },
+    {
+      "measurement_id": "dma_echo_reported",
+      "configuration_id": "dma_216_16k",
+      "test": "streaming_echo",
+      "reported_throughput_mbit_s": 78,
+      "is_approximate": true,
+      "integrity_result": null,
+      "run_count": null,
+      "note": "User says averaging78 or so; do not represent as a measured exact78.00 or compute error bars."
+    }
+  ],
+  "failureAndFunctionalChecks": [
+    {
+      "event_id": "historical_trace_on_timeout",
+      "configuration_id": "uncached_168_4k_trace_control",
+      "test": "tx_only",
+      "trace_explicit_in_output": "on",
+      "requested_bytes": 10485760,
+      "received_bytes": 10458091,
+      "missing_bytes": 27669,
+      "throughput_mbit_s": null,
+      "reported_time_seconds": null,
+      "integrity_result": "not reached; timeout before verification",
+      "note": "Command uses&&, so execution stopped at first trace-on error; later commands shown in shell chain were not run in this log."
+    },
+    {
+      "event_id": "dcache_tx_timeout",
+      "configuration_id": "dcache_216_16k",
+      "test": "tx_only",
+      "requested_bytes": 10485760,
+      "received_bytes": 10409767,
+      "missing_bytes": 75993,
+      "received_percent": 99.275274276733,
+      "trace_explicit_in_output": "off",
+      "throughput_mbit_s": null,
+      "reported_time_seconds": null,
+      "integrity_result": "not reached; timeout before verification",
+      "cause": "unresolved",
+      "note": "The timed-out prose and later traceback are one described failure,not two independently counted failures."
+    },
+    {
+      "event_id": "dcache_small_echo_after_timeout",
+      "configuration_id": "dcache_216_16k",
+      "test": "256byte.py",
+      "payload_bytes": null,
+      "nominal_payload_bytes": 256,
+      "reported_time_seconds": null,
+      "throughput_mbit_s": null,
+      "integrity_result": "user reported passed",
+      "note": "No terminal log or explicit statement confirming no reset in between. User says ran256 on D-cache and it passed."
+    }
+  ]
+}

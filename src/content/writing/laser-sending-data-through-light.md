@@ -16,10 +16,10 @@ The Raspberry Pis run the host CLI software; the custom boards handle the optica
 
 ## PCBs
 
-Each node uses three boards: a USB interface, a transmitter, and a receiver. These models were exported from KiCad on September 8, 2026, including copper tracks, pads, vias, and silkscreen.
+Each node uses three boards: PHY-A, the USB interface; TX-A, the transmitter; and RX-A, the receiver.
 
 <!-- pcb:usb-interface -->
-### USB interface
+### PHY-A / USB interface
 
 This board connects the Raspberry Pi to the optical hardware. It buffers outgoing data for TX-A and accepts recovered data from RX-A.
 
@@ -221,6 +221,8 @@ Download the [benchmark output](/evidence/laser/usb-echo-benchmark-2026-10-29.tx
 
 **October 29, 2026.** A major step forward for PHY-A: with the STM32F723 core clock set to **168 MHz** and trace disabled, the board streamed **10 MiB to the Mac at 87.37 Mbit/s** over USB CDC. The captured run received all **10,485,760 bytes in 0.960 seconds**, then verified every byte successfully.
 
+
+
 <figure>
   <a href="/images/laser/bring-up/cubemx-168mhz-full.webp" aria-label="View the full-resolution CubeMX 168 MHz clock configuration">
     <img src="/images/laser/bring-up/cubemx-168mhz-1200.webp" srcset="/images/laser/bring-up/cubemx-168mhz-1200.webp 1200w, /images/laser/bring-up/cubemx-168mhz-full.webp 2746w" sizes="(max-width: 1072px) calc(100vw - 32px), 1040px" width="2746" height="1852" loading="lazy" decoding="async" alt="STM32CubeMX clock tree for PHY-A, showing a 25 MHz HSE divided by 25, multiplied by 336, and divided by 2 to produce 168 MHz SYSCLK and HCLK. PLLQ divides by 7 to supply the 48 MHz USB peripheral clock. APB1 runs at 42 MHz and APB2 at 84 MHz.">
@@ -251,6 +253,23 @@ The [captured terminal output can be viewed here](/evidence/laser/usb-tx-168mhz-
 Some weird behaviour: most of this jump from previous echo tests to ~87mbit/s is attributable to increasing clock speed `SYSCLK` to 168 MHz and compiling to optimize for speed rather than binary size, with build flag in CubeIDE set to `03` (Optimize most / Aggressive optimization) as opposed to defaults `-0g` or `0s` which optimize for debugging and binary size respectively. However, when `SYSCLK` is increased beyond 168 MHz to, say, 192 or 216, the throughput actually _decreases_. I'm looking into that now.
 
 <!-- benchmark:usb-clock -->
+<!-- /benchmark -->
+
+### 162 Mbit/s USB transmit at 216 MHz
+**October 30, 2026.** As mentioned above, increasing clock speed to 216 MHz from 168 Mhz (which previously yielded the best result of ~87 Mbit/s) resulted in worse USB throughput. Today, I investigated whether this limitation was in the firmware’s execution path rather than the USB link itself.
+
+The clearest change came from enabling the M7's instruction cache, with `SCB_EnableICache();` in `main()`. While keeping `SYSCLK` at 168 MHz, 5 consecutive 10-mebibyte transfers from MCU to Mac saw throughputs converging on **137 Mbit/s**. Only by enabling instruction cache, throughputs increased by **~58%** against measurements with the same clock speed.
+
+With instruction cache still enabled, increasing `SYSCLK` to 216 MHz now produced the expected throughput increase. 5 transfers again from MCU to Mac now resulted in **~157 Mbit/s**. The earlier regression associated with higher clock speeds no longer appeared in this configuration. It is worth noting that while instruction caching did mitigate the regression, it does not necessarily isolate the cause of the original slow down at 216 Mhz.
+
+I then tested transfer sizes and buffering. Increasing the transmit chunk from 4 KiB to 16 KiB moved two verified runs from about 157.1 Mbit/s to 159.8–160.4 Mbit/s. This was a much smaller improvement than enabling I-cache. Longer, 100 MiB streaming echo tests measured approximately 76.9 Mbit/s with successful verification.
+
+Further experiments with data caching, FIFO allocation, and USB DMA produced results around 161 Mbit/s transmit and 78 Mbit/s echo, without a clear additional throughput improvement. One configuration with D-cache enabled also timed out before receiving the full payload. Later tests completed, but the cause of that failure has not yet been isolated, so I’m keeping it in the test record rather than treating the highest result as a reliability claim.
+
+
+The main outcome is a substantially faster, measured USB transport on the custom PHY-A board. This is still a USB subsystem benchmark; the greater throughput of the laser system will probably not be bottlenecked by USB transfer speeds.
+
+<!-- benchmark:usb-optimization -->
 <!-- /benchmark -->
 
 ### TX-A / 8 V rail

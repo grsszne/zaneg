@@ -1,0 +1,70 @@
+.section {
+  --plot-primary: #477bbd;
+  --plot-secondary: var(--signal-secondary);
+  padding-block: 0;
+  scroll-margin-top: 6rem;
+}
+
+.figure { margin: 0 0 3rem; }
+.figure h4, .tuning h4 { font-size: 1.25rem; font-weight: 500; line-height: 1.3; margin-block: 0 0.75rem; }
+.figure figcaption > p, .tuning > p { color: var(--muted); max-width: 54rem; }
+.axisTitle { color: var(--muted); font-size: 0.8rem; margin-block: 1.75rem 0.5rem; }
+.clockChart { display: block; width: 100%; height: auto; overflow: visible; }
+.gridLine { stroke: var(--line); stroke-dasharray: 3 5; vector-effect: non-scaling-stroke; }
+.tick { fill: var(--muted); font-family: inherit; font-size: 15px; }
+.valueLabel { fill: var(--plot-primary); font-family: inherit; font-size: 16px; font-weight: 500; }
+.reportedLine { stroke: var(--plot-secondary); fill: none; stroke-width: 2; stroke-dasharray: 5 5; vector-effect: non-scaling-stroke; }
+.verifiedLine { stroke: var(--plot-primary); fill: none; stroke-width: 2.5; vector-effect: non-scaling-stroke; }
+.reportedPoint { stroke: var(--plot-secondary); fill: var(--background); stroke-width: 2; }
+.verifiedPoint { stroke: var(--background); fill: var(--plot-primary); stroke-width: 2; }
+.legend { display: flex; flex-wrap: wrap; gap: 0.75rem 1.5rem; list-style: none; padding: 0; margin-block: 1rem; font-size: 0.8rem; }
+.legend li { display: flex; align-items: center; gap: 0.5rem; }
+.verifiedSwatch, .reportedSwatch { width: 1.5rem; border-top: 3px solid var(--plot-primary); }
+.reportedSwatch { border-top: 2px dashed var(--plot-secondary); }
+.note { color: var(--muted); font-size: 0.8rem; margin-top: 1rem; }
+.details { margin-top: 1rem; font-size: 0.875rem; }
+.details summary { cursor: pointer; width: fit-content; text-underline-offset: 0.2em; }
+.details summary:hover { text-decoration: underline; }
+.details summary:focus-visible, .footer a:focus-visible { outline: 2px solid var(--plot-primary); outline-offset: 4px; }
+.tableWrap { max-width: 100%; overflow-x: auto; }
+.section table { width: 100%; border-collapse: collapse; font-size: 0.8rem; font-variant-numeric: tabular-nums; }
+.section caption { text-align: left; color: var(--muted); font-size: 0.75rem; padding-block: 1rem 0.5rem; }
+.section th, .section td { padding: 0.8rem 0.75rem; border-bottom: 1px solid var(--line); text-align: left; vertical-align: top; }
+.section th { font-weight: 500; }
+.section tbody th { min-width: 12rem; font-weight: 400; }
+.section td { min-width: 4rem; }
+.section th:first-child, .section td:first-child { padding-left: 0; }
+.section th:last-child, .section td:last-child { padding-right: 0; }
+.runChart { margin-block: 1.5rem; }
+.runAxis { position: relative; height: 1.5rem; margin: 0 5rem 0.5rem 12rem; color: var(--muted); font-size: 0.75rem; font-variant-numeric: tabular-nums; }
+.runAxis > span { position: absolute; transform: translateX(-50%); }
+.runRow { display: grid; grid-template-columns: 12rem minmax(0, 1fr) 5rem; align-items: center; gap: 0; margin-block: 1rem; }
+.runLabel { padding-right: 1rem; }
+.runLabel strong, .runLabel span, .runValue strong, .runValue span { display: block; }
+.runLabel strong { font-size: 0.875rem; font-weight: 500; }
+.runLabel span, .runValue span { font-size: 0.75rem; color: var(--muted); }
+.runPlot { position: relative; height: 42px; }
+.runGrid { position: absolute; height: 100%; border-left: 1px dashed var(--line); }
+.meanBar { position: absolute; height: 5px; top: 18px; background: color-mix(in srgb, var(--plot-primary) 35%, var(--background)); }
+.runDot { position: absolute; width: 8px; height: 8px; border-radius: 50%; transform: translate(-50%, -50%); background: var(--plot-primary); border: 1px solid var(--background); }
+.runRange { position: absolute; top: 34px; height: 5px; border: solid var(--plot-primary); border-width: 0 1px 1px; }
+.runValue { text-align: right; font-variant-numeric: tabular-nums; }
+.runValue strong { font-size: 1rem; font-weight: 500; }
+.tuning { margin-top: 3rem; }
+.footer { margin-top: 2rem; color: var(--muted); font-size: 0.8rem; }
+.footer a { display: inline-block; margin-top: 0.75rem; text-decoration: underline; }
+
+@media (prefers-color-scheme: dark) {
+  .section { --plot-primary: #8ebaff; }
+}
+
+@media (max-width: 640px) {
+  .tick { font-size: 23px; }
+  .valueLabel { font-size: 23px; }
+  .runAxis { margin-left: 0; margin-right: 4rem; }
+  .runRow { grid-template-columns: minmax(0, 1fr) 4rem; margin-block: 1.5rem; }
+  .runLabel { grid-column: 1 / -1; padding: 0 0 0.5rem; }
+  .runLabel strong, .runLabel span { display: inline; }
+  .runLabel span { margin-left: 0.5rem; }
+  .section tbody th { min-width: 10rem; }
+}

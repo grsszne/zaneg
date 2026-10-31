@@ -6,6 +6,8 @@
 }
 
 .figure { margin: 0 0 3rem; }
+.placeholderNote { margin-bottom: 2rem; color: var(--muted); font-size: 0.875rem; line-height: 1.7; }
+.placeholderNote strong { font-weight: 500; color: var(--foreground); }
 .figure h4, .tuning h4 { font-size: 1.25rem; font-weight: 500; line-height: 1.3; margin-block: 0 0.75rem; }
 .figure figcaption > p, .tuning > p { color: var(--muted); max-width: 54rem; }
 .axisTitle { color: var(--muted); font-size: 0.8rem; margin-block: 1.75rem 0.5rem; }
@@ -45,14 +47,15 @@
 .runLabel span, .runValue span { font-size: 0.75rem; color: var(--muted); }
 .runPlot { position: relative; height: 42px; }
 .runGrid { position: absolute; height: 100%; border-left: 1px dashed var(--line); }
-.meanBar { position: absolute; height: 5px; top: 18px; background: color-mix(in srgb, var(--plot-primary) 35%, var(--background)); }
+.meanBar { position: absolute; height: 5px; top: 50%; background: color-mix(in srgb, var(--plot-primary) 35%, var(--background)); }
 .runDot { position: absolute; width: 8px; height: 8px; border-radius: 50%; transform: translate(-50%, -50%); background: var(--plot-primary); border: 1px solid var(--background); }
-.runRange { position: absolute; top: 34px; height: 5px; border: solid var(--plot-primary); border-width: 0 1px 1px; }
+.runRange { position: absolute; bottom: 0; height: 5px; border: solid var(--plot-primary); border-width: 0 1px 1px; }
 .runValue { text-align: right; font-variant-numeric: tabular-nums; }
 .runValue strong { font-size: 1rem; font-weight: 500; }
 .tuning { margin-top: 3rem; }
 .footer { margin-top: 2rem; color: var(--muted); font-size: 0.8rem; }
 .footer a { display: inline-block; margin-top: 0.75rem; text-decoration: underline; }
+.footer a + a { margin-left: 1.5rem; }
 
 @media (prefers-color-scheme: dark) {
   .section { --plot-primary: #8ebaff; }

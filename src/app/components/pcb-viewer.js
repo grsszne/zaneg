@@ -3,6 +3,7 @@
 import { useEffect, useId, useRef, useState } from "react";
 import styles from "./pcb-viewer.module.css";
 import { pcbAnnotations } from "./pcb-annotations";
+import { laserModelUrl, laserStepUrl } from "@/app/lib/laser-assets.mjs";
 
 export default function PcbViewer({ model, label }) {
   const host = useRef(null);
@@ -31,7 +32,7 @@ export default function PcbViewer({ model, label }) {
         const { mountPcbViewer } = await import("./pcb-viewer-scene");
         if (cancelled) return;
         scene.current = mountPcbViewer(host.current, {
-          url: `/models/laser/${model}.glb`, label, helpId,
+          url: laserModelUrl(model), label, helpId,
           annotations, onPins: value => { if (!cancelled) setPins(value); },
           onReady: () => { if (!cancelled) setStatus("ready"); },
           onError: () => { if (!cancelled) setStatus("error"); },
@@ -79,7 +80,7 @@ export default function PcbViewer({ model, label }) {
           <button type="button" disabled={status !== "ready"} aria-label="Zoom out" onClick={() => scene.current?.zoom(1.2)}>−</button>
           <button type="button" disabled={status !== "ready"} aria-label="Zoom in" onClick={() => scene.current?.zoom(1 / 1.2)}>+</button>
         </div>
-        <a href={`/models/laser/${model}.step`} download={`${model}.step`}>STEP ↓</a>
+        <a href={laserStepUrl(model)} download={`${model}.step`}>STEP ↓</a>
       </div>
       <div className={styles.options}>
         <label><input type="checkbox" checked={copper} disabled={status !== "ready"} onChange={event => { setCopper(event.target.checked); scene.current?.showCopper(event.target.checked); }} />Show copper</label>

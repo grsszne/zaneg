@@ -2,6 +2,7 @@
 
 import { useEffect, useId, useRef, useState } from "react";
 import styles from "./pcb-viewer.module.css";
+import { laserModelUrl, laserStepUrl } from "@/app/lib/laser-assets.mjs";
 
 export default function MechanicalViewer({ model, label }) {
   const host = useRef(null);
@@ -23,7 +24,7 @@ export default function MechanicalViewer({ model, label }) {
         const { mountPcbViewer } = await import("./pcb-viewer-scene");
         if (cancelled) return;
         scene.current = mountPcbViewer(host.current, {
-          url: `/models/laser/${model}.glb`, label, helpId, assembly: true,
+          url: laserModelUrl(model), label, helpId, assembly: true,
           onReady: () => { if (!cancelled) setStatus("ready"); },
           onError: () => { if (!cancelled) setStatus("error"); },
           onViewChange: value => { if (!cancelled) setView(value); },
@@ -62,7 +63,7 @@ export default function MechanicalViewer({ model, label }) {
           <button type="button" disabled={status !== "ready"} aria-label="Zoom out" onClick={() => scene.current?.zoom(1.2)}>−</button>
           <button type="button" disabled={status !== "ready"} aria-label="Zoom in" onClick={() => scene.current?.zoom(1 / 1.2)}>+</button>
         </div>
-        <a href={`/models/laser/${model}.step`} download={`${model}.step`}>STEP ↓</a>
+        <a href={laserStepUrl(model)} download={`${model}.step`}>STEP ↓</a>
       </div>
       <figcaption id={helpId} className={styles.caption}>Drag to rotate · Pinch to zoom. Arrow keys rotate; + / − zoom. Home resets the sled view.</figcaption>
     </figure>

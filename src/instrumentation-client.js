@@ -12,6 +12,5 @@ if (process.env.NODE_ENV === "production" && projectToken && host) {
     capture_pageleave: true,
     autocapture: true,
     person_profiles: "identified_only",
-    disable_session_recording: true,
   });
 }

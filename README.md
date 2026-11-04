@@ -22,7 +22,7 @@ This project uses [`next/font`](https://nextjs.org/docs/app/building-your-applic
 
 ## PostHog analytics
 
-PostHog initializes in `src/instrumentation-client.js`, following the [PostHog Next.js setup](https://posthog.com/docs/libraries/next-js). It captures the initial pageview, client-side navigation, page exits, and automatic interaction events. Session recording is disabled.
+PostHog initializes in `src/instrumentation-client.js`, following the [PostHog Next.js setup](https://posthog.com/docs/libraries/next-js). It captures the initial pageview, client-side navigation, page exits, and automatic interaction events. Session recording follows the project's PostHog replay settings, including sampling and recording triggers.
 
 Copy the PostHog variables from `.env.example` into `.env.local` and set the public project token from PostHog's project settings. Use the ingestion host for the project's region: `https://us.i.posthog.com` or `https://eu.i.posthog.com`.
 
